@@ -2,12 +2,16 @@ var express = require('express');
 var crypto = require('crypto');
 var User = require('../models/user.js');
 module.exports = function(app){
+	
 	app.get('/', function(req, res, next) {
 		res.render('index',renderSession('众客',req));
 	});
+	
+	app.get('/register',checkLogout);
 	app.get('/register',function(req,res){
 		res.render('register', renderSession('注册 - 众客',req));
 	});
+	app.post('/register',checkLogout);
 	app.post('/register',function(req,res){
 		var name = req.body.name;
 		var password = req.body.password;
@@ -51,10 +55,13 @@ module.exports = function(app){
 		});
 
 	});
-
+	
+	app.get('/login',checkLogout);
 	app.get('/login',function(req,res){
 		res.render('login',renderSession('登录 - 众客',req));
 	});
+
+	app.post('/login',checkLogout);
 	app.post('/login',function(req,res){
 		var md5 = crypto.createHash('md5');
 		var password = md5.update(req.body.password).digest('hex');
@@ -89,6 +96,20 @@ module.exports = function(app){
 			success: req.flash('success').toString(),
 			error: req.flash('error').toString()
 		};
+	};
+	
+	function checkLogin(req,res,next){
+		if(!req.session.user){
+			req.flash('error','请先登录!');
+			res.redirect('/login');
+		}
+		next();
+	};
+	function checkLogout(req,res,next){
+		if(req.session.user){
+			res.redirect('back');
+		}
+		next();
 	};
 
 };
