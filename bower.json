@@ -1,0 +1,23 @@
+{
+  "name": "joker",
+  "description": "",
+  "main": "",
+  "authors": [
+    "ray0 <7874364@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/d4rkb1ue/joker",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
