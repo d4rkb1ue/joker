@@ -89,6 +89,15 @@ module.exports = function(app){
 		res.redirect('/login');
 	});
 
+	app.get('/start',checkLogin);
+	app.get('/start',function(req,res){
+		res.render('start',renderSession('创建您的项目 - 众客',req));
+	});
+
+
+
+
+
 	function renderSession(title, req){
 		return {
 			title: title,
