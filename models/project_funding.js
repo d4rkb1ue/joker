@@ -142,14 +142,120 @@ Project_funding.prototype.save = function (maincb) {
     // });
 
 }
-
-Project_funding.getAllBasicInfo = function (callback) {
+/**
+ * get all project_funding include all states, sorted by created time, recently first
+ * @param findPara find({?})
+ * @param [sortPara] find.sort({?}) //default: {"create_at": -1}
+ * @param maincb(err,docs)
+ */
+Project_funding.get = function (findPara,sortPara,maincb) {
+    var inside_sortPara = sortPara;
+    var inside_maincb = maincb;
+    if(arguments.length === 2){
+        inside_sortPara = {"create_at":-1};
+        // 第2个参数就是callback
+        inside_maincb = sortPara;
+    }
+    async.waterfall([
+        function (cb) {
+            MongoClient.connect(url, function (err,db) {
+                cb(err,db);
+            });
+        },
+        function (db,cb) {
+            var cursor = db.collection('project_funding').find(findPara).sort(inside_sortPara);
+            //cursor.toArray() : Returns an array of documents.
+            cursor.toArray(function (err, docs) {
+                cb(err,db,docs);
+            });
+        }
+    ],function (err,db,docs) {
+        db.close();
+        inside_maincb(err,docs);
+    })
+}
+/**
+ * get only {title, author_name, short_blurb, feature_image, category,
+ *          funding_goal, funding_duration, backers_count, current_amount,_id
+ *          also calculate:
+ *          days_to_go, funded_percent}
+ *
+ * @param findPara find({?})
+ * @param [sortPara] find.sort({?}) //default: {"create_at": -1}
+ * @param maincb(err,docs)
+ */
+Project_funding.getMiniInfo = function (findPara,sortPara,maincb) {
+    var inside_sortPara = sortPara;
+    var inside_maincb = maincb;
+    if(arguments.length === 2){
+        inside_sortPara = {"create_at":-1};
+        // 第2个参数就是callback
+        inside_maincb = sortPara;
+    }
+    async.waterfall([
+        function (cb) {
+            MongoClient.connect(url, function (err,db) {
+                cb(err,db);
+            });
+        },
+        function (db,cb) {
+            var cursor = db.collection('project_funding').find(findPara,{
+                title:1,  author_name:1,
+                short_blurb:1,  feature_image:1,  category:1,
+                funding_goal:1,  funding_duration:1,  backers_count:1,
+                current_amount:1
+            }).sort(inside_sortPara);
+            //cursor.toArray() : Returns an array of documents.
+            cursor.toArray(function (err, docs) {
+                cb(err,db,docs);
+            });
+        }
+    ],function (err,db,docs) {
+        db.close();
+        inside_maincb(err,docs);
+    })
 
 }
+/**
+ * @param fields like: {title:1,  author_name:1}
+ * @param findPara find({?})
+ * @param [sortPara] find.sort({?}) //default: {"create_at": -1}
+ * @param maincb(err,docs)
+ */
+Project_funding.getSpecificInfo = function (findPara,sortPara,fields,maincb) {
+    var inside_sortPara = sortPara;
+    var inside_fields = fields;
+    var inside_maincb = maincb;
+    
+    if(arguments.length === 3){
+        inside_sortPara = {"create_at":-1};
+        inside_fields = sortPara;
+        inside_maincb = fields;
+    }
+    async.waterfall([
+        function (cb) {
+            MongoClient.connect(url, function (err,db) {
+                cb(err,db);
+            });
+        },
+        function (db,cb) {
+            var cursor = db.collection('project_funding').find(findPara,inside_fields).sort(inside_sortPara);
+            //cursor.toArray() : Returns an array of documents.
+            cursor.toArray(function (err, docs) {
+                cb(err,db,docs);
+            });
+        }
+    ],function (err,db,docs) {
+        db.close();
+        inside_maincb(err,docs);
+    })
+
+}
+
 Project_funding.getAll = function (callback) {
 
 }
-Project_funding.get = function (para, cb) {
+Project_funding.getOne = function (para, cb) {
     // var findProjecFunding = function (db,callback) {
     //     var cursor = db.collection('project_funding').fund(para);
     //

@@ -7,7 +7,15 @@ var Project_funding = require('../models/project_funding.js')
 module.exports = function(app){
 	
 	app.get('/', function(req, res, next) {
+        console.dir(Project_funding.getMiniInfo({},function (err,docs) {
+            if(err){
+                req.flash('error',err);
+                return res.redirect("/");
+            }
+            console.dir(docs);
+        }));
 		res.render('index',renderSession('众客',req));
+
 	});
 	
 	app.get('/register',checkLogout);
