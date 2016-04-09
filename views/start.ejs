@@ -1,30 +1,90 @@
 <%- include header %>
 <form method="post">
-<div class="form-group">
-<label for="projectNameInput">项目名称</label>
-    <input type="text" class="form-control" name="projectTitle" id="projectNameInput" placeholder="项目名称">  
-</div>  
-<div class="form-group">
-<label for="projectInfoInput">简短说明</label>
-<textarea class="form-control"  name="shortBlurb" id="projectInfoInput" rows="3"></textarea>
-</div>
-<div class="form-group">
-<label for="goalInput">众筹金额目标</label>
-    <input type="text" class="form-control" name="goal" id="goalInput" placeholder="众筹金额目标"> 
-</div>
-<div class="form-group">
-<label for="durationInput">众筹期限</label>
-    <input type="text" class="form-control" name="duration" id="durationInput" placeholder="推荐30天或更短"> 
-</div>
-<div class="form-group">
-<label for="authorNameInput">发起人/组织</label>
-    <input type="text" class="form-control" name="authorName" id="authorNameInput" placeholder="发起人/组织"> 
-</div>
-<div class="form-group">
-<label for="authorLocationInput">发起人地址</label>
-    <input type="text" class="form-control" name="authorLocation" id="authorLocationInput" placeholder="发起人地址"> 
-</div>
+    <div class="form-group">
+        <label for="projectNameInput">项目名称</label>
+        <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="项目名称">
+    </div>
+    <div class="form-group">
+        <label for="projectInfoInput">简短介绍</label>
+        <textarea class="form-control" name="short_blurb" id="projectInfoInput" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="feature_image">封面图片</label>
+        <input type="text" class="form-control" name="feature_image" id="feature_image"></input>
+    </div>
 
- <input type="submit" value="提交审核" />
+    <div class="form-group">
+        <label for="category">类别</label>
+        <input type="text" class="form-control" name="project_category" id="category"></input>
+    </div>
+
+
+    <div class="form-group">
+        <label for="funding_goal">众筹金额目标</label>
+        <input type="number" class="form-control" name="funding_goal" id="funding_goal" placeholder="众筹金额目标">
+    </div>
+    <div class="form-group">
+        <label for="durationInput">众筹期限</label>
+        <input type="number" class="form-control" name="funding_duration" id="durationInput" placeholder="推荐30天或更短">
+    </div>
+
+    <div class="form-group">
+        <label for="video">视频介绍</label>
+        <input type="url" class="form-control" name="video" id="video" placeholder="推荐30天或更短">
+    </div>
+
+    <div class="form-group">
+        <label for="risk_challenges">风险和挑战</label>
+        <input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">
+    </div>
+
+
+    <div class="form-group">
+        <label for="reward">众筹选项</label>
+        <input type="text" class="form-control" name="reward" id="reward" placeholder="推荐30天或更短">
+    </div>
+
+
+    <div class="form-group">
+        <label for="projectInfoInput">详细说明</label>
+        <textarea class="form-control" name="description" id="projectInfoInput" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="authorNameInput">发起人/组织</label>
+        <input type="text" class="form-control" name="author_name" id="authorNameInput" placeholder="发起人/组织">
+    </div>
+    <div class="form-group">
+        <label for="author_photo">发起人/组织照片</label>
+        <input type="text" class="form-control" name="author_photo" id="author_photo" placeholder="发起人/组织">
+    </div>
+    <div class="form-group">
+        <label for="author_link">发起人/组织链接</label>
+        <input type="url" class="form-control" name="author_link" id="author_link" placeholder="发起人/组织">
+    </div>
+
+    <div class="form-group">
+        <label for="author_bio">发起人/组织背景</label>
+        <input type="text" class="form-control" name="author_bio" id="author_bio" placeholder="发起人/组织">
+    </div>
+
+    <div class="form-group">
+        <label for="author_email">发起人/组织Email</label>
+        <input type="email" class="form-control" name="author_email" id="author_email" placeholder="发起人/组织">
+    </div>
+    <div class="form-group">
+        <label for="author_contact">发起人/组织电话</label>
+        <input type="text" class="form-control" autocomplete="tel" name="author_contact" id="author_contact" placeholder="发起人/组织">
+    </div>
+    <div class="form-group">
+        <label for="email_append">Email附言</label>
+        <input type="text" class="form-control" autocomplete="tel" name="email_append" id="email_append" placeholder="发起人/组织">
+    </div>
+
+    <div class="form-group">
+        <label for="authorLocationInput">发起人地址</label>
+        <input type="text" class="form-control" name="author_location" id="authorLocationInput" placeholder="发起人地址">
+    </div>
+
+    <input type="submit" value="提交审核"/>
 </form>
 <%- include footer %>
