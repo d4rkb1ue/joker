@@ -1,8 +1,8 @@
 module.exports = {
 	cookieName: 'joker',
 	cookieSecret : 'djka321da3',
-	mongodbUrl: 'mongodb://localhost/joker',
+	mongodbUrl: 'mongodb://node/joker',
 	db: 'joker',
-	host: 'localhost',
+	host: 'node',
 	port: 27017,
 };

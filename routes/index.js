@@ -80,10 +80,10 @@ module.exports = function(app){
 			res.redirect('/');
 		});
 	});
+	
 
 
-
-
+	app.get('/logout',checkLogin);
 	app.get('/logout',function(req,res){
 		req.session.user = null;
 		res.redirect('/login');
