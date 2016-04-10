@@ -55,8 +55,10 @@ Project_funding.prototype.save = function (maincb) {
     //     print_minute: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
     //     date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()),
     // };
+    var now = new Date();
     var project_funding = {
-
+       
+    
         //Project_funding
         title: this.title,
         description: this.description,
@@ -101,7 +103,12 @@ Project_funding.prototype.save = function (maincb) {
         comments_count: 0,
         comments: [],
 
-        create_at: new Date(),
+        /**
+         * create_at : when author hand in.
+         * start_at : when admin authorized. The actual time when it start being funding
+         */
+        create_at: now,
+        start_at: now,
         update_times_count: 0,
         last_updated_at: new Date(),
 
@@ -151,32 +158,36 @@ Project_funding.prototype.save = function (maincb) {
 Project_funding.get = function (findPara,sortPara,maincb) {
     var inside_sortPara = sortPara;
     var inside_maincb = maincb;
-    if(arguments.length === 2){
-        inside_sortPara = {"create_at":-1};
+    if (arguments.length === 2) {
+        inside_sortPara = {"create_at": -1};
         // 第2个参数就是callback
         inside_maincb = sortPara;
     }
     async.waterfall([
         function (cb) {
-            MongoClient.connect(url, function (err,db) {
-                cb(err,db);
+            MongoClient.connect(url, function (err, db) {
+                cb(err, db);
             });
         },
-        function (db,cb) {
+        function (db, cb) {
             var cursor = db.collection('project_funding').find(findPara).sort(inside_sortPara);
             //cursor.toArray() : Returns an array of documents.
             cursor.toArray(function (err, docs) {
-                cb(err,db,docs);
+                cb(err, db, docs);
             });
         }
-    ],function (err,db,docs) {
+    ], function (err, db, docs) {
         db.close();
-        inside_maincb(err,docs);
+        inside_maincb(err, docs);
     })
+
 }
+
+
 /**
  * get only {title, author_name, short_blurb, feature_image, category,
- *          funding_goal, funding_duration, backers_count, current_amount,_id
+ *          funding_goal, funding_duration, backers_count, current_amount,
+ *          _id, start_at
  *          also calculate:
  *          days_to_go, funded_percent}
  *
@@ -203,12 +214,20 @@ Project_funding.getMiniInfo = function (findPara,sortPara,maincb) {
                 title:1,  author_name:1,
                 short_blurb:1,  feature_image:1,  category:1,
                 funding_goal:1,  funding_duration:1,  backers_count:1,
-                current_amount:1
+                current_amount:1, start_at:1
             }).sort(inside_sortPara);
             //cursor.toArray() : Returns an array of documents.
             cursor.toArray(function (err, docs) {
                 cb(err,db,docs);
             });
+        },
+        /**
+         * also calculate:
+         *          days_to_go, funded_percent}
+         */
+        function (db,docs,cb) {
+            docs.forEach(Project_funding.calculate);
+            cb(null,db,docs);
         }
     ],function (err,db,docs) {
         db.close();
@@ -245,19 +264,51 @@ Project_funding.getSpecificInfo = function (findPara,sortPara,fields,maincb) {
                 cb(err,db,docs);
             });
         }
+
     ],function (err,db,docs) {
         db.close();
         inside_maincb(err,docs);
     })
 
 }
-
-Project_funding.getAll = function (callback) {
+/**
+ * @param findPara find({?})
+ * @param maincb(err,docs)
+ */
+Project_funding.getByID = function (_id,maincb) {
+    console.dir("id = "+ _id);
+    async.waterfall([
+        function (cb) {
+            MongoClient.connect(url, function (err, db) {
+                cb(err, db);
+            });
+        },
+        function (db, cb) {
+            var cursor = db.collection('project_funding').find({"_id": new ObjectId(_id)}).limit(1);
+            //cursor.toArray() : Returns an array of documents.
+            cursor.next(function (err, doc) {
+                cb(err, db, doc);
+            });
+        },
+        function (db,doc,cb) {
+            //Project_funding.calculate(doc);
+            cb(null,db,doc);
+        }
+    ], function (err, db, doc) {
+        db.close();
+        maincb(err, doc);
+    })
 
 }
-Project_funding.getOne = function (para, cb) {
-    // var findProjecFunding = function (db,callback) {
-    //     var cursor = db.collection('project_funding').fund(para);
-    //
-    // }
+
+/**
+ *  millsecs_to_go, funded_percent, print_to_go
+ */
+Project_funding.calculate = function (doc) {
+    doc.funded_percent = doc.current_amount/doc.funding_goal * 100;
+    var now = new Date();
+    var millsec = doc.funding_duration*24*60*60*1000 - now.getTime() + doc.start_at.getTime();
+    var hours = millsec/1000/60/60;
+    doc.millsecs_to_go = millsec;
+    doc.print_to_go = hours>24? (Math.floor(hours/24).toString()+'天') : (Math.floor(hours).toString() + '小时');
 }

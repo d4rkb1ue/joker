@@ -1,6 +1,6 @@
 var express = require('express');
 var crypto = require('crypto');
-var ObjectID = require('mongodb').ObjectID;
+var mObjectID = require('mongodb').ObjectID;
 
 var User = require('../models/users.js');
 var Project_funding = require('../models/project_funding.js')
@@ -12,9 +12,15 @@ module.exports = function(app){
                 req.flash('error',err);
                 return res.redirect("/");
             }
-            console.dir(docs);
+            // console.dir(docs);
+            return res.render('index',{
+                title: '众客',
+                user: req.session.user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString(),
+                project_fundings: docs
+            });
         }));
-		res.render('index',renderSession('众客',req));
 
 	});
 	
@@ -142,8 +148,16 @@ module.exports = function(app){
         })
     })
 
-    app.get('/project-funding-preview',function (req,res) {
-        res.redirect('/');
+    app.get('/project-funding/:_id',function (req,res) {
+        Project_funding.getByID(req.params._id,function (err,doc) {
+            if(err){
+                req.flash('error',err);
+                return res.redirect('/');
+            }
+            console.dir(doc);
+            return res.redirect('/');
+
+        })
     })
 
 
