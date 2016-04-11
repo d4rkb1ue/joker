@@ -1,6 +1,37 @@
 <%- include header %>
 
+<div class="project-header">
+    <p><h2><%= project.title %></h2></p>
+    <p><h4><%= project.author_name%></h4></p>
+    <img src=" <%= project.feature_image %>">
+</div>
+<div class="project-cart-content">
+    <h5><a href="/project-funding/<%= project._id %>"><%= project.title %></a></h5>
+    <p class="project-author">By <%= project.author_name %></p>
+    <p class="short-blurb"><%= project.short_blurb %></p>
+    <p class="category"><%= project.category %></p>
 
+</div>
+<div class="project_footer">
+    <div class="project-stats-container">
+
+        <div class="project-progress-bar">
+            <p><%= project.funded_percent %></p>
+        </div>
+        <div class="project-stats">
+            <p><h6>
+                <%= project.backers_count %>人已支持</h6></p>
+            <p><h6>已筹集 <%= project.funded_percent %>% </h6></p>
+            <p><h6><%= project.current_amount %> 元</h6></p>
+            <p><h6>离众筹结束还有<%= project.print_to_go %></h6></p>
+        </div>
+    </div>
+</div>
+<div class="project-description">
+    <p><%=project.description%></p>
+</div>
+
+<a href="/back-project/<%= project._id %>">支持!</a>
 
 
 <%- include footer %>

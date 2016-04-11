@@ -96,7 +96,7 @@ Project_funding.prototype.save = function (maincb) {
         pv: 0, //default 0
 
         backers_count: 0, //default 0
-        backers: [], //should be user._id
+        backers: [], //should be [{user._id:_id, reward: type, time: date},{..}]
 
         current_amount: 0,
 

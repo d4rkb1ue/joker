@@ -155,13 +155,21 @@ module.exports = function(app){
                 return res.redirect('/');
             }
             console.dir(doc);
-            return res.redirect('/');
+            return res.render('project-funding',{
+				title: doc.title,
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString(),
+                project:doc,
+			});
 
         })
     })
 
+    app.get('/back-project/:_id',checkLogin());
+    app.get('/back-project/:_id',function (req,res){
 
-
+    })
 	function renderSession(title, req){
 		return {
 			title: title,

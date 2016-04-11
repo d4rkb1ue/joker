@@ -17,7 +17,9 @@ User.prototype.save = function (miancb) {
         name: this.name,
         password: this.password,
         email: this.email,
-
+        
+        //new
+        back_history:[],
     };
     /**
      * 使用async重写.原来的代码实在不具可读性.

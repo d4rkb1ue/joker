@@ -29,4 +29,13 @@
 </div>
 
 <% }); %>
+<div id="lala"><a onclick="add()">add</a></div>
+<!-- for test: add a element -->
+<script>
+    function add() {
+        var div = document.getElementById("lala");
+        div.appendChild(document.createElement('input'));
+    }
+
+</script>
 <%- include footer %>
