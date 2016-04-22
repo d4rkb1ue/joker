@@ -166,7 +166,7 @@ module.exports = function(app){
         })
     })
 
-    app.get('/back-project/:_id',checkLogin());
+    app.get('/back-project/:_id',checkLogin);
     app.get('/back-project/:_id',function (req,res){
 
     })
