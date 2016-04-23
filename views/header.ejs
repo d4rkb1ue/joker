@@ -1,40 +1,94 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title><%= title %></title>
-<!-- Bootstrap -->
-<link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-<!-- Header -->
-<link href="/styles/header.css" rel="stylesheet">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+	<title>
+		<%= title %>
+	</title>
+
+	<!-- Bootstrap -->
+	<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!-- End Bootstrap -->
+
+	<!-- Header -->
+	<link href="/styles/joker.css" rel="stylesheet">
+	
+	<script src="/js/joker.js"></script>
 </head>
+
 <body>
 
-<header>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
+
+
+
+	<!-- 导航条 -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<!--图标 Logo-->
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/">众客</a>
-				<% if(!user) { %>
-				<a class="navbar-brand" href="/login">登录</a>
-				<a class="navbar-brand" href="/register">注册</a>
-				<% }else{ %>
-				<a class="navbar-brand" href="/logout">登出</a>
-	
-				<a class="navbar-brand" href="/start">创建项目</a>
+				<!-- 移动设备下拉按钮，信息来自 .collapse -->
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 
 
-				<% } %>
+				<a class="navbar-brand" href="/">
+					<img alt="众客 Joker" style="height:20px" src="images/logo-sm.png" />
+				</a>
+			</div>
+
+			<!-- 图标以外的 -->
+			<div id="navbar" class="navbar-collapse collapse">
+				<!--导航tab-->
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/start">首页</a></li>
+					<li><a href="/start">创建项目</a></li>
+				</ul>
+				<!--搜索-->
+				<form class="nav navbar-form navbar-left" role="search">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search for...">
+						<span class="input-group-btn"><button class="btn btn-default" type="button">Go!</button></span>
+					</div>
+				</form>
+
+				<!-- 登录 -->
+				<!-- Emmet: c + tab = 注释  -->
+				<ul class="nav navbar-nav navbar-right">
+
+					<% if(!user) { %>
+						<button type="button" onclick="location.assign('/login');" class="btn btn-default navbar-btn">登录</button>
+						<button type="button" onclick="location.assign('/register');" class="btn btn-default navbar-btn">注册</button>
+						<% }else{ %>
+							<button type="button" onclick="location.assign('/logout');" class="btn btn-default navbar-btn">登出</button>
+							<% } %>
+
+				</ul>
 			</div>
 		</div>
 	</nav>
 
-</header>
-<script>
-<% if(success || error){ %>
-	alert('<%= success || error %>');
-	<% } %>
-</script>	
+
+
+
+	<script>
+		if(success || error){
+			checkFlash(success,error);
+		}
+		
+		
+	</script>

@@ -1,41 +1,72 @@
 <%- include header %>
-<% project_fundings.forEach(function (project, index){ %>
-<div class="project-image">
-    <a href=" /project-funding/<%= project._id %> ">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="..." alt="...">
+                    <div class="caption">
+                        <h3>Thumbnail label</h3>
+                        <p>...</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default"
+                                role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="new-list">
+            <% project_fundings.forEach(function (project, index){ %>
+                <div class="project-card col-lg-4">
+                    <div class="project-image">
+                        <a href=" /project-funding/<%= project._id %> ">
         <img src=" <%= project.feature_image %>">
     </a>
-</div>
-<div class="project-cart-content">
-    <h5><a href="/project-funding/<%= project._id %>"><%= project.title %></a></h5>
-    <p class="project-author">By <%= project.author_name %></p>
-    <p class="short-blurb"><%= project.short_blurb %></p>
-    <p class="category"><%= project.category %></p>
+                    </div>
+                    <div class="project-cart-content">
+                        <h5><a href="/project-funding/<%= project._id %>"><%= project.title %></a></h5>
+                        <p class="project-author">By
+                            <%= project.author_name %>
+                        </p>
+                        <p class="short-blurb">
+                            <%= project.short_blurb %>
+                        </p>
+                        <p class="category">
+                            <%= project.category %>
+                        </p>
 
-</div>
-<div class="project_footer">
-    <div class="project-stats-container">
+                    </div>
+                    <div class="project_footer">
+                        <div class="project-stats-container">
 
-        <div class="project-progress-bar">
-            <p><%= project.funded_percent %></p>
-        </div>
-        <div class="project-stats">
-            <p><h6>
+                            <div class="project-progress-bar">
+                                <p>
+                                    <%= project.funded_percent %>
+                                </p>
+                            </div>
+                            <div class="project-stats">
+                                <p>
+                                    <h6>
                 <%= project.backers_count %>人已支持</h6></p>
-            <p><h6>已筹集 <%= project.funded_percent %>% </h6></p>
-            <p><h6><%= project.current_amount %> 元</h6></p>
-            <p><h6>离众筹结束还有<%= project.print_to_go %></h6></p>
+                                <p>
+                                    <h6>已筹集 <%= project.funded_percent %>% </h6></p>
+                                <p>
+                                    <h6><%= project.current_amount %> 元</h6></p>
+                                <p>
+                                    <h6>离众筹结束还有<%= project.print_to_go %></h6></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <% }); %>
         </div>
+
+
+
+
+
     </div>
-</div>
 
-<% }); %>
-<div id="lala"><a onclick="add()">add</a></div>
-<!-- for test: add a element -->
-<script>
-    function add() {
-        var div = document.getElementById("lala");
-        div.appendChild(document.createElement('input'));
-    }
 
-</script>
-<%- include footer %>
+    <%- include footer %>

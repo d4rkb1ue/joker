@@ -1,5 +1,10 @@
 body {
 	padding-top: 50px;
+	
+}
+
+#start-main-container {
+	margin-top:20px;
 }
 .form-signin {
 	max-width: 330px;
@@ -36,6 +41,32 @@ body {
 	border-top-right-radius: 0;
 }
 
+.tab-content {
+	margin-top: 30px;
+}
+
+.start-tips {
+	margin: 20px;
+}
+.project-inputs {
+	float:left;
+	width:70%;
+}
 
 
+.tips-and-preview {
+	float:left;
+	width:27%;
+	margin-left: 3%;
+	
+}
+
+.ta-noresize {
+	resize: none;
+}
+
+#category-select>option{
+    height: 2em;
+    padding: 0.5em;
+}
 

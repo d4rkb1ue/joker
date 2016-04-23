@@ -1,102 +1,255 @@
 <%- include header %>
-<script>
-    function addRewardOption() {
-        var div = document.getElementById("reward-option");
-        var newReward = document.createElement('input');
-        div.appendChild();
-    }
 
-</script>
-<form method="post">
-    <div class="form-group">
-        <label for="reward" id="reward-option">众筹选项</label>
-        <input type="text" class="form-control" name="reward" id="reward" placeholder="推荐30天或更短">
-    </div>
-    <div class="form-group">
-        <label for="projectNameInput">项目名称</label>
-        <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="项目名称">
-    </div>
-    <div class="form-group">
-        <label for="projectInfoInput">简短介绍</label>
-        <textarea class="form-control" name="short_blurb" id="projectInfoInput" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="feature_image">封面图片</label>
-        <input type="text" class="form-control" name="feature_image" id="feature_image"></input>
-    </div>
-    <!-- 此处待处理. 应该是可添加选项 -->
-    <div class="form-group">
-        <label for="category">类别</label>
-        <div class="category-group">
-            <input type="radio" value="play" name="project_category"/>play<br/>
-            <input type="radio" value="study" name="project_category"/>study
-        </div>
-    </div>
+    <script>
+        function addRewardOption() {
+            var div = document.getElementById("reward-option");
+            var newReward = document.createElement('input');
+            div.appendChild();
+        }
+        //ready
+        //$(previewPic());
+        // 按照桌面大小修改最小大小，以防footer紧跟from
+        // 120 = header 50 + tab 50 + margin 20
+        $(function(){
+            $('#start-main-container').css('min-height',$(window).height()-120);
+        }
+		)
+        $(
+            function() {
+                var fileInput = document.getElementById('image-file');
+                
+                var preview = document.getElementById('image-preview');
+                var $preview = $(preview);
+                fileInput.addEventListener('change', function () {
+                if (!fileInput.value) {
+                    return;
+                }
+                // preview.style.backgroundImage = '';
+                $preview.show();
+                var file = fileInput.files[0];
+                
+                if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
+                    alert('不是有效的图片文件!');
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var
+                        data = e.target.result;
+                        index = data.indexOf(';base64,');
+                    preview.style.backgroundImage = 'url(' + data + ')';
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+        );
+        $(function(){
+            $('#image-preview').hide();
+        })
+    </script>
+    <div id="start-main-container" class="container">
+
+        <form method="post">
+
+            <!-- tabs -->
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-basic">基本信息</a></li>
+                <li><a data-toggle="tab" href="#tab-reward">支持选项</a></li>
+                <li><a data-toggle="tab" href="#tab-story">故事</a></li>
+                <li><a data-toggle="tab" href="#tab-about">关于发起者</a></li>
+                <li><a data-toggle="tab" href="#tab-append">附加信息</a></li>
+
+                <div class="button-group" style="float:right">
+                    <button type="button" class="btn btn-success" style="width:80px">预览</button>
+                    <button type="submit" class="btn btn-primary" style="margin-left:20px;width:120px">提交审核</button>
+                </div>
 
 
-    <div class="form-group">
-        <label for="funding_goal">众筹金额目标</label>
-        <input type="number" class="form-control" name="funding_goal" id="funding_goal" placeholder="众筹金额目标">
-    </div>
-    <div class="form-group">
-        <label for="durationInput">众筹期限</label>
-        <input type="number" class="form-control" name="funding_duration" id="durationInput" placeholder="推荐30天或更短">
+            </ul>
+
+            <!-- tab contents -->
+
+            <div class="tab-content">
+
+                <!-- basic -->
+                <div id="tab-basic" class="tab-pane fade in active">
+
+                    <!-- 文字提示 -->
+                    <div class="start-tips">
+                        <h2 class="text-center">
+                        发起你的项目!
+                    </h2>
+                        <h3 class="text-center">
+                        添加图片，简短介绍，筹资目标，期限等细节。
+                    </h3>
+                    </div>
+
+                    <!-- 输入框 -->
+                    <!-- form-control for 100% width -->
+                    <div class="project-inputs">
+                        <div class="form-group">
+                            <label for="projectNameInput">项目名称</label>
+                            <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="1-30字" required="true" maxlength="30"
+                                minlength="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="projectInfoInput">简短介绍</label>
+                            <textarea class="form-control ta-noresize" name="short_blurb" id="projectInfoInput" rows="3" placeholder="1-140字" maxlength="140"
+                                minlength="1"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="image-file">封面图片</label>
+
+                            <div id="image-preview" style="width: 100%; height: 200px; background-size: contain; background-repeat: no-repeat; background-position: center center;"></div>
+
+                            <input type="file" id="image-file" name="feature_image">
+
+                        </div>
+
+
+                        <div class="form-group" id="category-group">
+                            <label for="category">类别</label>
+                            <select multiple class="form-control" size="8" id="category-select">
+                                
+                                <option value="lib">文学历史</option>
+                                <option value="sci">数学理工</option>
+                                <option value="finance">金融管理</option>
+                                <option value="tech">数码科技</option>
+                                <option value="arts">艺术美术</option>
+                                <option value="health">医学健康</option>
+                                <option value="edu">心理教育</option>
+                                <option value="other">其他</option>
+                                
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="funding_goal">众筹金额目标</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">¥</span>
+                                <input type="number" class="form-control" name="funding_goal" id="funding_goal" placeholder="众筹目标">
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="durationInput">众筹期限</label>
+                            <div class="input-group">
+                            <input type="number" class="form-control" name="funding_duration" id="durationInput" placeholder="推荐30天或更短">
+                            <span class="input-group-addon">天</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default tips-and-preview">
+
+                        <div class="panel-heading">介绍</div>
+                        <div class="panel-body">
+
+                            <p>How to price Price fairly, and offer a good value. What would you consider a fair exchange? Something
+                                fun for $10 or less is always a good idea. Backers based in the U.S. will always see reward
+                                amounts and funding goals reflected in USD. Funds that backers pledge to account for shipping
+                                costs will count towards your project's funding goal. Keep this in mind when setting your
+                                goal. Use the shipping tool to add delivery costs for any country you like (including your
+                                own). The price will be added to backer's pledges as they check out.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- reward -->
+                <div id="tab-reward" class="tab-pane fade">
+                    <div class="form-group">
+                        <label for="reward" id="reward-option">众筹选项</label>
+                        <input type="text" class="form-control" name="reward" id="reward" placeholder="推荐30天或更短">
+                    </div>
+                </div>
+
+
+
+                <!-- story -->
+                <div id="tab-story" class="tab-pane fade">
+
+                    <div class="form-group">
+                        <label for="projectInfoInput">详细说明</label>
+                        <textarea class="form-control" name="description" id="projectInfoInput" rows="3"></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="video">视频介绍</label>
+                        <input type="url" class="form-control" name="video" id="video" placeholder="推荐30天或更短">
+                    </div>
+                </div>
+
+
+                <!-- about -->
+                <div id="tab-about" class="tab-pane fade">
+                    <div class="form-group">
+                        <label for="authorNameInput">发起人/组织</label>
+                        <input type="text" class="form-control" name="author_name" id="authorNameInput" placeholder="发起人/组织">
+                    </div>
+                    <div class="form-group">
+                        <label for="author_photo">发起人/组织照片</label>
+                        <input type="text" class="form-control" name="author_photo" id="author_photo" placeholder="发起人/组织">
+                    </div>
+                    <div class="form-group">
+                        <label for="author_link">发起人/组织链接</label>
+                        <input type="url" class="form-control" name="author_link" id="author_link" placeholder="发起人/组织">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author_bio">发起人/组织背景</label>
+                        <input type="text" class="form-control" name="author_bio" id="author_bio" placeholder="发起人/组织">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author_email">发起人/组织Email</label>
+                        <input type="email" class="form-control" name="author_email" id="author_email" placeholder="发起人/组织">
+                    </div>
+                    <div class="form-group">
+                        <label for="author_contact">发起人/组织电话</label>
+                        <input type="text" class="form-control" autocomplete="tel" name="author_contact" id="author_contact" placeholder="发起人/组织">
+                    </div>
+                    <div class="form-group">
+                        <label for="authorLocationInput">发起人地址</label>
+                        <input type="text" class="form-control" name="author_location" id="authorLocationInput" placeholder="发起人地址">
+                    </div>
+                </div>
+
+
+                <!-- append -->
+                <div id="tab-append" class="tab-pane fade">
+                    <div class="form-group">
+                        <label for="email_append">Email附言</label>
+                        <input type="text" class="form-control" autocomplete="tel" name="email_append" id="email_append" placeholder="发起人/组织">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="risk_challenges">风险和挑战</label>
+                        <input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- end tabs -->
+
+
+
+
+
+
+
+
+
+
+
+        </form>
     </div>
 
-    <div class="form-group">
-        <label for="video">视频介绍</label>
-        <input type="url" class="form-control" name="video" id="video" placeholder="推荐30天或更短">
-    </div>
-
-    <div class="form-group">
-        <label for="risk_challenges">风险和挑战</label>
-        <input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">
-    </div>
-
-
-
-
-
-    <div class="form-group">
-        <label for="projectInfoInput">详细说明</label>
-        <textarea class="form-control" name="description" id="projectInfoInput" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="authorNameInput">发起人/组织</label>
-        <input type="text" class="form-control" name="author_name" id="authorNameInput" placeholder="发起人/组织">
-    </div>
-    <div class="form-group">
-        <label for="author_photo">发起人/组织照片</label>
-        <input type="text" class="form-control" name="author_photo" id="author_photo" placeholder="发起人/组织">
-    </div>
-    <div class="form-group">
-        <label for="author_link">发起人/组织链接</label>
-        <input type="url" class="form-control" name="author_link" id="author_link" placeholder="发起人/组织">
-    </div>
-
-    <div class="form-group">
-        <label for="author_bio">发起人/组织背景</label>
-        <input type="text" class="form-control" name="author_bio" id="author_bio" placeholder="发起人/组织">
-    </div>
-
-    <div class="form-group">
-        <label for="author_email">发起人/组织Email</label>
-        <input type="email" class="form-control" name="author_email" id="author_email" placeholder="发起人/组织">
-    </div>
-    <div class="form-group">
-        <label for="author_contact">发起人/组织电话</label>
-        <input type="text" class="form-control" autocomplete="tel" name="author_contact" id="author_contact" placeholder="发起人/组织">
-    </div>
-    <div class="form-group">
-        <label for="email_append">Email附言</label>
-        <input type="text" class="form-control" autocomplete="tel" name="email_append" id="email_append" placeholder="发起人/组织">
-    </div>
-
-    <div class="form-group">
-        <label for="authorLocationInput">发起人地址</label>
-        <input type="text" class="form-control" name="author_location" id="authorLocationInput" placeholder="发起人地址">
-    </div>
-
-    <input type="submit" value="提交审核"/>
-</form>
-<%- include footer %>
+    <%- include footer %>
