@@ -1,19 +1,48 @@
 <%- include header %>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="..." alt="...">
+        
+        <!-- bs-horizon test -->
+        <div class="row row-horizon">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <div class="thumbnail project-card">
+                    <img src="images/feature_ex1.jpg" alt="feature_ex1.jpg">
                     <div class="caption">
-                        <h3>Thumbnail label</h3>
-                        <p>...</p>
+                        <h3>改变世界的众客</h3>
+                        <p>哈哈！我正在改变世界。制作第一个前端网页。</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default"
+                                role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <div class="thumbnail project-card">
+                    <img src="images/feature_ex2.jpg" alt="feature_ex.jpg">
+                    <div class="caption">
+                        <h3>改变世界的众客</h3>
+                        <p>哈哈！我正在改变世界。制作第一个前端网页。</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default"
+                                role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <div class="thumbnail project-card">
+                    <img src="images/feature_ex3.jpg" alt="feature_ex.jpg">
+                    <div class="caption">
+                        <h3>改变世界的众客</h3>
+                        <p>哈哈！我正在改变世界。制作第一个前端网页。</p>
                         <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default"
                                 role="button">Button</a></p>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- end bs-horizon test -->
+
+       
+
+
         <div class="new-list">
             <% project_fundings.forEach(function (project, index){ %>
                 <div class="project-card col-lg-4">

@@ -41,6 +41,10 @@ body {
 	border-top-right-radius: 0;
 }
 
+
+/* only way to comment */
+/* use Command+ / to toggle a line*/
+/* ----- my design ----- */
 .tab-content {
 	margin-top: 30px;
 }
@@ -70,3 +74,8 @@ body {
     padding: 0.5em;
 }
 
+.project-card>img{
+	/*max-height: 300px;*/
+	/*无效！因为在overflow里*/
+	/*clip: rect(0px,50px,50px,0px);*/
+}
