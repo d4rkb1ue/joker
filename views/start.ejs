@@ -1,51 +1,129 @@
 <%- include header %>
 
     <script>
-        function addRewardOption() {
-            var div = document.getElementById("reward-option");
-            var newReward = document.createElement('input');
-            div.appendChild();
-        }
-        //ready
+        //ready,都放在一个函数里，保证执行顺序
         //$(previewPic());
-        // 按照桌面大小修改最小大小，以防footer紧跟from
-        // 120 = header 50 + tab 50 + margin 20
         $(function(){
-            $('#start-main-container').css('min-height',$(window).height()-120);
-        }
-		)
-        $(
-            function() {
+            
+            
+            // 按照桌面大小修改最小大小，以防footer紧跟from
+            // 120 = header 50 + tab 50 + margin 20
+            var min_height_set = function(){
+                $('#start-main-container').css('min-height',$(window).height()-120);
+            };
+            min_height_set();
+            // -------------------------
+            
+            // 初始化图片加载
+            var upload_init = function() {
                 var fileInput = document.getElementById('image-file');
                 
                 var preview = document.getElementById('image-preview');
                 var $preview = $(preview);
                 fileInput.addEventListener('change', function () {
-                if (!fileInput.value) {
-                    return;
-                }
-                // preview.style.backgroundImage = '';
-                $preview.show();
-                var file = fileInput.files[0];
+                    if (!fileInput.value) {
+                        return;
+                    }
+                    // preview.style.backgroundImage = '';
+                    $preview.show();
+                    var file = fileInput.files[0];
+                    
+                    if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
+                        alert('不是有效的图片文件!');
+                        return;
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var
+                            data = e.target.result;
+                            index = data.indexOf(';base64,');
+                        preview.style.backgroundImage = 'url(' + data + ')';
+                    };
+                    reader.readAsDataURL(file);
+                    });
+            };
+            upload_init();
+            
+            
+            // -------------------------
+            // 删除 按钮 初始化
+            var del_init = function(){
+                console.log('del_init');
+                // 第一个删除按钮设为不允许, 并且移除响应
+                // 太麻烦，不如直接在删除的时候计数
+                // var first_del_btn = $('.deleteItem').first();
+                // first_del_btn.attr('class',first_del_btn.attr('class')+" disabled");
+                // first_del_btn.off()
                 
-                if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
-                    alert('不是有效的图片文件!');
-                    return;
-                }
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var
-                        data = e.target.result;
-                        index = data.indexOf(';base64,');
-                    preview.style.backgroundImage = 'url(' + data + ')';
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-        );
-        $(function(){
+                // 删除的时候，计数变得非常麻烦。要重新标记 标题#? 和 name="?"
+                // 这个在处理提交表单的时候再说
+                
+                // 因为要多次绑定，先删除一次
+                $('.deleteItem').off();
+                $('.deleteItem').click(function(){
+                    if($('.deleteItem').length === 1){
+                        alert('至少设置一个哦!');
+                    }else{
+                        $(this).parents('.reward-item').slideToggle(300,function(){
+                            this.remove();
+                        });
+                    }
+                    
+                });
+            }
+            
+            del_init();
+            
+            // -------------------------
+            // 添加新的选项初始化
+            var new_item_init = function() {
+                var btn = $('#reward-add-button');
+                btn.hover(function(){
+                    $(this).css('background-color','#f8f8f8');
+                }, function(){
+                    $(this).css('background-color','#fff');
+                })
+                btn.click(function(){
+                    if($('.reward-item').length >= 10){
+                        alert('最多10条哟。')
+                    }
+                    var lastOne = $('.reward-item').last();
+                    var cloneWithData = lastOne.clone();
+                    // 删除全部已经填好的数据
+                    cloneWithData.find(':input').each(function() {
+                        this.value = null;
+                    })
+                    // 重命名表单名称，第一个是0，所以有几个就
+                    cloneWithData.attr('name','rwitem'+$('.reward-item').length);
+                    
+                    // 重命名标题#?
+                    cloneWithData.find('span').text($('.reward-item').length + 1);
+                    
+                    // 添加之前先隐身
+                    cloneWithData.hide();
+                    lastOne.after(cloneWithData);
+                    // 加了之后在动画显示
+                    cloneWithData.slideToggle(300);
+                    
+                    // 达到10个就隐藏添加按钮吧
+                     if($('.reward-item').length >= 10){
+                         $('#reward-add-button').slideToggle(300);
+                    }
+                    
+                    // 务必在加完之后，重新执行下删除按钮的绑定！否则新添加的项目的删除按钮指向原来父亲元素
+                    del_init();
+                })
+                
+            };
+            
+            new_item_init();
+            // -------------------------
+            // 隐藏图片显示
             $('#image-preview').hide();
-        })
+            
+        });
+        
+
     </script>
     <div id="start-main-container" class="container">
 
@@ -73,7 +151,7 @@
             <div class="tab-content">
 
                 <!-- basic -->
-                <div id="tab-basic" class="tab-pane fade in active">
+                <div id="tab-basic" class="tab-pane fade">
 
                     <!-- 文字提示 -->
                     <div class="start-tips">
@@ -135,8 +213,8 @@
                         <div class="form-group">
                             <label for="durationInput">众筹期限</label>
                             <div class="input-group">
-                            <input type="number" class="form-control" name="funding_duration" id="durationInput" placeholder="推荐30天或更短">
-                            <span class="input-group-addon">天</span>
+                                <input type="number" class="form-control" name="funding_duration" id="durationInput" placeholder="推荐30天或更短">
+                                <span class="input-group-addon">天</span>
                             </div>
                         </div>
                     </div>
@@ -161,13 +239,85 @@
 
 
                 <!-- reward -->
-                <div id="tab-reward" class="tab-pane fade">
-                    <div class="form-group">
-                        <label for="reward" id="reward-option">众筹选项</label>
-                        <input type="text" class="form-control" name="reward" id="reward" placeholder="推荐30天或更短">
+                <div id="tab-reward" class="tab-pane fade  in active">
+                    <!-- 文字提示 -->
+                    <div class="start-tips">
+                        <h2 class="text-center">
+                        支持项目有怎样的选项和回报？
+                    </h2>
+                        <h3 class="text-center">
+                        考虑你的受众人群，为支持者提供多变的选择。
+                    </h3>
                     </div>
-                </div>
 
+                    <!-- 回报设置 -->
+
+
+                    <div class="project-inputs">
+
+                        <!-- 一个回报 -->
+                        <div class="reward-item row" name="rwitem0">
+                            <!-- 左侧标题 -->
+                            <div class="countTitile col-lg-3 col-md-3">
+                                <h5>众筹选项#<span class="count">1</span></h5>
+                                <button type="button" class="deleteItem btn btn-danger">删除</button>
+                            </div>
+                            <!-- 右侧详情 -->
+                            <div class="reward-item-details col-lg-9 col-md-9">
+
+                                <table class="table table-striped">
+
+                                    <tr class="success">
+                                        <td>投资金额</td>
+                                        <td><input type="number" class="form-control item-data"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>投资回报</td>
+                                        <td><textarea name="reward-details" class="form-control ta-noresize item-data" rows="3"
+                                                placeholder="1-140字" maxlength="140" minlength="1"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td>预期上线时间</td>
+                                        <td><input type="date" class="form-control item-data"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>限制人数</td>
+                                        <td><input type="number" class="form-control item-data"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <!-- end 一个回报 -->
+                        <!-- 添加选项 -->
+                        <div class="reward-add-button row" id="reward-add-button">
+
+                            <h3>+ 添加一条回报选项</h3>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="panel panel-default tips-and-preview">
+
+                        <div class="panel-heading">介绍</div>
+                        <div class="panel-body">
+
+                            <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
+                            <ul class="ul">
+                                <li>你可以设置允许投资者看部分课程，这部分课程可能是较早就能完成的</li>
+                                <li>允许投资者尽快尝鲜，可以在课程尚未上线前，提供Bata体验</li>
+                                <li>多样的教学方式，比如1对1在线讲解、实体书籍材料可能和在线视频的完成时间不一致</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- end reward -->
 
 
                 <!-- story -->

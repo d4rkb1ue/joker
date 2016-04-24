@@ -4,7 +4,7 @@
   white-space: nowrap;
 }
 .row-horizon > [class*="col-lg"], .row-horizon > [class*="col-md"], .row-horizon > [class*="col-sm"], .row-horizon > [class*="col-xs"] {
-  float: none;
+  /*float: none;*/
   display: inline-block;
   white-space: normal;
   vertical-align: top;

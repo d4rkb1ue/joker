@@ -74,8 +74,40 @@ body {
     padding: 0.5em;
 }
 
-.project-card>img{
-	/*max-height: 300px;*/
-	/*无效！因为在overflow里*/
-	/*clip: rect(0px,50px,50px,0px);*/
+
+
+.reward-item {
+	padding: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+.reward-item-details {
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    /*border-left: 1px solid #ddd;*/
+
+}
+
+.reward-item-details>table {
+	border: 1px solid #ddd
+}
+
+.countTitile>button{
+	margin-top: 180px;
+}
+
+.reward-add-button {
+	padding: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+	margin-bottom: 20px;
+	background-color: #fff;
+	text-align: center;
+	color: #ddd;
+	
 }
