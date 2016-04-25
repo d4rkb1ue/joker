@@ -1,10 +1,10 @@
 <%- include header %>
 
-    
+
     <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-    
+
 
 
     <script>
@@ -164,6 +164,49 @@
             
         });
     </script>
+    <!-- 定义提交时候响应的function -->
+    <script>
+        var ajaxCommit = function(){
+            
+            var allItems = [];
+
+                // HERE!
+                // HERE!
+                // HERE!
+                // HERE!
+                // HERE!
+                // HERE!
+
+
+            // to json string 已经完成，接下来就是ajax传表单，然后服务端解析了！
+            // https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Forms/Sending_forms_through_JavaScript#.E5.8F.91.E9.80.81.E4.BA.8C.E8.BF.9B.E5.88.B6.E6.95.B0.E6.8D.AE
+            
+            $('.reward-item-details').each(function(){
+                var oneItem = {}; // will be convert into json 
+
+                // console.log($(this).find('[name=rwcount]').val().trim());
+                // console.log($(this).find('[name=rwdetails]').val().trim());
+                // console.log($(this).find('[name=rwdate]').val().trim());
+                // console.log($(this).find('[name=rwlimited]').val().trim());
+                
+                oneItem.rwcount= $(this).find('[name=rwcount]').val().trim();
+                oneItem.rwdetails = $(this).find('[name=rwdetails]').val().trim();
+                oneItem.rwdate = $(this).find('[name=rwdate]').val().trim();
+                
+                if($(this).find('[name=rwlimited]').prop('checked') === true){
+                    oneItem.rwlimited = 0; // for unlimited
+                }else{
+                    oneItem.rwlimited = $(this).find('[name=rwlimitnum]').val().trim();    
+                }
+                
+                allItems.push(JSON.stringify(oneItem));
+                // all you need is JSON.parse()
+            
+            });
+            
+        });
+        }
+    </script>
     <div id="start-main-container" class="container">
 
         <form method="post" id="start-form" enctype="multipart/form-data">
@@ -207,8 +250,7 @@
                     <div class="project-inputs">
                         <div class="form-group">
                             <label for="projectNameInput">项目名称</label>
-                            <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="1-30字" maxlength="30"
-                                minlength="1">
+                            <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="1-30字" maxlength="30" minlength="1">
                         </div>
                         <div class="form-group">
                             <label for="projectInfoInput">简短介绍</label>
@@ -299,10 +341,10 @@
                             <!-- 左侧标题 -->
                             <div class="countTitile col-lg-3 col-md-3">
                                 <h5>众筹选项#<span id="rwcount" class="count"></span></h5>
-                                
+
                                 <button type="button" class="deleteItem btn btn-danger">删除</button>
                             </div>
-                            
+
                             <!-- 右侧详情 -->
                             <div class="reward-item-details col-lg-9 col-md-9">
 
@@ -321,8 +363,8 @@
                                     </tr>
                                     <tr>
                                         <td>投资回报</td>
-                                        <td><textarea name="rwdetails" class="form-control ta-noresize item-data" rows="3"
-                                                placeholder="1-140字" maxlength="140" minlength="1"></textarea></td>
+                                        <td><textarea name="rwdetails" class="form-control ta-noresize item-data" rows="3" placeholder="1-140字"
+                                                maxlength="140" minlength="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td>预期上线时间</td>
@@ -444,15 +486,15 @@
                         </div>
                         <div class="form-group">
                             <label for="author_photo">照片</label>
-                            
+
                             <div id="image-preview2" style="width: 100%; height: 200px; background-size: contain; background-repeat: no-repeat; background-position: center center;"></div>
                             <input type="file" name="author_photo" id="author_photo">
                         </div>
 
                         <div class="form-group">
                             <label for="author_bio">提示</label>
-                            <textarea class="form-control ta-noresize" name="author_bio" id="author_bio" rows="3" placeholder="发起人的介绍，微博，公众号等等详情，1-140字" maxlength="140"
-                                minlength="1"></textarea>
+                            <textarea class="form-control ta-noresize" name="author_bio" id="author_bio" rows="3" placeholder="发起人的介绍，微博，公众号等等详情，1-140字"
+                                maxlength="140" minlength="1"></textarea>
                             <!--<input type="text" class="form-control" name="author_bio" id="author_bio" placeholder="发起人的介绍，微博，公众号等等详情">-->
                         </div>
 
@@ -508,15 +550,15 @@
 
                         <div class="form-group">
                             <label for="email_append">附言</label>
-                            <textarea class="form-control ta-noresize" name="email_append" id="email_append" rows="3" placeholder="附言将显示在支持者参与众筹之后，系统发出的确认和感谢Email和站内信中" maxlength="140"
-                                minlength="1"></textarea>
+                            <textarea class="form-control ta-noresize" name="email_append" id="email_append" rows="3" placeholder="附言将显示在支持者参与众筹之后，系统发出的确认和感谢Email和站内信中"
+                                maxlength="140" minlength="1"></textarea>
                             <!--<input type="text" class="form-control"  name="email_append" id="email_append" placeholder="附言将显示在支持者参与众筹之后，系统发出的确认和感谢Email和站内信中">-->
                         </div>
 
                         <div class="form-group">
                             <label for="risk_challenges">风险、挑战以及备注</label>
-                            <textarea class="form-control ta-noresize" name="risk_challenges" id="risk_challenges" rows="3" placeholder="如果项目有特殊的达成条件，请在此备注" maxlength="140"
-                                minlength="1"></textarea>
+                            <textarea class="form-control ta-noresize" name="risk_challenges" id="risk_challenges" rows="3" placeholder="如果项目有特殊的达成条件，请在此备注"
+                                maxlength="140" minlength="1"></textarea>
                             <!--<input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">-->
                         </div>
 
