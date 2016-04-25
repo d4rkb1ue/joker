@@ -97,7 +97,7 @@
                     cloneWithData.attr('name','rwitem'+$('.reward-item').length);
                     
                     // 重命名标题#?
-                    cloneWithData.find('span').text($('.reward-item').length + 1);
+                    cloneWithData.find('span.count').text($('.reward-item').length + 1);
                     
                     // 添加之前先隐身
                     cloneWithData.hide();
@@ -122,8 +122,6 @@
             $('#image-preview').hide();
             
         });
-        
-
     </script>
     <div id="start-main-container" class="container">
 
@@ -239,7 +237,7 @@
 
 
                 <!-- reward -->
-                <div id="tab-reward" class="tab-pane fade  in active">
+                <div id="tab-reward" class="tab-pane fade ">
                     <!-- 文字提示 -->
                     <div class="start-tips">
                         <h2 class="text-center">
@@ -268,8 +266,15 @@
                                 <table class="table table-striped">
 
                                     <tr class="success">
-                                        <td>投资金额</td>
-                                        <td><input type="number" class="form-control item-data"></td>
+                                        <!-- 不强制宽度就会换行，在里面有input-group的情况下-->
+                                        <td style="width:130px">投资金额</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">¥</span>
+                                                <input type="number" class="form-control item-data" placeholder="金额">
+                                                <span class="input-group-addon">元</span>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>投资回报</td>
@@ -282,7 +287,14 @@
                                     </tr>
                                     <tr>
                                         <td>限制人数</td>
-                                        <td><input type="number" class="form-control item-data"></td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <input type="checkbox" class="item-data">
+                                                </span>
+                                                <input type="number" class="form-control item-data">
+                                            </div>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -321,73 +333,172 @@
 
 
                 <!-- story -->
-                <div id="tab-story" class="tab-pane fade">
+                <div id="tab-story" class="tab-pane fade in active">
+                    <!-- 文字提示 -->
+                    <div class="start-tips">
+                        <h2 class="text-center">
+                        支持项目有怎样的选项和回报？
+                    </h2>
+                        <h3 class="text-center">
+                        考虑你的受众人群，为支持者提供多变的选择。
+                    </h3>
+                    </div>
 
-                    <div class="form-group">
-                        <label for="projectInfoInput">详细说明</label>
-                        <textarea class="form-control" name="description" id="projectInfoInput" rows="3"></textarea>
+                    <!-- 回报设置 -->
+
+
+                    <div class="project-inputs">
+
+
+
+
+                        <div class="form-group">
+                            <label for="projectInfoInput">详细说明</label>
+                            <textarea class="form-control" name="description" id="projectInfoInput" rows="3"></textarea>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="video">视频介绍</label>
+                            <input type="url" class="form-control" name="video" id="video" placeholder="推荐30天或更短">
+                        </div>
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="video">视频介绍</label>
-                        <input type="url" class="form-control" name="video" id="video" placeholder="推荐30天或更短">
+                    <div class="panel panel-default tips-and-preview">
+
+                        <div class="panel-heading">介绍</div>
+                        <div class="panel-body">
+
+                            <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
+                            <ul class="ul">
+                                <li>你可以设置允许投资者看部分课程，这部分课程可能是较早就能完成的</li>
+                                <li>允许投资者尽快尝鲜，可以在课程尚未上线前，提供Bata体验</li>
+                                <li>多样的教学方式，比如1对1在线讲解、实体书籍材料可能和在线视频的完成时间不一致</li>
+                            </ul>
+                            </p>
+                        </div>
                     </div>
+
                 </div>
 
 
-                <!-- about -->
-                <div id="tab-about" class="tab-pane fade">
-                    <div class="form-group">
-                        <label for="authorNameInput">发起人/组织</label>
-                        <input type="text" class="form-control" name="author_name" id="authorNameInput" placeholder="发起人/组织">
+            <!-- about -->
+            <div id="tab-about" class="tab-pane fade">
+                <!-- 文字提示 -->
+                    <div class="start-tips">
+                        <h2 class="text-center">
+                        支持项目有怎样的选项和回报？
+                    </h2>
+                        <h3 class="text-center">
+                        考虑你的受众人群，为支持者提供多变的选择。
+                    </h3>
                     </div>
-                    <div class="form-group">
-                        <label for="author_photo">发起人/组织照片</label>
-                        <input type="text" class="form-control" name="author_photo" id="author_photo" placeholder="发起人/组织">
-                    </div>
-                    <div class="form-group">
-                        <label for="author_link">发起人/组织链接</label>
-                        <input type="url" class="form-control" name="author_link" id="author_link" placeholder="发起人/组织">
-                    </div>
+                
+                 <div class="project-inputs">
+                
+                <div class="form-group">
+                    <label for="authorNameInput">发起人/组织</label>
+                    <input type="text" class="form-control" name="author_name" id="authorNameInput" placeholder="发起人/组织">
+                </div>
+                <div class="form-group">
+                    <label for="author_photo">发起人/组织照片</label>
+                    <input type="text" class="form-control" name="author_photo" id="author_photo" placeholder="发起人/组织">
+                </div>
+                <div class="form-group">
+                    <label for="author_link">发起人/组织链接</label>
+                    <input type="url" class="form-control" name="author_link" id="author_link" placeholder="发起人/组织">
+                </div>
 
-                    <div class="form-group">
-                        <label for="author_bio">发起人/组织背景</label>
-                        <input type="text" class="form-control" name="author_bio" id="author_bio" placeholder="发起人/组织">
-                    </div>
+                <div class="form-group">
+                    <label for="author_bio">发起人/组织背景</label>
+                    <input type="text" class="form-control" name="author_bio" id="author_bio" placeholder="发起人/组织">
+                </div>
 
-                    <div class="form-group">
-                        <label for="author_email">发起人/组织Email</label>
-                        <input type="email" class="form-control" name="author_email" id="author_email" placeholder="发起人/组织">
-                    </div>
-                    <div class="form-group">
-                        <label for="author_contact">发起人/组织电话</label>
-                        <input type="text" class="form-control" autocomplete="tel" name="author_contact" id="author_contact" placeholder="发起人/组织">
-                    </div>
-                    <div class="form-group">
-                        <label for="authorLocationInput">发起人地址</label>
-                        <input type="text" class="form-control" name="author_location" id="authorLocationInput" placeholder="发起人地址">
-                    </div>
+                <div class="form-group">
+                    <label for="author_email">发起人/组织Email</label>
+                    <input type="email" class="form-control" name="author_email" id="author_email" placeholder="发起人/组织">
+                </div>
+                <div class="form-group">
+                    <label for="author_contact">发起人/组织电话</label>
+                    <input type="text" class="form-control" autocomplete="tel" name="author_contact" id="author_contact" placeholder="发起人/组织">
+                </div>
+                <div class="form-group">
+                    <label for="authorLocationInput">发起人地址</label>
+                    <input type="text" class="form-control" name="author_location" id="authorLocationInput" placeholder="发起人地址">
+                </div>
+                
                 </div>
 
 
-                <!-- append -->
-                <div id="tab-append" class="tab-pane fade">
-                    <div class="form-group">
-                        <label for="email_append">Email附言</label>
-                        <input type="text" class="form-control" autocomplete="tel" name="email_append" id="email_append" placeholder="发起人/组织">
-                    </div>
+                    <div class="panel panel-default tips-and-preview">
 
-                    <div class="form-group">
-                        <label for="risk_challenges">风险和挑战</label>
-                        <input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">
-                    </div>
-                </div>
+                        <div class="panel-heading">介绍</div>
+                        <div class="panel-body">
 
+                            <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
+                            <ul class="ul">
+                                <li>你可以设置允许投资者看部分课程，这部分课程可能是较早就能完成的</li>
+                                <li>允许投资者尽快尝鲜，可以在课程尚未上线前，提供Bata体验</li>
+                                <li>多样的教学方式，比如1对1在线讲解、实体书籍材料可能和在线视频的完成时间不一致</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </div>
+                
+                
             </div>
 
 
-            <!-- end tabs -->
+            <!-- append -->
+            <div id="tab-append" class="tab-pane fade">
+                
+                <!-- 文字提示 -->
+                    <div class="start-tips">
+                        <h2 class="text-center">
+                        支持项目有怎样的选项和回报？
+                    </h2>
+                        <h3 class="text-center">
+                        考虑你的受众人群，为支持者提供多变的选择。
+                    </h3>
+                    </div>
+                
+                 <div class="project-inputs">
+                
+                <div class="form-group">
+                    <label for="email_append">Email附言</label>
+                    <input type="text" class="form-control" autocomplete="tel" name="email_append" id="email_append" placeholder="发起人/组织">
+                </div>
+
+                <div class="form-group">
+                    <label for="risk_challenges">风险和挑战</label>
+                    <input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">
+                </div>
+                
+                </div>
+
+
+                    <div class="panel panel-default tips-and-preview">
+
+                        <div class="panel-heading">介绍</div>
+                        <div class="panel-body">
+
+                            <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
+                            <ul class="ul">
+                                <li>你可以设置允许投资者看部分课程，这部分课程可能是较早就能完成的</li>
+                                <li>允许投资者尽快尝鲜，可以在课程尚未上线前，提供Bata体验</li>
+                                <li>多样的教学方式，比如1对1在线讲解、实体书籍材料可能和在线视频的完成时间不一致</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </div>
+                    
+            </div>
+
+    </div>
+
+
+    <!-- end tabs -->
 
 
 
@@ -399,7 +510,7 @@
 
 
 
-        </form>
+    </form>
     </div>
 
     <%- include footer %>
