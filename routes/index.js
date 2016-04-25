@@ -6,9 +6,9 @@ var User = require('../models/users.js');
 var Project_funding = require('../models/project_funding.js')
 module.exports = function (app) {
 
-	// for bootstrap learning
+
 	// app.get('/', function (req, res, next) {
-	// 	return res.render('test', {
+	// 	return res.render('ueditor', {
 	// 		title: '众客'
 	// 	});
 	// });
