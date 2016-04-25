@@ -14,15 +14,19 @@ var routes = require('./routes/index');
 var flash = require('connect-flash');
 var ueditor = require("ueditor");
 
+// var multer  = require('multer');
 
 
 var app = express();
+
 
 
 app.set('port',process.env.PORT || 3000);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
 app.use(flash());
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -40,6 +44,20 @@ app.use(session({
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
+
+// 在 multer 1.1.0 版本中废弃了这种写法。
+// app.use(multer({
+//   dest: './public/uploads',
+//   rename: function (fieldname, filename) {
+// 	// make a non dulpicate file name
+//     return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
+//   }
+// }));
+
+
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

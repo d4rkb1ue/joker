@@ -23,7 +23,7 @@
             
             // 初始化图片加载
             var upload_init = function() {
-                var fileInput = document.getElementById('image-file');
+                var fileInput = document.getElementById('feature_image');
                 var preview = document.getElementById('image-preview');
                 var $preview = $(preview);
                 
@@ -84,7 +84,11 @@
             // -------------------------
             // 删除 按钮 初始化
             var del_init = function(){
-                console.log('del_init');
+                
+                // $('#rwcount').text($('.reward-item').length);
+                // console.log('del_init');
+                
+                
                 // 第一个删除按钮设为不允许, 并且移除响应
                 // 太麻烦，不如直接在删除的时候计数
                 // var first_del_btn = $('.deleteItem').first();
@@ -162,7 +166,7 @@
     </script>
     <div id="start-main-container" class="container">
 
-        <form method="post">
+        <form method="post" id="start-form" enctype="multipart/form-data">
 
             <!-- tabs -->
 
@@ -203,7 +207,7 @@
                     <div class="project-inputs">
                         <div class="form-group">
                             <label for="projectNameInput">项目名称</label>
-                            <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="1-30字" required="true" maxlength="30"
+                            <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="1-30字" maxlength="30"
                                 minlength="1">
                         </div>
                         <div class="form-group">
@@ -212,18 +216,18 @@
                                 minlength="1"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="image-file">封面图片</label>
+                            <label for="feature_image">封面图片</label>
 
                             <div id="image-preview" style="width: 100%; height: 200px; background-size: contain; background-repeat: no-repeat; background-position: center center;"></div>
 
-                            <input type="file" id="image-file" name="feature_image">
+                            <input type="file" id="feature_image" name="feature_image">
 
                         </div>
 
 
                         <div class="form-group" id="category-group">
                             <label for="category">类别</label>
-                            <select multiple class="form-control" size="8" id="category-select">
+                            <select multiple class="form-control" name="category" size="8" id="category-select">
                                 
                                 <option value="lib">文学历史</option>
                                 <option value="sci">数学理工</option>
@@ -255,7 +259,7 @@
                     </div>
                     <div class="panel panel-default tips-and-preview">
 
-                        <div class="panel-heading">介绍</div>
+                        <div class="panel-heading">提示</div>
                         <div class="panel-body">
 
                             <p>How to price Price fairly, and offer a good value. What would you consider a fair exchange? Something
@@ -294,9 +298,11 @@
                         <div class="reward-item row" name="rwitem0">
                             <!-- 左侧标题 -->
                             <div class="countTitile col-lg-3 col-md-3">
-                                <h5>众筹选项#<span class="count">1</span></h5>
+                                <h5>众筹选项#<span id="rwcount" class="count"></span></h5>
+                                
                                 <button type="button" class="deleteItem btn btn-danger">删除</button>
                             </div>
+                            
                             <!-- 右侧详情 -->
                             <div class="reward-item-details col-lg-9 col-md-9">
 
@@ -308,28 +314,28 @@
                                         <td>
                                             <div class="input-group">
                                                 <span class="input-group-addon">¥</span>
-                                                <input type="number" class="form-control item-data" placeholder="金额">
+                                                <input type="number" class="form-control item-data" name="rwcount" placeholder="金额">
                                                 <span class="input-group-addon">元</span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>投资回报</td>
-                                        <td><textarea name="reward-details" class="form-control ta-noresize item-data" rows="3"
+                                        <td><textarea name="rwdetails" class="form-control ta-noresize item-data" rows="3"
                                                 placeholder="1-140字" maxlength="140" minlength="1"></textarea></td>
                                     </tr>
                                     <tr>
                                         <td>预期上线时间</td>
-                                        <td><input type="date" class="form-control item-data"></td>
+                                        <td><input type="date" name="rwdate" class="form-control item-data"></td>
                                     </tr>
                                     <tr>
                                         <td>限制人数</td>
                                         <td>
                                             <div class="input-group">
                                                 <span class="input-group-addon">
-                                                    勾选来限制 <input type="checkbox" class="item-data">
+                                                    勾选来限制 <input type="checkbox" name="rwlimited" class="item-data">
                                                 </span>
-                                                <input type="number" class="form-control item-data">
+                                                <input type="number" name="rwlimitnum" class="form-control item-data">
                                                 <span class="input-group-addon">人</span>
                                             </div>
                                         </td>
@@ -343,7 +349,7 @@
                         <!-- 添加选项 -->
                         <div class="reward-add-button row" id="reward-add-button">
 
-                            <h3>+ 添加一条回报选项</h3>
+                            <h3>+ 添加一条选项</h3>
 
                         </div>
 
@@ -353,7 +359,7 @@
 
                     <div class="panel panel-default tips-and-preview">
 
-                        <div class="panel-heading">介绍</div>
+                        <div class="panel-heading">提示</div>
                         <div class="panel-body">
 
                             <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
@@ -370,39 +376,39 @@
                 <!-- end reward -->
 
 
-                <!-- story -->
+                <!-- story 故事 -->
                 <div id="tab-story" class="tab-pane fade">
                     <!-- 文字提示 -->
                     <div class="start-tips">
                         <h2 class="text-center">
-                        支持项目有怎样的选项和回报？
+                        课程的具体内容是什么？
                     </h2>
                         <h3 class="text-center">
-                        考虑你的受众人群，为支持者提供多变的选择。
+                        可以填写教学目标、内容安排的详情情况、课程大纲、授课计划等具体细节。<br/>
+                        请尽量详尽的介绍，丰富具体的解释更富有吸引力，有助于更快达成您的筹资目标
                     </h3>
                     </div>
 
-                    <!-- 回报设置 -->
 
 
                     <div class="project-inputs">
                         <div class="form-group">
                             <label for="projectInfoInput">详细说明</label>
-                            <script id="container" type="text/plain" name="description" style="height:400px">项目缘由、详情、内容...</script>
+                            <script id="container" type="text/plain" name="description" style="height:400px">项目的目标，课程内容安排的详情情况，课程大纲，授课计划...</script>
                             <!--<textarea class="form-control" name="description" id="projectInfoInput" rows="3"></textarea>-->
                         </div>
 
 
                         <div class="form-group">
                             <label for="video">视频介绍地址</label>
-                            <input type="url" class="form-control" name="video" id="video" placeholder="请输入优酷, 土豆, bilibili等视频网站地址">
+                            <input type="url" class="form-control" name="videourl" id="video" placeholder="请输入优酷, 土豆, bilibili等视频网站地址">
                         </div>
                     </div>
 
 
                     <div class="panel panel-default tips-and-preview">
 
-                        <div class="panel-heading">介绍</div>
+                        <div class="panel-heading">提示</div>
                         <div class="panel-body">
 
                             <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
@@ -423,10 +429,10 @@
                     <!-- 文字提示 -->
                     <div class="start-tips">
                         <h2 class="text-center">
-                        支持项目有怎样的选项和回报？
+                        来介绍下自己吧！
                     </h2>
                         <h3 class="text-center">
-                        考虑你的受众人群，为支持者提供多变的选择。
+                        仔细介绍自己的知识背景，可以让人更加信服
                     </h3>
                     </div>
 
@@ -444,7 +450,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="author_bio">介绍</label>
+                            <label for="author_bio">提示</label>
                             <textarea class="form-control ta-noresize" name="author_bio" id="author_bio" rows="3" placeholder="发起人的介绍，微博，公众号等等详情，1-140字" maxlength="140"
                                 minlength="1"></textarea>
                             <!--<input type="text" class="form-control" name="author_bio" id="author_bio" placeholder="发起人的介绍，微博，公众号等等详情">-->
@@ -468,7 +474,7 @@
 
                     <div class="panel panel-default tips-and-preview">
 
-                        <div class="panel-heading">介绍</div>
+                        <div class="panel-heading">提示</div>
                         <div class="panel-body">
 
                             <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
@@ -491,10 +497,10 @@
                     <!-- 文字提示 -->
                     <div class="start-tips">
                         <h2 class="text-center">
-                        支持项目有怎样的选项和回报？
+                        还有要确认和备注的内容吗？
                     </h2>
                         <h3 class="text-center">
-                        考虑你的受众人群，为支持者提供多变的选择。
+                        为支持者附上用于提示、感谢的留言，给平台审核者提供必要的备注信息
                     </h3>
                     </div>
 
@@ -508,7 +514,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="risk_challenges">风险和挑战</label>
+                            <label for="risk_challenges">风险、挑战以及备注</label>
                             <textarea class="form-control ta-noresize" name="risk_challenges" id="risk_challenges" rows="3" placeholder="如果项目有特殊的达成条件，请在此备注" maxlength="140"
                                 minlength="1"></textarea>
                             <!--<input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">-->
@@ -519,7 +525,7 @@
 
                     <div class="panel panel-default tips-and-preview">
 
-                        <div class="panel-heading">介绍</div>
+                        <div class="panel-heading">提示</div>
                         <div class="panel-body">
 
                             <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
