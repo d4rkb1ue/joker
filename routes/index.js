@@ -16,10 +16,10 @@ var storage = multer.diskStorage({
 
     // cb(null, file.fieldname + '-' + Date.now())
 	// g for global: all change
-	// 另外，multer 自动更改空格！不动手动！
-	// var nonSpace = file.originalname.replace(/\W+/g, '-');
+	// ~~另外，multer 自动更改空格！不动手动！~~
+	var nonSpace = file.originalname.replace(/\s+/g, '-');
 	
-    cb(null, Date.now() +'-'+ file.originalname);
+    cb(null, Date.now() +'-'+ nonSpace);
 
   }
 });
@@ -143,16 +143,20 @@ module.exports = function (app) {
 	});
 
 	app.post('/start', checkLogin);
+	
     app.post('/start', upload.any(), function (req, res) {
 		// -----------just print
 		
 		console.log(req.body);
 		console.log(req.files);
 		
-		res.redirect('/start');
+		
+		
 		
 		// -----------
-        // var currentUser = req.session.user;
+        var currentUser = req.session.user;
+        // var project_funding = new Project_funding(req.body);
+		
         // var project_funding = new Project_funding(
         //     req.body.title,
         //     req.body.description,
@@ -182,6 +186,9 @@ module.exports = function (app) {
         //     res.redirect('/project-funding-preview');
 
         // })
+		
+		
+		res.redirect('/start');
     })
 
     app.get('/project-funding/:_id', function (req, res) {

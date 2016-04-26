@@ -166,46 +166,42 @@
     </script>
     <!-- 定义提交时候响应的function -->
     <script>
-        var ajaxCommit = function(){
+        // var ajaxCommit = function(){
             
-            var allItems = [];
+        //     var allItems = [];
 
-                // HERE!
-                // HERE!
-                // HERE!
-                // HERE!
-                // HERE!
-                // HERE!
-
-
-            // to json string 已经完成，接下来就是ajax传表单，然后服务端解析了！
-            // https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Forms/Sending_forms_through_JavaScript#.E5.8F.91.E9.80.81.E4.BA.8C.E8.BF.9B.E5.88.B6.E6.95.B0.E6.8D.AE
+        //     // to json string 已经完成，接下来就是ajax传表单，然后服务端解析了！
+        //     // https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Forms/Sending_forms_through_JavaScript#.E5.8F.91.E9.80.81.E4.BA.8C.E8.BF.9B.E5.88.B6.E6.95.B0.E6.8D.AE
             
-            $('.reward-item-details').each(function(){
-                var oneItem = {}; // will be convert into json 
-
-                // console.log($(this).find('[name=rwcount]').val().trim());
-                // console.log($(this).find('[name=rwdetails]').val().trim());
-                // console.log($(this).find('[name=rwdate]').val().trim());
-                // console.log($(this).find('[name=rwlimited]').val().trim());
+        //     var xhr = new XMLHttpRequest();
+        //     var FD = new 
+            
+        //     $('.reward-item-details').each(function(){
                 
-                oneItem.rwcount= $(this).find('[name=rwcount]').val().trim();
-                oneItem.rwdetails = $(this).find('[name=rwdetails]').val().trim();
-                oneItem.rwdate = $(this).find('[name=rwdate]').val().trim();
+        //         var oneItem = {}; // will be convert into json 
+
+        //         // console.log($(this).find('[name=rwcount]').val().trim());
+        //         // console.log($(this).find('[name=rwdetails]').val().trim());
+        //         // console.log($(this).find('[name=rwdate]').val().trim());
+        //         // console.log($(this).find('[name=rwlimited]').val().trim());
                 
-                if($(this).find('[name=rwlimited]').prop('checked') === true){
-                    oneItem.rwlimited = 0; // for unlimited
-                }else{
-                    oneItem.rwlimited = $(this).find('[name=rwlimitnum]').val().trim();    
-                }
+        //         oneItem.rwcount= $(this).find('[name=rwcount]').val().trim();
+        //         oneItem.rwdetails = $(this).find('[name=rwdetails]').val().trim();
+        //         oneItem.rwdate = $(this).find('[name=rwdate]').val().trim();
                 
-                allItems.push(JSON.stringify(oneItem));
-                // all you need is JSON.parse()
+        //         if($(this).find('[name=rwlimited]').prop('checked') === true){
+        //             oneItem.rwlimited = 0; // for unlimited
+        //         }else{
+        //             oneItem.rwlimited = $(this).find('[name=rwlimitnum]').val().trim();    
+        //         }
+                
+        //         allItems.push(JSON.stringify(oneItem));
+        //         // all you need is JSON.parse()
             
-            });
+        //     });
             
-        });
-        }
+        // });
+        // }
     </script>
     <div id="start-main-container" class="container">
 
@@ -222,7 +218,8 @@
 
                 <div class="button-group" style="float:right">
                     <button type="button" class="btn btn-success" style="width:80px">预览</button>
-                    <button type="submit" class="btn btn-primary" style="margin-left:20px;width:120px">提交审核</button>
+                    <!--<button type="submit" class="btn btn-primary" style="margin-left:20px;width:120px">提交审核</button>-->
+                    <button onclick="ajaxCommit()" type="button" class="btn btn-primary" style="margin-left:20px;width:120px">提交审核</button>
                 </div>
 
 
@@ -481,7 +478,7 @@
                     <div class="project-inputs">
 
                         <div class="form-group">
-                            <label for="authorNameInput">名称</label>
+                            <label for="authorNameInput">名称 (推荐使用真名)</label>
                             <input type="text" class="form-control" name="author_name" id="authorNameInput" placeholder="发起人的名称">
                         </div>
                         <div class="form-group">
@@ -556,8 +553,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="risk_challenges">风险、挑战以及备注</label>
-                            <textarea class="form-control ta-noresize" name="risk_challenges" id="risk_challenges" rows="3" placeholder="如果项目有特殊的达成条件，请在此备注"
+                            <label for="risk_challenges">风险、挑战、身份认证以及备注</label>
+                            <textarea class="form-control ta-noresize" name="risk_challenges" id="risk_challenges" rows="3" placeholder=""
                                 maxlength="140" minlength="1"></textarea>
                             <!--<input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">-->
                         </div>
@@ -570,10 +567,11 @@
                         <div class="panel-heading">提示</div>
                         <div class="panel-body">
 
-                            <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
+                            <b>备注可以填写什么？</b> <br/>
+                            风险、挑战、身份认证以及备注等一切您认为有助于平台了解您和您的项目的周边信息。
                             <ul class="ul">
-                                <li>你可以设置允许投资者看部分课程，这部分课程可能是较早就能完成的</li>
-                                <li>允许投资者尽快尝鲜，可以在课程尚未上线前，提供Bata体验</li>
+                                <li>您可以注明您在知乎、豆瓣、果壳、其他知名论坛/小组、微博、微信公众号、独立博客等的身份，我们认证之后将会为您加V标注！</li>
+                                <li>如果项目有特殊的达成条件，或者回报方式，您认为需要着重点明的，请在此备注</li>
                                 <li>多样的教学方式，比如1对1在线讲解、实体书籍材料可能和在线视频的完成时间不一致</li>
                             </ul>
                             </p>
