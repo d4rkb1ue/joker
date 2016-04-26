@@ -5,48 +5,39 @@ var url = require('../settings').mongodbUrl;
 var async = require('async');
 
 
-function Project_funding(datas, title, description, author_id, feature_image, short_blurb,
-    project_category, funding_goal, funding_duration, reward, video,
-    risk_challenges, author_name, author_photo, author_link,
-    author_bio, author_location, author_contact, author_email,
-    email_append) {
-
-        // 是否有完整的req.body
-    if (datas) {
-        console.log(datas+datas.title);
-
-    } else {
-        this.title = title;
-        this.description = description;
-        this.author_id = author_id;
-
-        this.feature_image = feature_image; //url
-        this.short_blurb = short_blurb;
-        this.category = project_category;
-        this.funding_goal = funding_goal;
-        this.funding_duration = funding_duration;
-        this.reward = reward; //should be [{amount: ,title: ,info: , limit: ,},..]
-        this.video = video; //url
-        this.risk_challenges = risk_challenges;
-
-        this.author_name = author_name;
-        this.author_photo = author_photo;
-        this.author_link = author_link; //should be [], include weibo, wechat, etc. can be parsed by url into icons
-        this.author_bio = author_bio; //infomations
-        this.author_location = author_location;
-
-        this.author_contact = author_contact;
-
-        //can be default set to author.user.email
-        this.author_email = author_email;
-
-        //when user make a order, this will be send to customer with the confirm email.
-        this.email_append = email_append;
+function Project_funding(title, short_blurb, category, funding_goal
+    , funding_duration, videourl, author_name
+    , author_bio, author_email, author_contact
+    , author_location, email_append, risk_challenges
+    , description, rewards
+    , author_id, feature_image_filename, author_photo_filename) {
 
 
 
-    }
+    this.title = title;
+    this.short_blurb = short_blurb;
+    this.category = category;
+    this.funding_goal = funding_goal;
+    this.funding_duration = funding_duration;
 
+    this.video = videourl;
+
+    this.author_name = author_name;
+    this.author_bio = author_bio;
+    this.author_email = author_email;
+    this.author_contact = author_contact;
+    this.author_location = author_location;
+    this.email_append = email_append;
+    this.risk_challenges = risk_challenges; // 备注
+    this.description = description;
+    this.rewards = rewards;
+
+    this.author_id = author_id;
+
+    this.feature_image = feature_image_filename;
+    this.author_photo = author_photo_filename;
+
+    // this.author_link = author_link; //should be [], include weibo, wechat, etc. can be parsed by url into icons
 
 
 
@@ -79,18 +70,20 @@ Project_funding.prototype.save = function (maincb) {
         description: this.description,
         author_id: this.author_id, //the _id of user
 
-        feature_image: this.feature_image, //url
+        feature_image: this.feature_image,
         short_blurb: this.short_blurb,
         categroy: this.category,
         funding_goal: this.funding_goal,
         funding_duration: this.funding_duration,
-        reward: this.reward, //should be [{amount: ,title: ,info: , limit: ,},..]
+        rewards: this.rewards, //should be [{amount: ,title: ,info: , limit: ,},..]
         video: this.video, //url
         risk_challenges: this.risk_challenges,
 
         author_name: this.author_name,
         author_photo: this.author_photo,
-        author_link: this.author_link, //should be [], include weibo, wechat, etc. can be parsed by url into icons
+
+        // author_link: this.author_link, //should be [], include weibo, wechat, etc. can be parsed by url into icons
+
         author_bio: this.author_bio,//infomations
         author_location: this.author_location,
 

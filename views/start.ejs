@@ -204,7 +204,14 @@
         // }
     </script>
     <div id="start-main-container" class="container">
-
+        <div id="commit-alert">
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>欢迎您开始一项伟大的项目！</strong> 您可以依次填写每个选项卡中的内容，一旁的小提示希望能给您带来帮助 : )<br/>
+            您遇到任何问题或者想提出建议都可以点击界面最下方的“帮助”和我们取得联系。
+        </div>
+        </div>
+        
         <form method="post" id="start-form" enctype="multipart/form-data">
 
             <!-- tabs -->
@@ -554,8 +561,8 @@
 
                         <div class="form-group">
                             <label for="risk_challenges">风险、挑战、身份认证以及备注</label>
-                            <textarea class="form-control ta-noresize" name="risk_challenges" id="risk_challenges" rows="3" placeholder=""
-                                maxlength="140" minlength="1"></textarea>
+                            <textarea class="form-control ta-noresize" name="risk_challenges" id="risk_challenges" rows="3" placeholder="" maxlength="140"
+                                minlength="1"></textarea>
                             <!--<input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">-->
                         </div>
 
@@ -567,8 +574,7 @@
                         <div class="panel-heading">提示</div>
                         <div class="panel-body">
 
-                            <b>备注可以填写什么？</b> <br/>
-                            风险、挑战、身份认证以及备注等一切您认为有助于平台了解您和您的项目的周边信息。
+                            <b>备注可以填写什么？</b> <br/> 风险、挑战、身份认证以及备注等一切您认为有助于平台了解您和您的项目的周边信息。
                             <ul class="ul">
                                 <li>您可以注明您在知乎、豆瓣、果壳、其他知名论坛/小组、微博、微信公众号、独立博客等的身份，我们认证之后将会为您加V标注！</li>
                                 <li>如果项目有特殊的达成条件，或者回报方式，您认为需要着重点明的，请在此备注</li>
