@@ -3,7 +3,7 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = require('../settings').mongodbUrl;
 var async = require('async');
-
+var rightpad = require('pad-right');
 
 function Project_funding(title, short_blurb, category, funding_goal
     , funding_duration, videourl, author_name
@@ -72,7 +72,7 @@ Project_funding.prototype.save = function (maincb) {
 
         feature_image: this.feature_image,
         short_blurb: this.short_blurb,
-        categroy: this.category,
+        category: this.category,
         funding_goal: this.funding_goal,
         funding_duration: this.funding_duration,
         rewards: this.rewards, //should be [{amount: ,title: ,info: , limit: ,},..]
@@ -191,7 +191,14 @@ Project_funding.get = function (findPara, sortPara, maincb) {
 
 }
 
+Project_funding.pretty = function (docs) {
+    // docs.forEach(function(project, index) {
 
+    //     project.short_blurb = rightpad(project.short_blurb,144,"&nbsp;");
+    //     project.category
+    // });
+    
+}
 /**
  * get only {title, author_name, short_blurb, feature_image, category,
  *          funding_goal, funding_duration, backers_count, current_amount,
@@ -199,6 +206,8 @@ Project_funding.get = function (findPara, sortPara, maincb) {
  *          also calculate:
  *          days_to_go, funded_percent}
  *
+ * 
+ * 
  * @param findPara find({?})
  * @param [sortPara] find.sort({?}) //default: {"create_at": -1}
  * @param maincb(err,docs)
@@ -285,6 +294,9 @@ Project_funding.getSpecificInfo = function (findPara, sortPara, fields, maincb) 
  */
 Project_funding.getByID = function (_id, maincb) {
     console.dir("id = " + _id);
+    if (_id.length !== 24) { //ObjectId("571f6d09621ff43d546d6752")
+        return maincb('no an id')
+    }
     async.waterfall([
         function (cb) {
             MongoClient.connect(url, function (err, db) {
@@ -313,7 +325,7 @@ Project_funding.getByID = function (_id, maincb) {
  *  millsecs_to_go, funded_percent, print_to_go
  */
 Project_funding.calculate = function (doc) {
-    doc.funded_percent = doc.current_amount / doc.funding_goal * 100;
+    doc.funded_percent = (doc.current_amount / doc.funding_goal * 100).toFixed(1);
     var now = new Date();
     var millsec = doc.funding_duration * 24 * 60 * 60 * 1000 - now.getTime() + doc.start_at.getTime();
     var hours = millsec / 1000 / 60 / 60;

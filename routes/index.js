@@ -41,6 +41,7 @@ module.exports = function (app) {
                 return res.redirect("/");
             }
             // console.dir(docs);
+			Project_funding.pretty(docs);
             return res.render('index', {
                 title: '众客',
                 user: req.session.user,
@@ -215,7 +216,7 @@ module.exports = function (app) {
                 req.flash('error', err);
                 return res.redirect('/');
             }
-            console.dir(doc);
+
             return res.render('project-funding', {
 				title: doc.title,
 				user: req.session.user,

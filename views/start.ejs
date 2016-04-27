@@ -12,6 +12,11 @@
         //$(previewPic());
         $(function(){
             
+            //对跳转或关闭网页进行拦截
+            window.onbeforeunload = function(e){ 
+                var e = e || window.event;
+                e.returnValue = "确认要离开吗？已填写的信息不会保留。";
+            }
             
             // 按照桌面大小修改最小大小，以防footer紧跟from
             // 120 = header 50 + tab 50 + margin 20
@@ -206,12 +211,11 @@
     <div id="start-main-container" class="container">
         <div id="commit-alert">
             <div class="alert alert-success alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>欢迎您开始一项伟大的项目！</strong> 您可以依次填写每个选项卡中的内容，一旁的小提示希望能给您带来帮助 : )<br/>
-            您遇到任何问题或者想提出建议都可以点击界面最下方的“帮助”和我们取得联系。
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>欢迎您开始一项伟大的项目！</strong> 您可以依次填写每个选项卡中的内容，一旁的小提示希望能给您带来帮助 : )<br/> 您遇到任何问题或者想提出建议都可以点击界面最下方的“帮助”和我们取得联系。
+            </div>
         </div>
-        </div>
-        
+
         <form method="post" id="start-form" enctype="multipart/form-data">
 
             <!-- tabs -->
