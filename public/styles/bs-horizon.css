@@ -9,6 +9,7 @@
   white-space: normal;
   vertical-align: top;
 }
+
 .row-horizon > .col-xs-12 {
   width: 90%;
 }
@@ -46,6 +47,11 @@
   width: 7.5%;
 }
 @media (min-width: 768px) {
+  .row-horizon {
+    /*Initial value*/
+    overflow: visible;
+    white-space: normal;
+  }
   .row-horizon > .col-sm-12 {
     width: 90%;
   }
@@ -84,7 +90,12 @@
   }
 }
 @media (min-width: 992px) {
-  .row-horizon > .col-md-12 {
+  .row-horizon {
+    /*Initial value*/
+    overflow: visible;
+    white-space: normal;
+  }
+  /*.row-horizon > .col-md-12 {
     width: 90%;
   }
   .row-horizon > .col-md-11 {
@@ -119,10 +130,24 @@
   }
   .row-horizon > .col-md-1 {
     width: 7.5%;
-  }
+  }*/
 }
 @media (min-width: 1200px) {
-  .row-horizon > .col-lg-12 {
+  .row-horizon {
+    /*Initial value*/
+    overflow: visible;
+    white-space: normal;
+  }
+  
+  /*.row-horizon > [class*="col-lg"], .row-horizon > [class*="col-md"], .row-horizon > [class*="col-sm"], .row-horizon > [class*="col-xs"] {
+    float: none;
+    display: inline-block;
+    white-space: normal;
+    vertical-align: top;
+  }*/
+  
+  
+  /*.row-horizon > .col-lg-12 {
     width: 90%;
   }
   .row-horizon > .col-lg-11 {
@@ -157,5 +182,5 @@
   }
   .row-horizon > .col-lg-1 {
     width: 7.5%;
-  }
+  }*/
 }
