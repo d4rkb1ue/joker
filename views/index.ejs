@@ -47,8 +47,8 @@
 
             </a>
         </div>
-        
-        
+
+
 
 
 
@@ -67,7 +67,7 @@
                                 <img src="/uploads/<%= project.feature_image %>">
                             </a>
                             <div class="caption">
-                                <h4><a href="/project-funding/<%= project._id %>"><%= project.title %></a>
+                                <h4 style="height:2em"><a href="/project-funding/<%= project._id %>"><%= project.title %></a><br/>
                                 <small class="project-author">By
                                     <%= project.author_name %></small>
                                 </h4>
@@ -79,37 +79,33 @@
                                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0"
                                             aria-valuemax="100" style="width: <%= project.funded_percent %>%">
                                         </div>
-                                    <% }else{ %>
-                                        <div class="progress-bar progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0"
-                                            aria-valuemax="100" style="width: <%= project.funded_percent %>%">
-                                        </div>
-                                    <% } %>
+                                        <% }else{ %>
+                                            <div class="progress-bar progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                                style="width: <%= project.funded_percent %>%">
+                                            </div>
+                                            <% } %>
                                 </div>
-                                <div class="project-stats" style="overflow:hidden">
-                                    <div style="float:left;">
-                                        <h4><%= project.funded_percent %><small>%</small></h4>
+                                <div class="project-stats" style="overflow:hidden; height:3.5em">
+                                <!--<div class="project-stats" style="">-->
+                                    <div style="float:left; margin:0px">
+                                        <h4><%= project.funded_percent %><small>%<br/>已达</small></h4>
+                                    </div>
+                                    <div style="float:left; padding-left: 10px; margin:0px">
+                                        <h4><%= project.print_to_go %><small><br/>剩余</small></h4>
                                     </div>
                                     
-                                    <div style="float:right;  padding-left: 15px;">
-                                        <h4><%= project.current_amount %><small>元</small></h4>
+                                    <div style="float:right;  padding-left: 10px; margin:0px">
+                                        <h4><%= project.current_amount %>元<small><br/>已筹集</small></h4>
                                     </div>
                                     
-                                    <div style="float:right;">
-                                        <h4><%= project.backers_count %><small>人已募集</small></h4>
+                                    <div style="float:right; margin:0px">
+                                        <h4><%= project.backers_count %>人<small><br/>已支持</small></h4>
                                     </div>
                                     
-                                    <!--<p>
-                                        
-
-                                         
-
-                             
-                                        元 </h5>
-
-
-                                        离众筹结束还有<%= project.print_to_go %>
-                                    </p>-->
+                                    
+                                    
                                 </div>
+
                             </div>
                         </div>
                     </div>

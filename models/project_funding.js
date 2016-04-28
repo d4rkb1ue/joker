@@ -183,6 +183,10 @@ Project_funding.get = function (findPara, sortPara, maincb) {
             cursor.toArray(function (err, docs) {
                 cb(err, db, docs);
             });
+        },
+        function (db, docs, cb) {
+            docs.forEach(Project_funding.calculate);
+            cb(null, db, docs);
         }
     ], function (err, db, docs) {
         db.close();
@@ -312,6 +316,10 @@ Project_funding.getByID = function (_id, maincb) {
         },
         function (db, doc, cb) {
             //Project_funding.calculate(doc);
+            cb(null, db, doc);
+        },
+        function (db, doc, cb) {
+            Project_funding.calculate(doc);
             cb(null, db, doc);
         }
     ], function (err, db, doc) {

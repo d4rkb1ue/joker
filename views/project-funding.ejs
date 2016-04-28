@@ -1,6 +1,6 @@
 <%- include header %>
 
-<div class="project-header">
+    <!--<div class="project-header">
     <p><h2><%= project.title %></h2></p>
     <p><h4><%= project.author_name%></h4></p>
     <img src=" <%= project.feature_image %>">
@@ -31,7 +31,166 @@
     <p><%=project.description%></p>
 </div>
 
-<a href="/back-project/<%= project._id %>">支持!</a>
+<a href="/back-project/<%= project._id %>">支持!</a>-->
 
 
-<%- include footer %>
+    <div class="container-fluid" style="background-color:#f7fafa">
+
+
+        <div class="meta-content container">
+            <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="page-header text-center">
+                        <h2><%= project.title %> <small><br/>by <%= project.author_name %></small></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                    <img src="/uploads/<%= project.feature_image %>" class="img-responsive">
+
+                </div>
+
+                <div id="right-info" class="col-lg-6 col-md-6 col-xs-12">
+                    <!--不可container 套container-->
+                    <!--<div class="container">-->
+                    <div id="funding-all-info" style="padding-left:15px; padding-right:15px;">
+                        <div class="progress">
+                            <% if(project.funded_percent > 75){ %>
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                                    aria-valuemax="100" style="width: <%= project.funded_percent %>%">
+                                </div>
+                                <% }else{ %>
+                                    <div class="progress-bar progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: <%= project.funded_percent %>%">
+                                    </div>
+                                    <% } %>
+                        </div>
+
+                        <div id="funding-info" class="project-stats">
+
+                            <div id="percent">
+                                <div class="pre-num" style="float:left ;padding-bottom=0px">
+                                    <span>
+                                        目前已达到目标
+                                    </span>
+                                </div>
+                                <div class="after-num" style="float:right">
+                                    <span>%</span>
+                                </div>
+                                <div class="number" style="float:right">
+                                    <span>
+                                        <%= project.funded_percent %>
+                                    </span>
+                                </div>
+                                <!--clear 元素用于保持3个浮动元素在上层div里 style:"clear: both;"-->
+                                <div class="clear"></div>
+                            </div>
+                            <div id="backers">
+                                <div class="pre-num" style="float:left ;padding-bottom=0px">
+                                    <span>
+                                        参与人数
+                                    </span>
+                                </div>
+                                <div class="after-num" style="float:right">
+                                    <span>人</span>
+                                </div>
+                                <div class="number" style="float:right">
+                                    <span>
+                                        <%= project.backers_count %>
+                                    </span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div id="current-amount">
+                                <div class="pre-num" style="float:left ;padding-bottom=0px">
+                                    <span>
+                                        已筹得金额
+                                    </span>
+                                </div>
+                                <div class="after-num" style="float:right">
+                                    <span>元</span>
+                                </div>
+                                <div class="number" style="float:right">
+                                    <span>
+                                        <%= project.current_amount %>
+                                    </span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div id="print_to_go">
+                                <div class="pre-num" style="float:left ;padding-bottom=0px">
+                                    <span>
+                                        筹款期还有
+                                    </span>
+                                </div>
+
+
+                                <% if(project.millsecs_to_go / 1000 / 60 / 60 > 24){ %>
+
+                                    <div class="after-num" style="float:right">
+                                        <span>天</span>
+                                    </div>
+                                    <div class="number" style="float:right">
+                                        <span>
+                                                <%= Math.floor(project.millsecs_to_go / 1000 / 60 / 60 / 24) %>
+                                            </span>
+                                    </div>
+                                    <% } else {%>
+                                        <div class="after-num" style="float:right">
+                                            <span>小时</span>
+                                        </div>
+                                        <div class="number" style="float:right">
+                                            <span>
+                                                <%= Math.floor(project.millsecs_to_go / 1000 / 60 / 60) %>
+                                            </span>
+                                        </div>
+
+                                        <% } %>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+
+                    <div id="back-buttons">
+                        <button type="button" class="btn btn-success btn-lg" style="width:60%; margin-right:10px">支持 !</button>
+                        <button type="button" class="btn btn-info btn-lg" style="width:30%; margin-right:10px"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="about-author">
+                        <div class="clear" style="padding-left:10px"><span style="color:#999">关于发起者</span></div>
+
+                        <div id="a-author-name" style="padding-top:30px; padding-right:20px;padding-left:20px"><b><%= project.author_name %></b> <br/>
+                            <%= project.author_email %>
+                        </div>
+                        <img src="/uploads/<%=project.author_photo%>" class="img-responsive">
+
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+                <!-- end right info -->
+
+
+
+            </div>
+        </div>
+        <!-- end meta-content -->
+
+    </div>
+    <!-- end  container-fluid-->
+    <div id="short_blurb">
+        <span><%= project.short_blurb %></span>
+    </div>
+    </div>
+
+
+
+    </div>
+
+
+    <%- include footer %>
