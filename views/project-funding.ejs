@@ -34,7 +34,7 @@
 <a href="/back-project/<%= project._id %>">支持!</a>-->
 
 
-    <div class="container-fluid" style="background-color:#f7fafa">
+    <div class="container-fluid" style="background-color:#f7fafa; border-bottom: 1px solid #ddd;">
 
 
         <div class="meta-content container">
@@ -156,8 +156,8 @@
                     </div>
 
                     <div id="back-buttons">
-                        <button type="button" class="btn btn-success btn-lg" style="width:60%; margin-right:10px">支持 !</button>
-                        <button type="button" class="btn btn-info btn-lg" style="width:30%; margin-right:10px"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
+                        <button type="button" class="btn btn-success btn-lg" style="width:55%; margin-right:10px">支持 !</button>
+                        <button type="button" class="btn btn-info btn-lg" style="width:35%; margin-right:10px"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
                         <div class="clear"></div>
                     </div>
 
@@ -178,19 +178,96 @@
 
 
             </div>
+            <div id="short_blurb">
+                <span><%= project.short_blurb %></span>
+            </div>
         </div>
         <!-- end meta-content -->
 
     </div>
     <!-- end  container-fluid-->
-    <div id="short_blurb">
-        <span><%= project.short_blurb %></span>
-    </div>
-    </div>
 
 
 
+    <div class="detail-content container" id="detail-content">
+        <ul class="nav nav-pills">
+            <li class="active text-center"><a data-toggle="tab" href="#tab-main-content">介绍</a></li>
+            <li><a data-toggle="tab" class="text-center" href="#tab-update">更新<span class="badge">4</span></a></li>
+            <li><a data-toggle="tab" class="text-center" href="#tab-comment">评论<span class="badge">24</span></a></li>
+            <!-- can not be seen at lg-->
+            <li><a data-toggle="tab" class="text-center btn-success hidden-lg" id="btn-inline-reward" href="#tab-test">支持</a></li>
+
+        </ul>
+
+        <!-- tab contents -->
+        <div class="row" style="padding:10px">
+            <!--original tab-content has 30px margin-top-->
+            <div class="tab-content col-xs-12 col-lg-8" style="margin-top: 10px;">
+
+                <!-- main-content -->
+                <div id="tab-main-content" class="tab-pane fade in active">
+                    <%- project.description %>
+                </div>
+                <!-- main-content -->
+                <div id="tab-update" class="tab-pane fade in ">
+                </div>
+                <!-- main-content -->
+                <div id="tab-comment" class="tab-pane fade in ">
+                </div>
+                <!-- main-content -->
+                <div id="tab-test" class="tab-pane fade in ">
+                    
+                   
+                    
+                </div>
+            </div>
+            
+            <div class="rewards col-lg-4 hidden-xs hidden-sm">
+                <!--<% JSON.parse project.rewards-->
+                <div class="reward">
+                    <!--
+                        
+                        
+                        
+                        
+                        
+                        hear!!!!!!!!!!!!
+                        degisn reward option 
+                        
+                        how to store 14backers/30limits?
+                         
+                    -->
+                </div>
+            </div>
+        </div>
+
+
     </div>
+
+
+    <script>
+        $(function(){
+            
+            
+            var min_height_set = function(){
+                $('#detail-content').css('min-height',$(window).height()/3);
+            };
+            min_height_set();
+            
+            var set_reward_button_width = function(){
+                var rewardButton = $('#btn-inline-reward');
+                var rewardButtonOffset = rewardButton.offset().left;
+                var tabLineWidth = $('.detail-content').css('width').substring(0,$('.detail-content').css('width').length - 2);
+                var rewardButtonNewWid = tabLineWidth - rewardButtonOffset;
+                rewardButton.css('width',rewardButtonNewWid-3);
+            }
+            set_reward_button_width();
+            
+        });
+    </script>
+
+
+
 
 
     <%- include footer %>

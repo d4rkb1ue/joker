@@ -142,6 +142,7 @@ body {
 	margin-bottom: 10px;
 	margin-left: 9px;
 	margin-right: 9px;
+	
 }
 
 #funding-info .pre-num, #funding-info .after-num {
@@ -166,19 +167,21 @@ body {
 }
 
 #right-info div.progress {
+	margin-top: 15px;
 	margin-bottom: 0px;
 }
 
 
 
 
-.meta-content.container {
+.meta-content.container, .detail-content.container{
 	padding-right: 0px;
     padding-left: 0px;
     margin-right: 0px;
     margin-left: 0px;
+	
 }
-.meta-content.container [class*="col-xs"] {
+.meta-content.container [class*="col-xs"], detail-content.container[class*="col-xs"] {
 	padding-right: 0px;
     padding-left: 0px;
     /*margin-right: 0px;
@@ -189,8 +192,10 @@ body {
 #about-author {
 	/*margin-top: 20px;*/
 	border-top: 1px solid #ddd;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+	/*margin-top: 10px;*/
+	padding-top: 5px;
+	margin-bottom: 10px;
 }
 
 #about-author img, #about-author div#a-author-name{
@@ -215,17 +220,53 @@ body {
 	
 }
 
+.detail-content {
+	margin-top: 15px;
+	
+}
+
+.detail-content .nav-pills{
+	padding-left: 3px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 15px; 
+}
   
+.reward {
+	display: block;
+	padding: 4px;
+	margin-bottom: 20px;
+	background-color: #f7fafa;
+	border: 1px solid #fff;
+	border-radius: 4px;
+	-webkit-transition: border .2s ease-in-out;
+		-o-transition: border .2s ease-in-out;
+			transition: border .2s ease-in-out;
+}
+  
+.reward:hover,
+.reward:focus,
+.reward.active {
+  border-color: #18bc9c;
+  background-color: rgba(24, 188, 156, 0.3);
+}
+  
+  
+  
+  
+ 
 /* diff mobile and destop*/
 
 @media (min-width: 768px) {
-	.meta-content.container {
+	.meta-content.container,  .detail-content.container{
 		padding-right: 15px;
 		padding-left: 15px;
 		margin-right: auto;
 		margin-left: auto;
 	}
-	.meta-content.container [class*="col-xs"] {
+	.detail-content .nav-pills li{
+		width: 20%;
+	}
+	.meta-content.container [class*="col-xs"], .detail-content.container [class*="col-xs"]{
 		padding-right: 15px;
     	padding-left: 15px;
 		/*margin-right: auto;
@@ -242,16 +283,29 @@ body {
 	}
 	
 	#right-info>div#funding-all-info{
-		padding-top:40px;
+		padding-top:20px;
 	}
 	#right-info div.progress {
+		
 		margin-bottom: 20px;
 	}
 	#funding-info>div {
 		/*display: inline-block;*/
 		float: right;
+		/*width: 50%;*/
+		padding-left: 0%;
+	}
+	#funding-info>div#percent, #funding-info>#current-amount {
+		/*display: inline-block;*/
+		float: right;
 		width: 50%;
-		padding-left: 10%;
+		padding-left: 0%;
+	}
+	#funding-info>div#backers, #funding-info>#print_to_go {
+		/*display: inline-block;*/
+		float: right;
+		width: 45%;
+		padding-right: 10%;
 	}
 	
 	#funding-info .pre-num, #funding-info .after-num {
@@ -262,6 +316,8 @@ body {
 		font-size: 3.25em;
 		font-weight: bolder;
 	}
+	
+	
 }
 
 .clear {

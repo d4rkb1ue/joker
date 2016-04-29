@@ -80,7 +80,7 @@ var ajaxCommit = function () {
         oneItem.rwdetails = $(this).find('[name=rwdetails]').val().trim();
         oneItem.rwdate = $(this).find('[name=rwdate]').val().trim();
 
-        if ($(this).find('[name=rwlimited]').prop('checked') === true) {
+        if ($(this).find('[name=rwlimited]').prop('checked') === false) {
             oneItem.rwlimited = 0; // for unlimited
         } else {
             oneItem.rwlimited = $(this).find('[name=rwlimitnum]').val().trim();
