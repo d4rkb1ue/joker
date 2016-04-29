@@ -95,7 +95,7 @@
     overflow: visible;
     white-space: normal;
   }
-  /*.row-horizon > .col-md-12 {
+  .row-horizon > .col-md-12 {
     width: 90%;
   }
   .row-horizon > .col-md-11 {
@@ -130,7 +130,7 @@
   }
   .row-horizon > .col-md-1 {
     width: 7.5%;
-  }*/
+  }
 }
 @media (min-width: 1200px) {
   .row-horizon {
@@ -147,7 +147,7 @@
   }*/
   
   
-  /*.row-horizon > .col-lg-12 {
+  .row-horizon > .col-lg-12 {
     width: 90%;
   }
   .row-horizon > .col-lg-11 {
@@ -182,5 +182,5 @@
   }
   .row-horizon > .col-lg-1 {
     width: 7.5%;
-  }*/
+  }
 }
