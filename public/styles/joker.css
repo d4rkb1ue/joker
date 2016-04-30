@@ -1,0 +1,325 @@
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+.form-signin .checkbox {
+	font-weight: normal;
+}
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+
+/* only way to comment */
+/* use Command+ / to toggle a line*/
+/* ----- my design ----- */
+body {
+	padding-top: 50px;
+	
+}
+
+#start-main-container{
+	margin-top:20px;
+}
+
+
+
+
+
+.tab-content {
+	margin-top: 30px;
+}
+
+.start-tips {
+	margin: 20px;
+}
+.project-inputs {
+	float:left;
+	width:70%;
+}
+
+
+.tips-and-preview {
+	float:left;
+	width:27%;
+	margin-left: 3%;
+	
+}
+
+.ta-noresize {
+	resize: none;
+}
+
+#category-select>option{
+    height: 2em;
+    padding: 0.5em;
+}
+
+
+
+.reward-item {
+	padding: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+.reward-item-details {
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    /*border-left: 1px solid #ddd;*/
+
+}
+
+.reward-item-details>table {
+	border: 1px solid #ddd
+}
+
+.countTitile>button{
+	margin-top: 180px;
+}
+
+.reward-add-button {
+	padding: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+	margin-bottom: 20px;
+	background-color: #fff;
+	text-align: center;
+	color: #ddd;
+	
+}
+/*joker.css 的引用在bs.css之下，因此可以覆盖原定义*/
+.carousel-caption {
+  position: absolute;
+  right: 15%;
+  top: 10%;
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+}
+
+.project-stats h4 {
+	margin-bottom: 0px;
+	margin-top:9px;
+}
+
+
+.meta-content #short_blurb{
+	font-size: medium;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 9px;
+	margin-right: 9px;
+	
+}
+
+#funding-info .pre-num, #funding-info .after-num {
+	padding-top: 1.25em;
+}
+
+/*#funding-info {
+	width: 80%;
+	position: relative;
+  	left: 20%;
+}*/
+
+
+#funding-info .pre-num>span, #funding-info .after-num>span {
+	/*font-size: small;*/
+	align-content: center;
+
+}
+
+#funding-info .number>span {
+	font-size: xx-large;
+}
+
+#right-info div.progress {
+	margin-top: 15px;
+	margin-bottom: 0px;
+}
+
+
+
+
+.meta-content.container, .detail-content.container{
+	padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+	
+}
+.meta-content.container [class*="col-xs"], detail-content.container[class*="col-xs"] {
+	padding-right: 0px;
+    padding-left: 0px;
+    /*margin-right: 0px;
+    margin-left: 0px;*/
+}
+
+
+#about-author {
+	/*margin-top: 20px;*/
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	/*margin-top: 10px;*/
+	padding-top: 5px;
+	margin-bottom: 10px;
+}
+
+#about-author img, #about-author div#a-author-name{
+	float: right;
+	
+}
+#about-author img{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+    border:5px solid #fff;
+}
+  
+#back-buttons {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	
+}
+
+#back-buttons button{
+	float: right;
+	
+}
+
+.detail-content {
+	margin-top: 15px;
+	
+}
+
+.detail-content .nav-pills{
+	padding-left: 3px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 15px; 
+}
+  
+.reward {
+	display: block;
+	padding: 4px;
+	margin-bottom: 20px;
+	background-color: #f7fafa;
+	border: 1px solid #fff;
+	border-radius: 4px;
+	-webkit-transition: border .2s ease-in-out;
+		-o-transition: border .2s ease-in-out;
+			transition: border .2s ease-in-out;
+}
+  
+.reward:hover,
+.reward:focus,
+.reward.active {
+  border-color: #18bc9c;
+  background-color: rgba(24, 188, 156, 0.3);
+}
+  
+  
+  
+  
+ 
+/* diff mobile and destop*/
+
+@media (min-width: 768px) {
+	.meta-content.container,  .detail-content.container{
+		padding-right: 15px;
+		padding-left: 15px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	.detail-content .nav-pills li{
+		width: 20%;
+	}
+	.meta-content.container [class*="col-xs"], .detail-content.container [class*="col-xs"]{
+		padding-right: 15px;
+    	padding-left: 15px;
+		/*margin-right: auto;
+		margin-left: 0px;*/
+	}
+	
+	.meta-content #short_blurb {
+		font-size: large;
+		font-weight: bold;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	
+	#right-info>div#funding-all-info{
+		padding-top:20px;
+	}
+	#right-info div.progress {
+		
+		margin-bottom: 20px;
+	}
+	#funding-info>div {
+		/*display: inline-block;*/
+		float: right;
+		/*width: 50%;*/
+		padding-left: 0%;
+	}
+	#funding-info>div#percent, #funding-info>#current-amount {
+		/*display: inline-block;*/
+		float: right;
+		width: 50%;
+		padding-left: 0%;
+	}
+	#funding-info>div#backers, #funding-info>#print_to_go {
+		/*display: inline-block;*/
+		float: right;
+		width: 45%;
+		padding-right: 10%;
+	}
+	
+	#funding-info .pre-num, #funding-info .after-num {
+		padding-top: 2.25em;
+	}
+	
+	#funding-info .number>span {
+		font-size: 3.25em;
+		font-weight: bolder;
+	}
+	
+	
+}
+
+.clear {
+  clear: both;
+}

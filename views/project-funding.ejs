@@ -1,0 +1,274 @@
+<%- include header %>
+
+    <!--<div class="project-header">
+    <p><h2><%= project.title %></h2></p>
+    <p><h4><%= project.author_name%></h4></p>
+    <img src=" <%= project.feature_image %>">
+</div>
+<div class="project-cart-content">
+    <h5><a href="/project-funding/<%= project._id %>"><%= project.title %></a></h5>
+    <p class="project-author">By <%= project.author_name %></p>
+    <p class="short-blurb"><%= project.short_blurb %></p>
+    <p class="category"><%= project.category %></p>
+
+</div>
+<div class="project_footer">
+    <div class="project-stats-container">
+
+        <div class="project-progress-bar">
+            <p><%= project.funded_percent %></p>
+        </div>
+        <div class="project-stats">
+            <p><h6>
+                <%= project.backers_count %>人已支持</h6></p>
+            <p><h6>已筹集 <%= project.funded_percent %>% </h6></p>
+            <p><h6><%= project.current_amount %> 元</h6></p>
+            <p><h6>离众筹结束还有<%= project.print_to_go %></h6></p>
+        </div>
+    </div>
+</div>
+<div class="project-description">
+    <p><%=project.description%></p>
+</div>
+
+<a href="/back-project/<%= project._id %>">支持!</a>-->
+
+
+    <div class="container-fluid" style="background-color:#f7fafa; border-bottom: 1px solid #ddd;">
+
+
+        <div class="meta-content container">
+            <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="page-header text-center">
+                        <h2><%= project.title %> <small><br/>by <%= project.author_name %></small></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                    <img src="/uploads/<%= project.feature_image %>" class="img-responsive">
+
+                </div>
+
+                <div id="right-info" class="col-lg-6 col-md-6 col-xs-12">
+                    <!--不可container 套container-->
+                    <!--<div class="container">-->
+                    <div id="funding-all-info" style="padding-left:15px; padding-right:15px;">
+                        <div class="progress">
+                            <% if(project.funded_percent > 75){ %>
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                                    aria-valuemax="100" style="width: <%= project.funded_percent %>%">
+                                </div>
+                                <% }else{ %>
+                                    <div class="progress-bar progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: <%= project.funded_percent %>%">
+                                    </div>
+                                    <% } %>
+                        </div>
+
+                        <div id="funding-info" class="project-stats">
+
+                            <div id="percent">
+                                <div class="pre-num" style="float:left ;padding-bottom=0px">
+                                    <span>
+                                        目前已达到目标
+                                    </span>
+                                </div>
+                                <div class="after-num" style="float:right">
+                                    <span>%</span>
+                                </div>
+                                <div class="number" style="float:right">
+                                    <span>
+                                        <%= project.funded_percent %>
+                                    </span>
+                                </div>
+                                <!--clear 元素用于保持3个浮动元素在上层div里 style:"clear: both;"-->
+                                <div class="clear"></div>
+                            </div>
+                            <div id="backers">
+                                <div class="pre-num" style="float:left ;padding-bottom=0px">
+                                    <span>
+                                        参与人数
+                                    </span>
+                                </div>
+                                <div class="after-num" style="float:right">
+                                    <span>人</span>
+                                </div>
+                                <div class="number" style="float:right">
+                                    <span>
+                                        <%= project.backers_count %>
+                                    </span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div id="current-amount">
+                                <div class="pre-num" style="float:left ;padding-bottom=0px">
+                                    <span>
+                                        已筹得金额
+                                    </span>
+                                </div>
+                                <div class="after-num" style="float:right">
+                                    <span>元</span>
+                                </div>
+                                <div class="number" style="float:right">
+                                    <span>
+                                        <%= project.current_amount %>
+                                    </span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div id="print_to_go">
+                                <div class="pre-num" style="float:left ;padding-bottom=0px">
+                                    <span>
+                                        筹款期还有
+                                    </span>
+                                </div>
+
+
+                                <% if(project.millsecs_to_go / 1000 / 60 / 60 > 24){ %>
+
+                                    <div class="after-num" style="float:right">
+                                        <span>天</span>
+                                    </div>
+                                    <div class="number" style="float:right">
+                                        <span>
+                                                <%= Math.floor(project.millsecs_to_go / 1000 / 60 / 60 / 24) %>
+                                            </span>
+                                    </div>
+                                    <% } else {%>
+                                        <div class="after-num" style="float:right">
+                                            <span>小时</span>
+                                        </div>
+                                        <div class="number" style="float:right">
+                                            <span>
+                                                <%= Math.floor(project.millsecs_to_go / 1000 / 60 / 60) %>
+                                            </span>
+                                        </div>
+
+                                        <% } %>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+
+                    <div id="back-buttons">
+                        <button type="button" class="btn btn-success btn-lg" style="width:55%; margin-right:10px">支持 !</button>
+                        <button type="button" class="btn btn-info btn-lg" style="width:35%; margin-right:10px"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="about-author">
+                        <div class="clear" style="padding-left:10px"><span style="color:#999">关于发起者</span></div>
+
+                        <div id="a-author-name" style="padding-top:30px; padding-right:20px;padding-left:20px"><b><%= project.author_name %></b> <br/>
+                            <%= project.author_email %>
+                        </div>
+                        <img src="/uploads/<%=project.author_photo%>" class="img-responsive">
+
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+                <!-- end right info -->
+
+
+
+            </div>
+            <div id="short_blurb">
+                <span><%= project.short_blurb %></span>
+            </div>
+        </div>
+        <!-- end meta-content -->
+
+    </div>
+    <!-- end  container-fluid-->
+
+
+
+    <div class="detail-content container" id="detail-content">
+        <ul class="nav nav-pills">
+            <li class="active text-center"><a data-toggle="tab" href="#tab-main-content">介绍</a></li>
+            <li><a data-toggle="tab" class="text-center" href="#tab-update">更新<span class="badge">4</span></a></li>
+            <li><a data-toggle="tab" class="text-center" href="#tab-comment">评论<span class="badge">24</span></a></li>
+            <!-- can not be seen at lg-->
+            <li><a data-toggle="tab" class="text-center btn-success hidden-lg" id="btn-inline-reward" href="#tab-test">支持</a></li>
+
+        </ul>
+
+        <!-- tab contents -->
+        <div class="row" style="padding:10px">
+            <!--original tab-content has 30px margin-top-->
+            <div class="tab-content col-xs-12 col-lg-8" style="margin-top: 10px;">
+
+                <!-- main-content -->
+                <div id="tab-main-content" class="tab-pane fade in active">
+                    <%- project.description %>
+                </div>
+                <!-- main-content -->
+                <div id="tab-update" class="tab-pane fade in ">
+                </div>
+                <!-- main-content -->
+                <div id="tab-comment" class="tab-pane fade in ">
+                </div>
+                <!-- main-content -->
+                <div id="tab-test" class="tab-pane fade in ">
+                    
+                   
+                    
+                </div>
+            </div>
+            
+            <div class="rewards col-lg-4 hidden-xs hidden-sm">
+                <!-- 就算在注释里的代码 '<'%' 也会被解释器解释！ -->
+
+                <div class="reward">
+                    <!--
+                        
+                        
+                        
+                        
+                        
+                        hear!!!!!!!!!!!!
+                        degisn reward option 
+                        
+                        how to store 14backers/30limits?
+                         
+                    -->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script>
+        $(function(){
+            
+            
+            var min_height_set = function(){
+                $('#detail-content').css('min-height',$(window).height()/3);
+            };
+            min_height_set();
+            
+            var set_reward_button_width = function(){
+                var rewardButton = $('#btn-inline-reward');
+                var rewardButtonOffset = rewardButton.offset().left;
+                var tabLineWidth = $('.detail-content').css('width').substring(0,$('.detail-content').css('width').length - 2);
+                var rewardButtonNewWid = tabLineWidth - rewardButtonOffset;
+                rewardButton.css('width',rewardButtonNewWid-3);
+            }
+            set_reward_button_width();
+            
+        });
+    </script>
+
+
+
+
+
+    <%- include footer %>
