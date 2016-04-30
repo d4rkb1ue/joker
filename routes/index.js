@@ -247,12 +247,10 @@ module.exports = function (app) {
 					cb(err, project_funding, orders);
 				}, req.params._id);
 			} 
-			// ,function (project_funding, orders, cb) {
-			// 	// 统计每个reward_id下有几个订单
-			// 	var order_times = [];
-				
-				
-			// }
+			,function (project_funding, orders, cb) {
+				Order.calculateRwBackers(orders);
+				cb(null,project_funding,orders);
+			}
 		], function (err, project_funding, orders) {
 			if (err) {
 				req.flash('error', err);
@@ -266,6 +264,7 @@ module.exports = function (app) {
 					error: req.flash('error').toString(),
 					project: project_funding,
 					orders: orders,
+					
 				});
 			}
 

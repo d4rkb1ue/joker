@@ -116,8 +116,17 @@ Order.getByProjID = function (maincb, proj_id) {
 
 }
 
-Order.calculateRwLimit = function (orders) {
-    orders.forEach(function (order,index) {
-        
+Order.calculateRwBackers = function (orders) {
+    // backers count backers_counts
+    // {"0":"4","1":"5"}
+    var res = {};
+    orders.forEach(function (order, index) {
+        if (res.hasOwnProperty(order.rw_id)) {
+            res[order.rw_id] += 1;
+        } else {
+            res[order.rw_id] = 1;
+        }
     });
+    orders.bk_counts = res;
+    
 }
