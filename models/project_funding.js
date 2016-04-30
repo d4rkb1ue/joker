@@ -315,10 +315,6 @@ Project_funding.getByID = function (_id, maincb) {
             });
         },
         function (db, doc, cb) {
-            //Project_funding.calculate(doc);
-            cb(null, db, doc);
-        },
-        function (db, doc, cb) {
             Project_funding.calculate(doc);
             cb(null, db, doc);
         }

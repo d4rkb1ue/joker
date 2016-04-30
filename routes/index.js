@@ -4,8 +4,10 @@ var mObjectID = require('mongodb').ObjectID;
 
 var User = require('../models/users.js');
 var Project_funding = require('../models/project_funding.js')
-
+var Order = require('../models/order.js');
+var async = require('async');
 var multer = require('multer');
+
 // multer configs
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -33,6 +35,29 @@ module.exports = function (app) {
 	// 		title: '众客'
 	// 	});
 	// });
+	app.get('/test', function (req, res) {
+		// var newOrder = new Order({
+		// 	user_id: "5719e51e83a52c059d74e3e9",
+		// 	proj_id: "571f6d09621ff43d546d6752",
+		// 	proj_name: "西班牙语学习",
+		// 	rw_id: "3",
+		// 	rw_amout: "29",
+		// 	payment: "coupon",
+		// });
+
+		// newOrder.save(function (err, order) {
+		// 	if (err) {
+		// 		req.flash('error', err);
+		// 		return res.redirect('/');
+		// 	}
+		// 	console.dir(order);
+
+		// 	return res.redirect('/');
+		// });
+
+		
+	});
+
 
 	app.get('/', function (req, res, next) {
         console.dir(Project_funding.getMiniInfo({}, function (err, docs) {
@@ -152,7 +177,7 @@ module.exports = function (app) {
 		console.log(req.files);
 
 		var feature_image_filename, author_photo_filename;
-		
+
 		for (tmp in req.files) {
 			if (req.files[tmp].fieldname === 'feature_image') {
 				feature_image_filename = req.files[tmp].filename;
@@ -211,21 +236,41 @@ module.exports = function (app) {
     })
 
     app.get('/project-funding/:_id', function (req, res) {
-        Project_funding.getByID(req.params._id, function (err, doc) {
-            if (err) {
-                req.flash('error', err);
-                return res.redirect('/');
-            }
+		async.waterfall([
+			function (cb) {
+				Project_funding.getByID(req.params._id, function (err, project_funding) {
+					cb(err, project_funding);
+				});
+			},
+			function (project_funding, cb) {
+				Order.getByProjID(function (err, orders) {
+					cb(err, project_funding, orders);
+				}, req.params._id);
+			} 
+			// ,function (project_funding, orders, cb) {
+			// 	// 统计每个reward_id下有几个订单
+			// 	var order_times = [];
+				
+				
+			// }
+		], function (err, project_funding, orders) {
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('/');
+			} else {
 
-            return res.render('project-funding', {
-				title: doc.title,
-				user: req.session.user,
-				success: req.flash('success').toString(),
-				error: req.flash('error').toString(),
-                project: doc,
-			});
+				return res.render('project-funding', {
+					title: project_funding.title,
+					user: req.session.user,
+					success: req.flash('success').toString(),
+					error: req.flash('error').toString(),
+					project: project_funding,
+					orders: orders,
+				});
+			}
 
-        })
+		})
+
     })
 
     app.get('/back-project/:_id', checkLogin);

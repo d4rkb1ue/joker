@@ -156,8 +156,9 @@
                     </div>
 
                     <div id="back-buttons">
-                        <button type="button" class="btn btn-success btn-lg" style="width:55%; margin-right:10px">支持 !</button>
-                        <button type="button" class="btn btn-info btn-lg" style="width:35%; margin-right:10px"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
+                        <button type="button" class="btn btn-success btn-lg" style="width:55%; margin-right:10px">支持</button>
+                        <button type="button" class="btn btn-default btn-lg" style="width:35%; margin-right:10px; color:#5cb85c"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
+                        <!--<button type="button" class="btn btn-default btn-lg" style="width:35%; margin-right:10px;"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>-->
                         <div class="clear"></div>
                     </div>
 
@@ -216,29 +217,29 @@
                 </div>
                 <!-- main-content -->
                 <div id="tab-test" class="tab-pane fade in ">
-                    
-                   
-                    
+
+
+
                 </div>
             </div>
-            
+
             <div class="rewards col-lg-4 hidden-xs hidden-sm">
                 <!-- 就算在注释里的代码 '<'%' 也会被解释器解释！ -->
 
-                <div class="reward">
-                    <!--
-                        
-                        
-                        
-                        
-                        
-                        hear!!!!!!!!!!!!
-                        degisn reward option 
-                        
-                        how to store 14backers/30limits?
-                         
-                    -->
+                <div class="reward" style="padding-left:10px">
+                    <h3>¥1<br/><small><span class="glyphicon glyphicon-magnet"></span>
+5 位支持者/限额20</small></h3>
+
+                    <h4>我为项目续一秒！</h4>
+
+                    <p class="text-right"><small><b>预计上线时间 2016/6/10 </b></small></p>
+
                 </div>
+
+                <% orders.forEach(function(order,index){ %>
+                    <%= console.dir(order.rw_id + " ¥"+ order.rw_amout); %>
+                        <% }) %>
+
             </div>
         </div>
 
