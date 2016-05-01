@@ -336,3 +336,14 @@ Project_funding.calculate = function (doc) {
     doc.millsecs_to_go = millsec;
     doc.print_to_go = hours > 24 ? (Math.floor(hours / 24).toString() + '天') : (Math.floor(hours).toString() + '小时');
 }
+
+
+/**
+ * json parse rewards
+ */
+
+Project_funding.parseRw = function (project_funding){
+    var rw = JSON.parse(project_funding.rewards);
+    project_funding.parsedRw = rw;
+    
+}

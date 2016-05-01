@@ -129,4 +129,6 @@ Order.calculateRwBackers = function (orders) {
     });
     orders.bk_counts = res;
     
+    
+    
 }

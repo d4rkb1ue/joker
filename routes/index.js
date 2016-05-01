@@ -250,6 +250,10 @@ module.exports = function (app) {
 			,function (project_funding, orders, cb) {
 				Order.calculateRwBackers(orders);
 				cb(null,project_funding,orders);
+			},
+			function (project_funding, orders, cb){
+				Project_funding.parseRw(project_funding);
+				cb(null,project_funding,orders);
 			}
 		], function (err, project_funding, orders) {
 			if (err) {
@@ -272,10 +276,12 @@ module.exports = function (app) {
 
     })
 
-    app.get('/back-project/:_id', checkLogin);
-    app.get('/back-project/:_id', function (req, res) {
-
-    })
+    app.get('/back/', checkLogin);
+    app.get('/back/', function (req, res) {
+		console.log(req.query.proj_id);
+		console.log(req.query.rw_id);
+    });
+	
 	function renderSession(title, req) {
 		return {
 			title: title,
@@ -298,6 +304,9 @@ module.exports = function (app) {
 		}
 		next();
 	};
-
+	
+	
+	
+	
 };
 
