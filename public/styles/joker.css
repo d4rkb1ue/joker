@@ -336,6 +336,10 @@ div.profile.container {
 	margin-bottom: 40px;
 }
 
+/* 使用这个永久消除出现在 div#tabs 下一闪而过的 profile-panel*/
+#tabs .profile-panel{
+	display: none;
+}
 
 div.profile-menu  {
 	margin-top: 30px;

@@ -414,7 +414,25 @@ module.exports = function (app) {
 		})
 
     });
-
+	
+	app.get('/created',checkLogin);
+	app.get('/created',function(req,res){
+		return res.render('created', {
+			user: req.session.user,
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString(),
+		});
+	})
+	
+	app.get('/profile', checkLogin);
+	app.get('/profile', function (req, res) {
+		return res.render('profile', {
+			title: '个人信息 - 众客',
+			user: req.session.user,
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString(),
+		});
+	})
 
 	app.get('/back-history', checkLogin);
 	app.get('/back-history', function (req, res) {
@@ -437,9 +455,9 @@ module.exports = function (app) {
 			if (err) {
 				req.flash('error', err);
 				console.log(err);
-				return res.render('back-history', renderSession('支持过的项目 - 众客', req));
+				return res.render('back-history-content', renderSession('支持过的项目 - 众客', req));
 			}
-			return res.render('back-history', {
+			return res.render('back-history-content', {
 				title: '支持过的项目 - 众客',
 				user: req.session.user,
 				success: req.flash('success').toString(),

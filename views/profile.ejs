@@ -1,10 +1,81 @@
 <%- include header %>
-    <div class="container">
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">Profile</a></li>
-            <li role="presentation"><a href="#">Messages</a></li>
-        </ul>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script>
+        $(function(){
+            // 使用 jquery-ui 操作tabs
+            $( "#tabs" ).tabs({
+                
+                // 本来$ui.tab载入的panel是载入直接在#tabs下的，但是由于我需要把tabs的style和panel的style应用Bootstrap
+                // 我需要把结构从:
+                // div.row>div#tabs>div.ui-tabs-panel
+                // 改为 
+                // div.row>         div.ui-tabs-panel
+                // 即将div.ui-tabs-panel提到和tabs同一层，互为兄弟，这样一来才能正确处理bootstrap的col的栅格（tab.col-3, panel.col-9)
+                
+                // 于是在tab.panel载入完成后：
+                load: function(event,ui){
+                    // 废弃：无需手动隐藏，直接在css中设置其display:none
+                    // ui.panel.hide();
+                    
+                    // 调整Bootstrap的按钮active颜色根据所需调整
+                    $('#tabs li').removeClass('active')
+                    ui.tab.addClass('active');
+                    
+                    // clear row>panel的元素，不删的话，每次clone都会append在其下面
+                    $('#profile-row>div.ui-tabs-panel>div.profile-panel').remove();
+                    
+                    // 同废弃，无需手动隐藏和手动显示
+                    // $('#profile-row').append(ui.panel.clone().show());
+                    
+                    // 将载入的panel直接clone一个挂到所需要的位置
+                    $('#profile-row').append(ui.panel.clone());
+                    
+
+                },
+                
+                // 我想让ajax不闪那么一下，但是以下这三个函数都没用
+                // 改用css:  div#tabs 下一闪而过的 profile-panel 的显示情况为none
+                
+                // #tabs .profile-panel{
+                //     display: none;
+                // }
+                
+                // 其实既然这样，都用不上hide了
+                
+                // beforeActivate:function(event,ui){
+                //     ui.newPanel.hide();
+                // },
+                // beforeLoad:function(event,ui){
+                //     ui.panel.hide();
+                // },
+                // create: function(event,ui){
+                //     ui.panel.hide();
+                // }
+                
+                // 失败的思路：使用 $ui 提供的 Events 来移动 oldPanel 和 NewPanel，通过简单的append移动。
+                // 但是元素一旦移开该ui-tabs-panel不会再次生成。调用oldPanel只会报错。
+                
+                
+            });
+        });
+    </script>
+
+
+    <div class="container profile">
+        <div id="profile-row" class="row">
+
+            <div id="tabs" class="profile-menu col-md-3 col-lg-3 col-sm-3">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" class="active"><a href="/back-history">支持过的项目</a></li>
+                    <li role="presentation"><a href="/created">创立的项目</a></li>
+
+                </ul>
+            </div>
+
+
+
+
+        </div>
     </div>
 
     <%- include footer %>
