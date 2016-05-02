@@ -330,11 +330,30 @@ body {
 	border-top: solid 1px #ddd;
 	padding-top: 10px;
 }
-/*.main-footer div.row {
-	width: 90%;
-	margin-left: 5%;
-}*/
 
+div.profile.container {
+	/*margin-top: 40px;*/
+	margin-bottom: 40px;
+}
+
+
+div.profile-menu  {
+	margin-top: 30px;
+}
+div.profile-panel {
+	margin-top: 10px;
+}
+
+div.profile-panel table img{
+	height: auto;
+	width: 80px;
+	margin-right: 10px;
+	border-radius: 4px;
+}
+
+div.profile-panel table td{
+	vertical-align: middle;
+}
 
 /* diff mobile and destop*/
 
@@ -404,6 +423,11 @@ body {
 	width: 30%;
 	}
 	
+	
+	.main-footer {
+		margin-top:40px;
+	}
+	
 	.main-footer .company {
 		border-top: solid 1px #ddd;
 		padding-top: 10px;
@@ -419,6 +443,15 @@ body {
 		margin-bottom: 10px;
 
 
+	}
+	
+	div.profile.container {
+		margin-top: 20px;
+		/*margin-bottom: 40px;*/
+	}
+	h2.profile-title {
+		margin-bottom: 40px;
+		margin-left: 20px;
 	}
 }
 

@@ -45,6 +45,8 @@ function Order(order) {
     this.payment = order.payment;
     this.note = order.note;
     this.status = order.status || 'paid';
+    this.details = order.details;
+    this.feature_img = order.feature_img;
 }
 
 
@@ -62,6 +64,10 @@ Order.prototype.save = function (maincb) {
         payment: this.payment,
         note: this.note,
         status: this.status,
+
+        details: this.details,
+        // feature_img : this.feature_img,
+        feature_img: this.feature_img,
 
         /**
          * 
@@ -147,6 +153,31 @@ Order.getOrders = function (maincb, para) {
     ], function (err, db, orders) {
         db.close();
         maincb(err, orders);
+    })
+}
+
+
+
+Order.pretty = function (orders) {
+    var payment = {
+        'alipay': '支付宝',
+        'wechatpay': '微信支付',
+        'unionpay': '银联支付',
+        'coupon': '优惠券' // if coupon covers whole amount
+    };
+    var status = {
+        'topay': '待支付',
+        'paid': '已支付',
+        'learning': '已交付',
+        'refunding': '正在退款',
+        'refunded': '已退款',
+        'canceled': '已取消'
+    }
+    // payment : 'alipay' 'wechatpay' 'unionpay' 'coupon'
+    // status : 'topay' 'paid' 'learning' 'refunding' 'refunded' 'canceled' 
+    orders.forEach(function (order, index) {
+        order.payment = payment[order.payment] || 'err';
+        order.status = status[order.status] || 'err';
     })
 }
 

@@ -217,10 +217,11 @@
                 </div>
                 <!-- main-content -->
                 <div id="tab-reward" class="tab-pane fade in ">
-                    <% if(currentUserBacked){ %>
+                    <% if(currentUserBacked && currentUserBacked.length > 0){ %>
                         <div class="alert alert-info" role="alert">
                             您最近于
-                            <%= new Date(currentUserBacked[currentUserBacked.length-1].history.created).toLocaleString() %> 支持过 ¥<%= currentUserBacked[currentUserBacked.length-1].rw_amout %>
+                            <%= new Date(currentUserBacked[currentUserBacked.length-1].history.created).toLocaleString() %> 支持过 ¥
+                                <%= currentUserBacked[currentUserBacked.length-1].rw_amout %>
                         </div>
                         <% } %>
                             <div class="rewards">
@@ -251,10 +252,11 @@
                     <p class="text-right"><small><b>预计上线时间 2016/6/10 </b></small></p>
 
                 </div>-->
-                <% if(currentUserBacked){ %>
+                <% if(currentUserBacked && currentUserBacked.length > 0){ %>
                     <div class="alert alert-info" role="alert">
                         您最近于
-                        <%= new Date(currentUserBacked[currentUserBacked.length-1].history.created).toLocaleString() %> 支持过 ¥<%= currentUserBacked[currentUserBacked.length-1].rw_amout %>
+                        <%= new Date(currentUserBacked[currentUserBacked.length-1].history.created).toLocaleString() %> 支持过 ¥
+                            <%= currentUserBacked[currentUserBacked.length-1].rw_amout %>
                     </div>
                     <% } %>
 

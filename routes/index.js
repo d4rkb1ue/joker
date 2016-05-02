@@ -342,10 +342,12 @@ module.exports = function (app) {
 
     });
 
+
+
 	app.post('/back', checkLogin);
     app.post('/back', function (req, res) {
 		// console.log(req.query.proj_id);
-		console.log(req.body);
+		// console.log(req.body);
 		async.waterfall([
 			function (cb) {
 				Project_funding.getByID(req.body.proj_id, function (err, project_funding) {
@@ -376,6 +378,7 @@ module.exports = function (app) {
 			},
 			// add to order
 			function (project_funding, orders, cb) {
+
 				var order = new Order({
 					user_id: req.session.user._id,
 					proj_id: req.body.proj_id,
@@ -384,7 +387,8 @@ module.exports = function (app) {
 					rw_amout: project_funding.parsedRw[req.body.rw_id].rwcount,
 					payment: req.body.payment,
 					note: req.body.note,
-
+					details: project_funding.parsedRw[req.body.rw_id].rwdetails,
+					feature_img: project_funding.feature_image,
 				});
 				order.save(function (err) {
 					cb(err, project_funding, orders);
@@ -410,6 +414,42 @@ module.exports = function (app) {
 		})
 
     });
+
+
+	app.get('/back-history', checkLogin);
+	app.get('/back-history', function (req, res) {
+		async.waterfall([
+			// 获取当前用户的支持历史
+			function (cb) {
+				Order.getOrders(function (err, currentUserBacked) {
+					cb(err, currentUserBacked);
+				},
+					{
+						user_id: req.session.user._id
+					}
+				);
+			},
+			function (currentUserBacked, cb) {
+				Order.pretty(currentUserBacked);
+				cb(null, currentUserBacked);
+			}
+		], function (err, currentUserBacked) {
+			if (err) {
+				req.flash('error', err);
+				console.log(err);
+				return res.render('back-history', renderSession('支持过的项目 - 众客', req));
+			}
+			return res.render('back-history', {
+				title: '支持过的项目 - 众客',
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString(),
+				orders: currentUserBacked
+			});
+		})
+
+
+	});
 
 	function renderSession(title, req) {
 		return {
