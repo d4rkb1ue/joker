@@ -104,7 +104,7 @@ Project_funding.prototype.save = function (maincb) {
         pv: 0, //default 0
 
         backers_count: 0, //default 0
-        backers: [], //should be [{user._id:_id, reward: type, time: date},{..}]
+        // backers: [], //should be [{user._id:_id, reward: type, time: date},{..}]
 
         current_amount: 0,
 
@@ -201,7 +201,7 @@ Project_funding.pretty = function (docs) {
     //     project.short_blurb = rightpad(project.short_blurb,144,"&nbsp;");
     //     project.category
     // });
-    
+
 }
 /**
  * get only {title, author_name, short_blurb, feature_image, category,
@@ -297,8 +297,9 @@ Project_funding.getSpecificInfo = function (findPara, sortPara, fields, maincb) 
  * @param maincb(err,docs)
  */
 Project_funding.getByID = function (_id, maincb) {
-    console.dir("id = " + _id);
-    if (_id.length !== 24) { //ObjectId("571f6d09621ff43d546d6752")
+
+    if (!_id || _id.length !== 24) { //ObjectId("571f6d09621ff43d546d6752")
+        console.dir("id = " + _id);
         return maincb('no an id')
     }
     async.waterfall([
@@ -342,8 +343,42 @@ Project_funding.calculate = function (doc) {
  * json parse rewards
  */
 
-Project_funding.parseRw = function (project_funding){
+Project_funding.parseRw = function (project_funding) {
     var rw = JSON.parse(project_funding.rewards);
     project_funding.parsedRw = rw;
-    
+
+}
+
+Project_funding.addBacker = function (_id, amount,maincb) {
+    if(!_id || !amount){
+        maincb('err: _id or amount undefined');
+    }
+    if(amount.constructor === String){
+        amount = Number.parseFloat(amount);
+        if(!amount){
+            maincb('err: amount is not a number/right string');
+        }
+    }
+    async.waterfall([
+        function (cb) {
+            MongoClient.connect(url, function (err, db) {
+                cb(err, db);
+            });
+        },
+        function (db, cb) {
+            db.collection('project_funding').updateOne(
+                { "_id": new ObjectId(_id) },
+                {
+                    $inc: { "backers_count": 1, "current_amount": amount },
+                    $currentDate: { "lastBack": true }
+                },
+                function (err, result) {
+                    cb(err, db, result);
+                }
+            );
+        }
+    ], function (err, db, result) {
+        db.close();
+        maincb(err, result);
+    })
 }

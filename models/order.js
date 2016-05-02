@@ -44,7 +44,7 @@ function Order(order) {
     this.rw_amout = order.rw_amout;
     this.payment = order.payment;
     this.note = order.note;
-    this.status = order.status;
+    this.status = order.status || 'paid';
 }
 
 
@@ -128,7 +128,25 @@ Order.calculateRwBackers = function (orders) {
         }
     });
     orders.bk_counts = res;
-    
-    
-    
+
 }
+
+Order.getOrders = function (maincb, para) {
+    async.waterfall([
+        function (cb) {
+            MongoClient.connect(url, function (err, db) {
+                cb(err, db);
+            });
+        },
+        function (db, cb) {
+            var cursor = db.collection('orders').find(para);
+            cursor.toArray(function (err, docs) {
+                cb(err, db, docs);
+            });
+        }
+    ], function (err, db, orders) {
+        db.close();
+        maincb(err, orders);
+    })
+}
+

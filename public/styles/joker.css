@@ -256,6 +256,8 @@ body {
 	background-color: #f7fafa;
 	border: 1px solid #fff;
 	border-radius: 4px;
+	cursor:pointer;
+	
 	-webkit-transition: border .2s ease-in-out;
 		-o-transition: border .2s ease-in-out;
 			transition: border .2s ease-in-out;
@@ -266,6 +268,25 @@ body {
 .reward.active {
   border-color: #18bc9c;
   background-color: rgba(24, 188, 156, 0.3);
+}
+
+.reward-disabled {
+	display: block;
+	padding: 4px;
+	margin-bottom: 20px;
+	background-color: #faf7f7;
+	color: #999;
+	border: 1px solid #fff;
+	border-radius: 4px;
+	-webkit-transition: border .2s ease-in-out;
+		-o-transition: border .2s ease-in-out;
+			transition: border .2s ease-in-out;
+}
+  
+.reward-disabled:hover,
+.reward-disabled:focus,
+.reward-disabled.active {
+	cursor:not-allowed;
 }
   
 .back-header {
@@ -342,13 +363,13 @@ body {
 	#funding-info>div#percent, #funding-info>#current-amount {
 		/*display: inline-block;*/
 		float: right;
-		width: 50%;
+		width: 60%;
 		padding-left: 0%;
 	}
 	#funding-info>div#backers, #funding-info>#print_to_go {
 		/*display: inline-block;*/
 		float: right;
-		width: 45%;
+		width: 40%;
 		padding-right: 10%;
 	}
 	

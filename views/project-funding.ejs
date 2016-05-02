@@ -73,7 +73,7 @@
                             <div id="percent">
                                 <div class="pre-num" style="float:left ;padding-bottom=0px">
                                     <span>
-                                        目前已达到目标
+                                        已达目标 ¥<%= project.funding_goal %> 中的
                                     </span>
                                 </div>
                                 <div class="after-num" style="float:right">
@@ -156,7 +156,7 @@
                     </div>
 
                     <div id="back-buttons">
-                        <button type="button" class="btn btn-success btn-lg" style="width:55%; margin-right:10px">支持</button>
+                        <button type="button" id="back-button" class="btn btn-success btn-lg" style="width:55%; margin-right:10px" onclick="location.assign('#rewards-list')">支持</button>
                         <button type="button" class="btn btn-default btn-lg" style="width:35%; margin-right:10px; color:#5cb85c"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>
                         <!--<button type="button" class="btn btn-default btn-lg" style="width:35%; margin-right:10px;"><span class="glyphicon glyphicon-heart-empty"></span> 关注</button>-->
                         <div class="clear"></div>
@@ -217,18 +217,25 @@
                 </div>
                 <!-- main-content -->
                 <div id="tab-reward" class="tab-pane fade in ">
-                    <div class="rewards">
-                        <% for(tmp in project.parsedRw){ %>
-                            <div class="reward" style="padding-left:10px">
-                                <h4>¥ <%= project.parsedRw[tmp].rwcount %><br/>
-                        <small><span class="glyphicon glyphicon-magnet"></span>
-                        <%= orders.bk_counts[tmp]? orders.bk_counts[tmp]:0 %> 位支持者 <%= (project.parsedRw[tmp].rwlimited !== 0)? "/ 限额"+project.parsedRw[tmp].rwlimited : "" %></small></h4>
-                                <h5> <%= project.parsedRw[tmp].rwdetails %></h5>
-
-                                <p class="text-right"><small><b>预计上线时间 <%= project.parsedRw[tmp].rwdate %> </b></small></p>
-                            </div>
+                    <% if(currentUserBacked){ %>
+                        <div class="alert alert-info" role="alert">
+                            您最近于
+                            <%= new Date(currentUserBacked[currentUserBacked.length-1].history.created).toLocaleString() %> 支持过 ¥<%= currentUserBacked[currentUserBacked.length-1].rw_amout %>
+                        </div>
                         <% } %>
-                    </div>
+                            <div class="rewards">
+                                <% for(tmp in project.parsedRw){ %>
+                                    <div class="<%=project.parsedRw[tmp].rwlimited && Number.parseInt(project.parsedRw[tmp].rwlimited) === orders.bk_counts[tmp]? 'reward-disabled' : 'reward' %>"
+                                        style="padding-left:10px">
+                                        <h3>¥ <%= project.parsedRw[tmp].rwcount %><br/>
+                        <small><span class="glyphicon glyphicon-magnet"></span>
+                        <%= orders.bk_counts[tmp]? orders.bk_counts[tmp]:0 %> 位支持者 <%= (project.parsedRw[tmp].rwlimited !== 0)? "/ 限额 "+project.parsedRw[tmp].rwlimited : "" %></small></h3>
+                                        <h4> <%= project.parsedRw[tmp].rwdetails %></h4>
+
+                                        <p class="text-right"><small><b>预计上线时间 <%= project.parsedRw[tmp].rwdate %> </b></small></p>
+                                    </div>
+                                    <% } %>
+                            </div>
                 </div>
             </div>
 
@@ -244,17 +251,27 @@
                     <p class="text-right"><small><b>预计上线时间 2016/6/10 </b></small></p>
 
                 </div>-->
-                <% for(tmp in project.parsedRw){ %>
-                    <div class="reward" style="padding-left:10px">
-                        <h3>¥ <%= project.parsedRw[tmp].rwcount %><br/>
-                        <small><span class="glyphicon glyphicon-magnet"></span>
-                        <%= orders.bk_counts[tmp]? orders.bk_counts[tmp]:0 %> 位支持者 <%= (project.parsedRw[tmp].rwlimited !== 0)? "/ 限额"+project.parsedRw[tmp].rwlimited : "" %></small></h3>
-                        <h4> <%= project.parsedRw[tmp].rwdetails %></h4>
-
-                        <p class="text-right"><small><b>预计上线时间 <%= project.parsedRw[tmp].rwdate %> </b></small></p>
+                <% if(currentUserBacked){ %>
+                    <div class="alert alert-info" role="alert">
+                        您最近于
+                        <%= new Date(currentUserBacked[currentUserBacked.length-1].history.created).toLocaleString() %> 支持过 ¥<%= currentUserBacked[currentUserBacked.length-1].rw_amout %>
                     </div>
                     <% } %>
 
+                        <div id="rewards-list">
+
+                            <% for(tmp in project.parsedRw){ %>
+                                <div class="<%=project.parsedRw[tmp].rwlimited && Number.parseInt(project.parsedRw[tmp].rwlimited) === orders.bk_counts[tmp]? 'reward-disabled' : 'reward' %>"
+                                    style="padding-left:10px">
+                                    <h3>¥ <%= project.parsedRw[tmp].rwcount %><br/>
+                        <small><span class="glyphicon glyphicon-magnet"></span>
+                        <%= orders.bk_counts[tmp]? orders.bk_counts[tmp]:0 %> 位支持者 <%= (project.parsedRw[tmp].rwlimited !== 0)? "/ 限额 "+project.parsedRw[tmp].rwlimited : "" %></small></h3>
+                                    <h4> <%= project.parsedRw[tmp].rwdetails %></h4>
+
+                                    <p class="text-right"><small><b>预计上线时间 <%= project.parsedRw[tmp].rwdate %> </b></small></p>
+                                </div>
+                                <% } %>
+                        </div>
 
             </div>
         </div>
@@ -288,6 +305,24 @@
                 });
             };
             setRwDirect();
+            
+            var responseButton = function(){
+                // 除了对css做响应式布局，“支持”按钮也需要响应式！
+                // 在桌面上只要 #reward-list, 在手机因为这个div不显示，需要定义为打开 reward tab 并#tab
+                if( screen.width < 768){
+                    $('#back-button')
+                    .off()
+                    .click(function(){
+
+                        $('#btn-inline-reward').click();
+                        location.assign('#tab-reward');
+                    });
+                        
+                }
+            }
+            responseButton();
+            
+            
         });
     </script>
 
