@@ -1,0 +1,120 @@
+<%- include header %>
+
+    <div class="container-fluid" style="background-color:#f7fafa; border-bottom: 1px solid #ddd;">
+        <div class="meta-content container">
+            <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                    <div class="back-header text-center">
+                        <a href="/project-funding/<%= project._id %> ">
+                            <h2><%= project.title %> <small><br/>by <%= project.author_name %></small></h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h3>订单信息</h3>
+
+
+        <div class="selected-reward" style="padding-left:10px">
+            <h3>¥ <%= project.parsedRw[rw_id].rwcount %><br/>
+                        <small><span class="glyphicon glyphicon-magnet"></span>
+                        目前已吸引 <%= orders.bk_counts[rw_id]? orders.bk_counts[rw_id]:0 %> 位支持者 <%= (project.parsedRw[rw_id].rwlimited !== 0)? "/ 限额"+project.parsedRw[rw_id].rwlimited : "" %></small></h2>
+            <h4> <%= project.parsedRw[rw_id].rwdetails %></h5>
+
+            <p><small><b>预计上线时间 <%= project.parsedRw[rw_id].rwdate %> </b></small></p>
+        </div>
+        
+        <div class="form-group">
+            <label for="pay_note">使用抵价券?</label>
+            <div class="input-group">
+                <input type="text" class="form-control" name="coupon" id="coupon"></textarea>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">应用</button>
+                </span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="pay_note">备注</label>
+            <textarea class="form-control ta-noresize" name="pay_note" id="pay_note" rows="3" placeholder="您可以填写希望发起人知道的信息，鼓励一下也很好哟" maxlength="140"></textarea>
+        </div>
+        
+        
+        <h3>支付方式</h3>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <!--<div class="panel-heading" role="tab" id="headingOne" >-->
+                    <div class="panel-heading" role="button" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                        aria-expanded="true">
+                        <h4 class="panel-title">
+                            银联支付
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <img src="/images/unionpay-exp.png" class="img-responsive" alt="Responsive image">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <!--<div class="panel-heading" role="tab" id="headingTwo">-->
+                    <div class="panel-heading" role="button" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                        aria-expanded="true">
+                        <h4 class="panel-title">
+                            支付宝
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <img src="/images/alipay.jpg" class="img-responsive" alt="Responsive image">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <!--<div class="panel-heading" role="tab" id="headingThree">-->
+                    <div class="panel-heading" role="button" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                        aria-expanded="true">
+                        <h4 class="panel-title">
+                        微信支付
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <img src="/images/wechat-pay.jpg" class="img-responsive" alt="Responsive image">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="back-summary">
+                <p><b>总额</b></p> 
+                <p class="text-right">
+                    ¥<%= project.parsedRw[rw_id].rwcount %>
+                </p>
+                <!--<b>折扣</b>-->
+                <hr>
+                <p><b>支付方式</b></p>
+                <p class="text-right">支付宝</p>
+
+                <button type="button" class="btn btn-success btn-lg">支付</button>
+            </div>
+            <div class="clear"></div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+        <%- include footer %>

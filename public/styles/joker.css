@@ -1,16 +1,16 @@
-.form-signin {
+.form-signin, .form-register {
 	max-width: 330px;
 	padding: 15px;
 	margin: 0 auto;
 }
-.form-signin .form-signin-heading,
+.form-signin .form-signin-heading,form-register-heading
 .form-signin .checkbox {
 	margin-bottom: 10px;
 }
 .form-signin .checkbox {
 	font-weight: normal;
 }
-.form-signin .form-control {
+.form-signin .form-control,.form-register .form-control {
 	position: relative;
 	height: auto;
 	-webkit-box-sizing: border-box;
@@ -33,6 +33,24 @@
 	border-top-right-radius: 0;
 }
 
+.form-register input[name="name"]{
+	margin-bottom: 10px;
+}
+.form-register input[name="email"]{
+	margin-bottom: 10px;
+}
+
+.form-register input[name="password"]{
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-register input[name="repassword"]{
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
 
 /* only way to comment */
 /* use Command+ / to toggle a line*/
@@ -250,10 +268,36 @@ body {
   background-color: rgba(24, 188, 156, 0.3);
 }
   
+.back-header {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+.back-header a:hover{
+	text-decoration:none; 
+}
+
+
+.selected-reward {
+	display: block;
+	padding: 4px;
+	margin-bottom: 20px;
+	border: 1px solid #18bc9c;
+
+	background-color: #f7fafa;
+	border-radius: 4px;
+	-webkit-transition: border .2s ease-in-out;
+		-o-transition: border .2s ease-in-out;
+			transition: border .2s ease-in-out;
+}
   
-  
-  
- 
+.back-summary {
+	float: right;
+	width: 100%;
+}
+.back-summary button {
+	width: 100%;
+}
+
 /* diff mobile and destop*/
 
 @media (min-width: 768px) {
@@ -317,7 +361,10 @@ body {
 		font-weight: bolder;
 	}
 	
-	
+	.back-summary {
+	float: right;
+	width: 30%;
+}
 }
 
 .clear {

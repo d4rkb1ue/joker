@@ -55,7 +55,7 @@ module.exports = function (app) {
 		// 	return res.redirect('/');
 		// });
 
-		
+
 	});
 
 
@@ -173,8 +173,8 @@ module.exports = function (app) {
     app.post('/start', upload.any(), function (req, res) {
 		// -----------just print
 
-		console.log(req.body);
-		console.log(req.files);
+		// console.log(req.body);
+		// console.log(req.files);
 
 		var feature_image_filename, author_photo_filename;
 
@@ -246,14 +246,14 @@ module.exports = function (app) {
 				Order.getByProjID(function (err, orders) {
 					cb(err, project_funding, orders);
 				}, req.params._id);
-			} 
-			,function (project_funding, orders, cb) {
+			}
+			, function (project_funding, orders, cb) {
 				Order.calculateRwBackers(orders);
-				cb(null,project_funding,orders);
+				cb(null, project_funding, orders);
 			},
-			function (project_funding, orders, cb){
+			function (project_funding, orders, cb) {
 				Project_funding.parseRw(project_funding);
-				cb(null,project_funding,orders);
+				cb(null, project_funding, orders);
 			}
 		], function (err, project_funding, orders) {
 			if (err) {
@@ -268,7 +268,7 @@ module.exports = function (app) {
 					error: req.flash('error').toString(),
 					project: project_funding,
 					orders: orders,
-					
+
 				});
 			}
 
@@ -280,8 +280,57 @@ module.exports = function (app) {
     app.get('/back/', function (req, res) {
 		console.log(req.query.proj_id);
 		console.log(req.query.rw_id);
+		async.waterfall([
+			function (cb) {
+				Project_funding.getByID(req.query.proj_id, function (err, project_funding) {
+					cb(err, project_funding);
+				});
+			},
+			function (project_funding, cb) {
+				Order.getByProjID(function (err, orders) {
+					cb(err, project_funding, orders);
+				}, req.query.proj_id);
+			}
+			, function (project_funding, orders, cb) {
+				Order.calculateRwBackers(orders);
+				cb(null, project_funding, orders);
+			},
+			function (project_funding, orders, cb) {
+				Project_funding.parseRw(project_funding);
+				cb(null, project_funding, orders);
+			},
+			function (project_funding, orders, cb) {
+				// 检查project是否存在，rw是否存在，rw是否还可以购买
+				if(orders.bk_counts[req.query.rw_id] 
+				&& project.parsedRw[req.query.rw_id].rwlimited !== 0
+				&& orders.bk_counts[req.query.rw_id] >= project.parsedRw[req.query.rw_id].rwlimited){
+					cb('reward has reached its limit');
+				}
+				cb(null,project_funding, orders);
+			}
+		], function (err, project_funding, orders) {
+			console.log('here');
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('/');
+			} else {
+				
+				return res.render('back', {
+					title: '支持-' + project_funding.title,
+					user: req.session.user,
+					success: req.flash('success').toString(),
+					error: req.flash('error').toString(),
+					project: project_funding,
+					orders: orders,
+					rw_id:req.query.rw_id,
+				});
+				
+			}
+
+		})
+
     });
-	
+
 	function renderSession(title, req) {
 		return {
 			title: title,
@@ -304,9 +353,9 @@ module.exports = function (app) {
 		}
 		next();
 	};
-	
-	
-	
-	
+
+
+
+
 };
 
