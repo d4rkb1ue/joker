@@ -319,6 +319,23 @@ body {
 	width: 100%;
 }
 
+.main-footer {
+	background-color: #fff;
+	/*padding-top: 10px;*/
+    border-top: dashed 1px #18bc9c;
+    color: #828587;
+}
+
+.main-footer .company {
+	border-top: solid 1px #ddd;
+	padding-top: 10px;
+}
+/*.main-footer div.row {
+	width: 90%;
+	margin-left: 5%;
+}*/
+
+
 /* diff mobile and destop*/
 
 @media (min-width: 768px) {
@@ -385,7 +402,24 @@ body {
 	.back-summary {
 	float: right;
 	width: 30%;
-}
+	}
+	
+	.main-footer .company {
+		border-top: solid 1px #ddd;
+		padding-top: 10px;
+		padding-left: 10px;
+	}
+	.main-footer div.row {
+		padding-top: 10px;
+		width: 80%;
+		margin-left: 10%;
+	}
+	.main-footer div.about, .main-footer div.help {
+
+		margin-bottom: 10px;
+
+
+	}
 }
 
 .clear {
