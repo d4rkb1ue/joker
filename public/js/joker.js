@@ -146,3 +146,16 @@ var ajaxMakeOrder = function () {
     // xhr.send("fname=Henry&lname=Ford");
 
 };
+
+var ajaxProjCate = function (category,jq){
+    console.log(jq.prop('class'));
+    var jqxhr = $.ajax('/project-by-category?category='+category,{
+        dataType: 'html'
+    }).done(function(html){
+        jq.html(html);
+    }).fail(function(xhr,status){
+        console.log(xhr.status+" "+status);
+    }).always(function(){
+        // 
+    })
+}

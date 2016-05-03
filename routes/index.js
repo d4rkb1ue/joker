@@ -266,7 +266,7 @@ module.exports = function (app) {
 							proj_id: req.params._id
 						}
 					);
-				}else{
+				} else {
 					cb(err, project_funding, orders, null);
 				}
 
@@ -470,6 +470,32 @@ module.exports = function (app) {
 		});
 	})
 
+	app.get('/project-by-category', function (req, res) {
+		// req.query.category
+		async.waterfall([
+			function (cb) {
+				Project_funding.getMiniInfo(
+					// 如果没有参数就返回所有
+					req.query.category ? { category: req.query.category }:{}
+					,
+					function (err, projects) {
+						cb(err, projects);
+					})
+			}
+		], function (err, projects) {
+			if(err){
+				req.flash('error', err);
+				console.log(err);
+				return res.render('/', renderSession('众客', req));
+			}
+			return res.render('project-by-category',{
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString(),
+				projects:projects,
+			})
+		})
+	});
 	app.get('/back-history', checkLogin);
 	app.get('/back-history', function (req, res) {
 		async.waterfall([

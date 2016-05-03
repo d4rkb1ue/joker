@@ -96,40 +96,51 @@
     white-space: normal;
   }
   .row-horizon > .col-md-12 {
-    width: 90%;
+    /*width: 90%;*/
+    width: 99%;
   }
   .row-horizon > .col-md-11 {
-    width: 82.5%;
+    /*width: 82.5%;*/
+    width: 91.5%;
   }
   .row-horizon > .col-md-10 {
-    width: 75%;
+    /*width: 75%;*/
+    width: 83%;
   }
   .row-horizon > .col-md-9 {
-    width: 67.5%;
+    /*width: 67.5%;*/
+    width: 67%;
   }
   .row-horizon > .col-md-8 {
-    width: 60%;
+    width: 74%;
   }
   .row-horizon > .col-md-7 {
-    width: 52.5%;
+    /*width: 52.5%;*/
+    width: 58%;
   }
   .row-horizon > .col-md-6 {
-    width: 45%;
+    /*width: 45%;*/
+    width: 49%;
   }
   .row-horizon > .col-md-5 {
-    width: 37.5%;
+    /*width: 37.5%;*/
+    width: 41%;
   }
   .row-horizon > .col-md-4 {
-    width: 30%;
+    /*width: 30%;*/
+    width: 33%;
   }
   .row-horizon > .col-md-3 {
-    width: 22.5%;
+    /*width: 22.5%;*/
+    width: 24%;
   }
   .row-horizon > .col-md-2 {
-    width: 15%;
+    /*width: 15%;*/
+    width: 16%;
   }
   .row-horizon > .col-md-1 {
-    width: 7.5%;
+    /*width: 7.5%;*/
+    width: 8%;
   }
 }
 @media (min-width: 1200px) {
@@ -148,39 +159,50 @@
   
   
   .row-horizon > .col-lg-12 {
-    width: 90%;
+    /*width: 90%;*/
+    width: 99%;
   }
   .row-horizon > .col-lg-11 {
-    width: 82.5%;
+    /*width: 82.5%;*/
+    width: 91.5%;
   }
   .row-horizon > .col-lg-10 {
-    width: 75%;
+    /*width: 75%;*/
+    width: 83%;
   }
   .row-horizon > .col-lg-9 {
-    width: 67.5%;
+    /*width: 67.5%;*/
+    width: 67%;
   }
   .row-horizon > .col-lg-8 {
-    width: 60%;
+    width: 74%;
   }
   .row-horizon > .col-lg-7 {
-    width: 52.5%;
+    /*width: 52.5%;*/
+    width: 58%;
   }
   .row-horizon > .col-lg-6 {
-    width: 45%;
+    /*width: 45%;*/
+    width: 49%;
   }
   .row-horizon > .col-lg-5 {
-    width: 37.5%;
+    /*width: 37.5%;*/
+    width: 41%;
   }
   .row-horizon > .col-lg-4 {
-    width: 30%;
+    /*width: 30%;*/
+    width: 33%;
   }
   .row-horizon > .col-lg-3 {
-    width: 22.5%;
+    /*width: 22.5%;*/
+    width: 24%;
   }
   .row-horizon > .col-lg-2 {
-    width: 15%;
+    /*width: 15%;*/
+    width: 16%;
   }
   .row-horizon > .col-lg-1 {
-    width: 7.5%;
+    /*width: 7.5%;*/
+    width: 8%;
   }
 }
