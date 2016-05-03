@@ -257,14 +257,19 @@ module.exports = function (app) {
 			},
 			// 获取当前用户的支持历史
 			function (project_funding, orders, cb) {
-				Order.getOrders(function (err, currentUserBacked) {
-					cb(err, project_funding, orders, currentUserBacked);
-				},
-					{
-						user_id: req.session.user._id,
-						proj_id: req.params._id
-					}
-				);
+				if (req.session.user) {
+					Order.getOrders(function (err, currentUserBacked) {
+						cb(err, project_funding, orders, currentUserBacked);
+					},
+						{
+							user_id: req.session.user._id,
+							proj_id: req.params._id
+						}
+					);
+				}else{
+					cb(err, project_funding, orders, null);
+				}
+
 			}
 		], function (err, project_funding, orders, currentUserBacked) {
 			if (err) {
@@ -429,15 +434,15 @@ module.exports = function (app) {
 			},
 			// 计算时间等信息
 			function (projects, cb) {
-				projects.forEach(function(project,index){
+				projects.forEach(function (project, index) {
 					Project_funding.calculate(project);
 					// console.log(project.print_to_go);
 				});
-				cb(null,projects);
+				cb(null, projects);
 			},
-			function (projects, cb){
+			function (projects, cb) {
 				Project_funding.pretty(projects);
-				cb(null,projects);
+				cb(null, projects);
 			}
 		], function (err, projects) {
 			if (err) {
