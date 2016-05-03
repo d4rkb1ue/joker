@@ -111,6 +111,9 @@ Project_funding.prototype.save = function (maincb) {
         comments_count: 0,
         comments: [],
 
+        watcher_count: 0, // 关注者
+        watchers: [],
+
         /**
          * create_at : when author hand in.
          * start_at : when admin authorized. The actual time when it start being funding
@@ -196,11 +199,20 @@ Project_funding.get = function (findPara, sortPara, maincb) {
 }
 
 Project_funding.pretty = function (docs) {
-    // docs.forEach(function(project, index) {
-
-    //     project.short_blurb = rightpad(project.short_blurb,144,"&nbsp;");
-    //     project.category
-    // });
+    var category = {
+        "lib" : "文学历史",
+        "sci" : "数学理工",
+        "finance" : "金融管理",
+        "tech" : "数码科技",
+        "arts" : "艺术美术",
+        "health" : "医学心理",
+        "edu" : "心理教育",
+        "other" : "其他"
+    };
+        
+    docs.forEach(function (project, index) {
+        project.category = category[project.category];
+    });
 
 }
 /**
@@ -349,13 +361,13 @@ Project_funding.parseRw = function (project_funding) {
 
 }
 
-Project_funding.addBacker = function (_id, amount,maincb) {
-    if(!_id || !amount){
+Project_funding.addBacker = function (_id, amount, maincb) {
+    if (!_id || !amount) {
         maincb('err: _id or amount undefined');
     }
-    if(amount.constructor === String){
+    if (amount.constructor === String) {
         amount = Number.parseFloat(amount);
-        if(!amount){
+        if (!amount) {
             maincb('err: amount is not a number/right string');
         }
     }

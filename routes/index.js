@@ -414,16 +414,47 @@ module.exports = function (app) {
 		})
 
     });
-	
-	app.get('/created',checkLogin);
-	app.get('/created',function(req,res){
-		return res.render('created', {
-			user: req.session.user,
-			success: req.flash('success').toString(),
-			error: req.flash('error').toString(),
-		});
+
+	app.get('/created', checkLogin);
+	app.get('/created', function (req, res) {
+		async.waterfall([
+			// 获取当前用户发布的项目
+			function (cb) {
+				Project_funding.get(
+					{ author_id: req.session.user._id },
+					function (err, projects) {
+						cb(err, projects);
+					}
+				);
+			},
+			// 计算时间等信息
+			function (projects, cb) {
+				projects.forEach(function(project,index){
+					Project_funding.calculate(project);
+					// console.log(project.print_to_go);
+				});
+				cb(null,projects);
+			},
+			function (projects, cb){
+				Project_funding.pretty(projects);
+				cb(null,projects);
+			}
+		], function (err, projects) {
+			if (err) {
+				req.flash('error', err);
+				console.log(err);
+				return res.render('/', renderSession('众客', req));
+			}
+			return res.render('created', {
+				title: '创立的项目 - 众客',
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString(),
+				projects: projects
+			});
+		})
 	})
-	
+
 	app.get('/profile', checkLogin);
 	app.get('/profile', function (req, res) {
 		return res.render('profile', {

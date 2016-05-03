@@ -58,6 +58,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="/">首页</a></li>
 					<li><a href="/start">创建项目</a></li>
+
 				</ul>
 				<!--搜索-->
 				<form class="nav navbar-form navbar-left whole-search" role="search">
@@ -70,13 +71,25 @@
 				<!-- 登录 -->
 				<!-- Emmet: c + tab = 注释  -->
 				<ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
+					<% if(user){ %>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<%= user.name %> <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/profile#ui-id-2">支持过的项目</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="/profile#ui-id-4">创建的项目</a></li>
 
-					<% if(!user) { %>
-						<button type="button" onclick="location.assign('/login');" class="btn btn-default navbar-btn">登录</button>
-						<button type="button" onclick="location.assign('/register');" class="btn btn-default navbar-btn">注册</button>
-						<% }else{ %>
-							<button type="button" onclick="location.assign('/logout');" class="btn btn-default navbar-btn">登出</button>
-							<% } %>
+
+							</ul>
+						</li>
+						<% } %>
+							<% if(!user) { %>
+								<button type="button" onclick="location.assign('/login');" class="btn btn-default navbar-btn">登录</button>
+								<button type="button" onclick="location.assign('/register');" class="btn btn-default navbar-btn">注册</button>
+								<% }else{ %>
+									<button type="button" onclick="location.assign('/logout');" class="btn btn-default navbar-btn">登出</button>
+									<% } %>
 
 				</ul>
 			</div>
@@ -90,6 +103,4 @@
 		if(success || error){
 			checkFlash(success,error);
 		}
-		
-		
 	</script>
