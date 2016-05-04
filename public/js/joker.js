@@ -1,8 +1,4 @@
-function checkFlash(success, error) {
-    if (success || error) {
-        alert(success || error);
-    }
-}
+
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -122,7 +118,7 @@ var ajaxMakeOrder = function () {
             $('#pay-button').text('已完成');
             setTimeout(function () {
                 location.assign('/project-funding/' + getParameterByName('proj_id'));
-            },3000); 
+            }, 3000);
         } else if (xhr.responseText.trim().toLowerCase() === 'err') {
             toggleCommitAlert('warning', '<b>咦? </b>服务器不能正确解析您的信息，请刷新界面重新提交。十分抱歉。');
         }
@@ -147,15 +143,35 @@ var ajaxMakeOrder = function () {
 
 };
 
-var ajaxProjCate = function (category,jq){
-    console.log(jq.prop('class'));
-    var jqxhr = $.ajax('/project-by-category?category='+category,{
+var ajaxProjCate = function (category, jq) {
+
+    var jqxhr = $.ajax('/project-by-category?category=' + category, {
         dataType: 'html'
-    }).done(function(html){
+    }).done(function (html) {
         jq.html(html);
-    }).fail(function(xhr,status){
-        console.log(xhr.status+" "+status);
-    }).always(function(){
+    }).fail(function (xhr, status) {
+        console.log(xhr.status + " " + status);
+    }).always(function () {
         // 
     })
 }
+
+var search = function (word,jq) {
+    
+    var url = '/search?word=';
+    
+    word.split(/\s+/).forEach((w) => { url += w + "+"; });
+    
+    url = url.substring(0,url.length-1); // 去掉尾巴的 '+'
+    
+    var jqxhr = $.ajax(url, {
+        dataType: 'html'
+    }).done(function (html) {
+        jq.html(html);
+    }).fail(function (xhr, status) {
+        console.log(xhr.status + " " + status);
+    }).always(function () {
+        // 
+    })
+}
+

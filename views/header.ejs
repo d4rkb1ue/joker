@@ -61,10 +61,13 @@
 
 				</ul>
 				<!--搜索-->
-				<form class="nav navbar-form navbar-left whole-search" role="search">
+				<!--<form class="nav navbar-form navbar-left whole-search" role="search" id="whole-search">-->
+				<form class="nav navbar-left navbar-form whole-search" id="whole-search">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search for...">
-						<span class="input-group-btn"><button class="btn btn-default" type="button">Go!</button></span>
+						<input type="text" class="form-control">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">搜索</button>
+						</span>
 					</div>
 				</form>
 
@@ -100,7 +103,32 @@
 
 
 	<script>
-		if(success || error){
-			checkFlash(success,error);
-		}
+		$(function(){
+			// 注意！routes传入的参数是不可能在浏览器中看到的！不然user不就都被读取了吗？
+			// if(success || error){
+			// 	checkFlash(success,error);
+			// }
+			<% if(success || error){ %>
+				alert("<%= success || error %>")
+			<% } %>
+		});
+	</script>
+	
+	<!-- 注意分隔，可能出错的script应该独自成块，不然下面的代码在错误后将不再运行 -->
+	
+	<script>
+		
+		$(function(){
+			// 取消原有一切submit, 不过本来也没有
+			// $('#whole-search').off('submit');
+			
+			$('#whole-search').submit(function(){
+                // 取消原本HTML自带的form操作
+                event.preventDefault();
+                var val = $('#whole-search input').val();
+                if(val.length > 0){
+                    search(val,$('body'));
+                }
+            })
+		});
 	</script>

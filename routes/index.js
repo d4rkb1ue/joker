@@ -60,22 +60,43 @@ module.exports = function (app) {
 
 
 	app.get('/', function (req, res, next) {
-        console.dir(Project_funding.getMiniInfo({}, function (err, docs) {
-            if (err) {
+		async.waterfall([
+			function (cb) {
+				Project_funding.getMiniInfo({}, function (err, docs) {
+					cb(err, docs);
+				});
+			},
+			// function (docs, cb) {
+			// 	Project_funding.pretty(docs);
+			// }
+		], function (err, docs) {
+			if (err) {
                 req.flash('error', err);
-                return res.redirect("/");
+                return res.redirect("/404");
             }
-            // console.dir(docs);
-			Project_funding.pretty(docs);
-            return res.render('index', {
+			return res.render('index', {
                 title: '众客',
                 user: req.session.user,
-                success: req.flash('success').toString(),
-                error: req.flash('error').toString(),
+                success: req.flash('success').toString() || "",
+                error: req.flash('error').toString() || "",
                 project_fundings: docs
             });
-        }));
-
+		})
+        // console.dir(Project_funding.getMiniInfo({}, function (err, docs) {
+        //     if (err) {
+        //         req.flash('error', err);
+        //         return res.redirect("/");
+        //     }
+        //     // console.dir(docs);
+		// 	Project_funding.pretty(docs);
+        //     return res.render('index', {
+        //         title: '众客',
+        //         user: req.session.user,
+        //         success: req.flash('success').toString(),
+        //         error: req.flash('error').toString(),
+        //         project_fundings: docs
+        //     });
+        // }));
 	});
 
 	app.get('/register', checkLogout);
@@ -476,23 +497,70 @@ module.exports = function (app) {
 			function (cb) {
 				Project_funding.getMiniInfo(
 					// 如果没有参数就返回所有
-					req.query.category ? { category: req.query.category }:{}
+					req.query.category ? { category: req.query.category } : {}
 					,
 					function (err, projects) {
 						cb(err, projects);
 					})
 			}
 		], function (err, projects) {
+			if (err) {
+				req.flash('error', err);
+				console.log(err);
+				return res.render('/', renderSession('众客', req));
+			}
+			return res.render('project-by-category', {
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString(),
+				projects: projects,
+			})
+		})
+	});
+	
+
+	app.get('/search', function (req, res) {
+		// 没有参数就返回首页
+		if(!req.query.word){
+			return res.redirect('/');
+		}
+		
+		var query = req.query.word;
+		
+		console.error(query);
+		
+		var splitWord = query.split('+').reduce( (x,y) => x+"|"+y );
+		var regStr = "";
+		
+		// 每个关键词都要加一次
+		// ("people|suck|p") => ("[people|suck|p]+.*[people|suck|p]+.*[people|suck|p]+.*")
+		query.split('+').forEach( function(){
+			regStr+= "["+splitWord+"]+.*";
+		});
+		
+		var regExp = new RegExp(regStr);
+		async.waterfall([
+			function (cb) {
+				Project_funding.getMiniInfo(
+					{ title: regExp }
+					,
+					function (err, projects) {
+						cb(err, projects);
+					});
+			}
+		],function(err,projects){
 			if(err){
 				req.flash('error', err);
 				console.log(err);
 				return res.render('/', renderSession('众客', req));
 			}
-			return res.render('project-by-category',{
+			return res.render('search-result', {
+				query: query,
+				title: '搜索 '+ query,
 				user: req.session.user,
 				success: req.flash('success').toString(),
 				error: req.flash('error').toString(),
-				projects:projects,
+				projects: projects,
 			})
 		})
 	});
