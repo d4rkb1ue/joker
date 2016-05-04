@@ -156,6 +156,7 @@ var ajaxProjCate = function (category, jq) {
     })
 }
 
+// 多关键字搜索没问题！
 var search = function (word,jq) {
     
     var url = '/search?word=';

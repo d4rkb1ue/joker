@@ -77,8 +77,8 @@ module.exports = function (app) {
 			return res.render('index', {
                 title: '众客',
                 user: req.session.user,
-                success: req.flash('success').toString() || "",
-                error: req.flash('error').toString() || "",
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString(),
                 project_fundings: docs
             });
 		})
@@ -288,7 +288,7 @@ module.exports = function (app) {
 						}
 					);
 				} else {
-					cb(err, project_funding, orders, null);
+					cb(null, project_funding, orders, null);
 				}
 
 			}
