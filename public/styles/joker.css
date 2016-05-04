@@ -440,8 +440,8 @@ div.profile-panel table td{
 	}
 	.main-footer div.row {
 		padding-top: 10px;
-		width: 80%;
-		margin-left: 10%;
+		/*width: 80%;*/
+		/*margin-left: 10%;*/
 	}
 	.main-footer div.about, .main-footer div.help {
 
@@ -457,6 +457,25 @@ div.profile-panel table td{
 	h2.profile-title {
 		margin-bottom: 40px;
 		margin-left: 20px;
+	}
+	
+}
+
+@media (min-width: 768px) {
+	.profile.container, .profile-panel.container {
+	width: 100%;
+  }
+}
+@media (min-width: 992px) {
+	.profile.container, .profile-panel.container {
+	width: 85%;
+	}
+}
+
+
+@media (min-width: 1200px) {
+	.profile.container, .profile-panel.container {
+	width: 75%;
 	}
 }
 

@@ -56,7 +56,7 @@
 
 
                     <div class="btn-group" style="float:left;">
-                        <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         类别 <span class="caret"></span>
                                     </button>
                         <ul class="dropdown-menu">
@@ -70,7 +70,7 @@
                             <li><a to="other">其他</a></li>
                         </ul>
                     </div>
-                    <button id="allcate" type="button" class="btn btn-default btn-lg">全部</button>
+                    <button id="allcate" type="button" class="btn btn-default">全部</button>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -153,6 +153,11 @@
             $('#allcate').click(function(){
                     ajaxProjCate("",$('#project-cards-row'));
             })
+        })
+    </script>
+    <script>
+        $(function(){
+            $($('#navbar ul.nav-tab li')[0]).addClass('active');
         })
     </script>
 

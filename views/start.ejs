@@ -258,7 +258,7 @@
                     <div class="project-inputs">
                         <div class="form-group">
                             <label for="projectNameInput">项目名称</label>
-                            <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="1-30字" maxlength="30" minlength="1">
+                            <input type="text" class="form-control" name="title" id="projectNameInput" placeholder="1-10字" maxlength="10" minlength="1">
                         </div>
                         <div class="form-group">
                             <label for="projectInfoInput">简短介绍</label>
@@ -415,7 +415,7 @@
                             <b>预期上线时间为什么要单独设置？</b><br/> 由于不同的回报可能包含不同范围，不同形式内容。
                             <ul class="ul">
                                 <li>你可以设置允许投资者看部分课程，这部分课程可能是较早就能完成的</li>
-                                <li>允许投资者尽快尝鲜，可以在课程尚未上线前，提供Bata体验</li>
+                                <li>允许投资者尽快尝鲜，可以在课程尚未上线前，提供Beta体验</li>
                                 <li>多样的教学方式，比如1对1在线讲解、实体书籍材料可能和在线视频的完成时间不一致</li>
                             </ul>
                             </p>
@@ -449,10 +449,7 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <label for="video">视频介绍地址</label>
-                            <input type="url" class="form-control" name="videourl" id="video" placeholder="请输入优酷, 土豆, bilibili等视频网站地址">
-                        </div>
+                        
                     </div>
 
 
@@ -569,7 +566,11 @@
                                 minlength="1"></textarea>
                             <!--<input type="text" class="form-control" name="risk_challenges" id="risk_challenges" placeholder="推荐30天或更短">-->
                         </div>
-
+                        
+                        <div class="form-group">
+                            <label for="video">视频介绍地址</label>
+                            <input type="url" class="form-control" name="videourl" id="video" placeholder="请输入优酷, 土豆, bilibili等视频网站地址">
+                        </div>
                     </div>
 
 
@@ -611,5 +612,9 @@
     <script>
         var ue = UE.getEditor('container');
     </script>
-
+    <script>
+        $(function(){
+            $($('#navbar ul.nav-tab li')[1]).addClass('active');
+        })
+    </script>
     <%- include footer %>

@@ -36,25 +36,7 @@ module.exports = function (app) {
 	// 	});
 	// });
 	app.get('/test', function (req, res) {
-		// var newOrder = new Order({
-		// 	user_id: "5719e51e83a52c059d74e3e9",
-		// 	proj_id: "571f6d09621ff43d546d6752",
-		// 	proj_name: "西班牙语学习",
-		// 	rw_id: "3",
-		// 	rw_amout: "29",
-		// 	payment: "coupon",
-		// });
-
-		// newOrder.save(function (err, order) {
-		// 	if (err) {
-		// 		req.flash('error', err);
-		// 		return res.redirect('/');
-		// 	}
-		// 	console.dir(order);
-
-		// 	return res.redirect('/');
-		// });
-
+		
 
 	});
 
@@ -82,21 +64,6 @@ module.exports = function (app) {
                 project_fundings: docs
             });
 		})
-        // console.dir(Project_funding.getMiniInfo({}, function (err, docs) {
-        //     if (err) {
-        //         req.flash('error', err);
-        //         return res.redirect("/");
-        //     }
-        //     // console.dir(docs);
-		// 	Project_funding.pretty(docs);
-        //     return res.render('index', {
-        //         title: '众客',
-        //         user: req.session.user,
-        //         success: req.flash('success').toString(),
-        //         error: req.flash('error').toString(),
-        //         project_fundings: docs
-        //     });
-        // }));
 	});
 
 	app.get('/register', checkLogout);
@@ -441,6 +408,18 @@ module.exports = function (app) {
 
     });
 
+
+	app.get('/project-panel',checkLogin);
+	app.get('/project-panel',function(req, res){
+		return res.render('profile', {
+			title: '项目管理 - 众客',
+			user: req.session.user,
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString(),
+		});
+	});
+	
+	
 	app.get('/created', checkLogin);
 	app.get('/created', function (req, res) {
 		async.waterfall([
