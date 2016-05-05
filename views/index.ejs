@@ -50,11 +50,9 @@
 
 
         <div class="container" style="margin-top:15px">
-            <!-- 类别导航条 -->
+            <!-- 类别和显示方式导航条 -->
             <div class="category-nav">
-                <div class="btn-group" role="group" aria-label="...">
-
-
+                <div class="btn-group" role="group">
                     <div class="btn-group" style="float:left;">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         类别 <span class="caret"></span>
@@ -72,6 +70,12 @@
                     </div>
                     <button id="allcate" type="button" class="btn btn-default">全部</button>
                 </div>
+
+                <div class="btn-group visible-xs-block" role="group" style="float:right">
+                    <button type="button" id="card-view-btn" class="btn btn-default active" onclick="cardView()"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button>
+                    <button type="button" id="list-view-btn" class="btn btn-default" onclick="listView()"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+                </div>
+
                 <div class="clear"></div>
             </div>
 
@@ -116,20 +120,20 @@
                                     <!--<div class="project-stats-percent" style="float:left; margin:0px">-->
                                     <div class="project-stats-percent">
                                         <!--<h4><%= project.funded_percent %><small>%<br/>已达</small></h4>-->
-                                        <h4><%= project.funded_percent %><small>%<span class="horizon-only"></span></small></h4>
+                                        <h4><%= project.funded_percent %><small>%<span class="horizon-only hide-when-ip5"></span></small></h4>
                                         <h4><small><span class="vertical-only">已达</span></small></h4>
                                     </div>
                                     <!--<div class="project-stats-days" style="float:left; padding-left: 10px; margin:0px">-->
                                     <div class="project-stats-days">
                                         <!--<h4><%= project.print_to_go %><small><br/>剩余</small></h4>-->
-                                        <h4><small><span class="horizon-only">还有</span></small><%= project.print_to_go %></h4>
+                                        <h4><span class="glyphicon glyphicon-time only-ip5" aria-hidden="true"></span><small><span class="horizon-only hide-when-ip5">还有</span></small><%= project.print_to_go %></h4>
                                         <h4><small><span class="vertical-only">剩余</span></small></h4>
                                     </div>
 
                                     <!--<div class="project-stats-funded" style="float:right;  padding-left: 10px; margin:0px">-->
                                     <div class="project-stats-funded">
                                         <!--<h4><%= project.current_amount %>元<small><br/>已筹集</small></h4>-->
-                                        <h4><small><span class="horizon-only">已筹</span></small><%= project.current_amount %><small>元</small></h4>
+                                        <h4><span class="glyphicon glyphicon-flag only-ip5" aria-hidden="true"></span><small><span class="horizon-only hide-when-ip5">已筹</span></small><%= project.current_amount %><small>元</small></h4>
                                         <h4><small><span class="vertical-only">已筹集</span></small></h4>
                                     </div>
 
@@ -175,7 +179,8 @@
         })
     </script>
     <script>
-        $(function(){
+        
+        function listView(){
             // @media: <= 768
             if( $(window).width() <= 768 ){
                 $('#project-cards-row').removeClass("row-horizon");
@@ -195,7 +200,8 @@
                         $(this).text().trim()
                         .substring(0,26)+"...");
                 });
-                $('.horizon-only').addClass('hidden-ip5');
+                $('.hide-when-ip5').addClass('hidden-ip5');
+                $('.only-ip5').removeClass('only-ip5');
             }else if( $(window).width() <= 768 ){ // @media: <= 768
                 $('div.horizon-card>div.caption>p').each(function(){
                     $(this).text(
@@ -204,7 +210,78 @@
                 });
             }
             
-        })
+            $('#list-view-btn').addClass('active');
+            $('#card-view-btn').removeClass('active');
+            
+        };
+
+        function cardView(){
+            // @media: <= 768
+            if( $(window).width() <= 768 ){
+                $('#project-cards-row').addClass("row-horizon");
+                $('#project-cards-row>div').removeClass("horizon-no-pad");
+                $('.category-nav').removeClass("horizon-minus-pad");
+                $('div.thumbnail.horizon-card').addClass('project-card')
+                    .removeClass('horizon-card');
+                
+            }
+            
+            
+            
+            // @media:<=320
+            if( $(window).width() <= 320 ){
+                $('div.horizon-card>div.caption>p').each(function(){
+                    $(this).text(
+                        $(this).text().trim()
+                        .substring(0,26)+"...");
+                });
+                $('.hide-when-ip5').removeClass('hidden-ip5');
+                $('.only-ip5').addClass('only-ip5');
+            }else if( $(window).width() <= 768 ){ // @media: <= 768
+                $('div.horizon-card>div.caption>p').each(function(){
+                    $(this).text(
+                        $(this).text().trim()
+                        .substring(0,35)+"...");
+                });
+            }
+            
+            $('#list-view-btn').removeClass('active');
+            $('#card-view-btn').addClass('active');
+        }
+        
+        
+        // 初始列表式显示？
+        // $(function(){
+        //     // @media: <= 768
+        //     if( $(window).width() <= 768 ){
+        //         $('#project-cards-row').removeClass("row-horizon");
+        //         $('#project-cards-row>div').addClass("horizon-no-pad");
+        //         $('.category-nav').addClass("horizon-minus-pad");
+        //         $('div.thumbnail.project-card').removeClass('project-card')
+        //             .addClass('horizon-card');
+                
+        //     }
+            
+            
+            
+        //     // @media:<=320
+        //     if( $(window).width() <= 320 ){
+        //         $('div.horizon-card>div.caption>p').each(function(){
+        //             $(this).text(
+        //                 $(this).text().trim()
+        //                 .substring(0,26)+"...");
+        //         });
+        //         $('.hide-when-ip5').addClass('hidden-ip5');
+        //         $('.only-ip5').removeClass('only-ip5');
+        //     }else if( $(window).width() <= 768 ){ // @media: <= 768
+        //         $('div.horizon-card>div.caption>p').each(function(){
+        //             $(this).text(
+        //                 $(this).text().trim()
+        //                 .substring(0,35)+"...");
+        //         });
+        //     }
+            
+        // })
     </script>
 
     <%- include footer %>

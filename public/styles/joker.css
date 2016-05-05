@@ -328,7 +328,7 @@ body {
 }
 
 .main-footer .company {
-	border-top: solid 1px #ddd;
+	/*border-top: solid 1px #ddd;*/
 	padding-top: 10px;
 }
 
@@ -477,7 +477,9 @@ div.horizon-card>div.caption{
 .hidden-ip5 {
 	display: none;
 }
-
+.only-ip5 {
+	display: none;
+}
 
 
 div.horizon-card div.project-stats>div.project-stats-days {
