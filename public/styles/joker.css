@@ -99,6 +99,7 @@ body {
 
 
 
+
 .reward-item {
 	padding: 4px;
     background-color: #fff;
@@ -359,6 +360,151 @@ div.profile-panel table img{
 div.profile-panel table td{
 	vertical-align: middle;
 }
+
+/* index - project-card */
+.project-card>div.caption>h4{
+	height:2em;
+}
+
+.project-card>div.caption>p{
+	font-size: small; 
+	height:9em;
+}
+
+.project-card>div.caption>div.progress{
+	margin-bottom:9px;
+}
+
+.project-card>div.caption>div.project-stats{
+	overflow:hidden; 
+	height:3.5em;
+}
+
+.project-card>div.caption>div.project-stats>div.project-stats-percent {
+	float:left; 
+	margin:0px;
+}
+
+.project-card>div.caption>div.project-stats>div.project-stats-days{
+	float:left; 
+	padding-left: 10px; 
+	margin:0px;
+}
+.project-card>div.caption>div.project-stats>div.project-stats-funded{
+	float:right;  
+	padding-left: 10px; 
+	margin:0px;
+}
+
+.project-card>div.caption>div.project-stats>div.project-stats-backers{
+	float:right; 
+	margin:0px;
+}
+
+div.project-card>div.caption>div.project-stats h4 span.horizon-only {
+	display: none;
+}
+
+div.project-card div.project-stats h4{
+	margin-top: 0px;
+}
+div.thumbnail.project-card .caption{
+	padding-bottom: 0px;
+}
+
+/* mobile-only index project-card */
+
+div.horizon-card>div.caption>div.project-stats h4 span.vertical-only {
+	display: none;
+}
+
+
+/*div.horizon-card>div.caption*/
+div.horizon-card>div.caption>div.progress{
+	height: 6px;
+    margin-bottom: 1px;
+}
+div.horizon-card>div.caption>div.project-stats div{
+	display: inline-block;
+	margin-left: 5px;
+}
+div.horizon-card>div.caption h4{
+	margin-top: 5px;
+	/*height:0.5em;*/
+	font-size: 1em;
+	margin-bottom: 3px;
+}
+div.horizon-card>div.caption>h4>small{
+	display: none;
+}
+
+div.horizon-card>div.caption>p{
+	/*display: none;*/
+	font-size: smaller;
+	margin-bottom: 2px;
+}
+
+div.thumbnail.horizon-card {
+	padding:0px;
+	padding-right: 4px;
+	padding-bottom: 0px;
+    margin-bottom: 15px;
+	height: 92px;
+}
+
+div.horizon-card>a{
+	/*display: inline-block;*/
+	float: left;
+	text-align: center;
+	overflow: hidden;
+	width: 120px;
+	height: auto;
+    margin-right: 5px;
+    /*margin-left: 0px;*/
+	/*border: 1px solid #ddd;*/
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+	
+}
+
+div.horizon-card>div.caption{
+	padding: 0px;
+	/*padding-left: 4px;*/
+	margin: 0px;
+    -webkit-box-flex: 1;	
+}
+
+.hidden-ip5 {
+	display: none;
+}
+
+
+
+div.horizon-card div.project-stats>div.project-stats-days {
+	position: absolute;
+  	left: 190px;
+}
+
+div.horizon-card div.project-stats {
+	position: relative;
+	left: -1px;
+}
+
+div.horizon-card div.project-stats>div.project-stats-funded {
+	float: right;
+}
+
+div.horizon-no-pad {
+	padding-right: 5px;
+    padding-left: 5px;
+}
+div.horizon-minus-pad {
+	margin-right: -10px;
+    margin-left: -10px;
+}
+
+
+
 
 /* diff mobile and destop*/
 
