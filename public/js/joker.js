@@ -149,6 +149,9 @@ var ajaxProjCate = function (category, jq) {
         dataType: 'html'
     }).done(function (html) {
         jq.html(html);
+        if($('#list-view-btn').hasClass('active')){
+            listView();
+        }
     }).fail(function (xhr, status) {
         console.log(xhr.status + " " + status);
     }).always(function () {

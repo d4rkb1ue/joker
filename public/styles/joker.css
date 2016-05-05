@@ -57,7 +57,7 @@
 /* ----- my design ----- */
 body {
 	padding-top: 50px;
-	
+
 }
 
 #start-main-container{
@@ -85,7 +85,7 @@ body {
 	float:left;
 	width:27%;
 	margin-left: 3%;
-	
+
 }
 
 .ta-noresize {
@@ -133,7 +133,7 @@ body {
 	background-color: #fff;
 	text-align: center;
 	color: #ddd;
-	
+
 }
 /*joker.css 的引用在bs.css之下，因此可以覆盖原定义*/
 .carousel-caption {
@@ -161,7 +161,7 @@ body {
 	margin-bottom: 10px;
 	margin-left: 9px;
 	margin-right: 9px;
-	
+
 }
 
 #funding-info .pre-num, #funding-info .after-num {
@@ -198,7 +198,7 @@ body {
     padding-left: 0px;
     margin-right: 0px;
     margin-left: 0px;
-	
+
 }
 .meta-content.container [class*="col-xs"], detail-content.container[class*="col-xs"] {
 	padding-right: 0px;
@@ -219,7 +219,7 @@ body {
 
 #about-author img, #about-author div#a-author-name{
 	float: right;
-	
+
 }
 #about-author img{
 	width: 80px;
@@ -227,29 +227,29 @@ body {
 	border-radius: 50%;
     border:5px solid #fff;
 }
-  
+
 #back-buttons {
 	padding-top: 20px;
 	padding-bottom: 20px;
-	
+
 }
 
 #back-buttons button{
 	float: right;
-	
+
 }
 
 .detail-content {
 	margin-top: 15px;
-	
+
 }
 
 .detail-content .nav-pills{
 	padding-left: 3px;
 	border-bottom: 1px solid #ddd;
-	padding-bottom: 15px; 
+	padding-bottom: 15px;
 }
-  
+
 .reward {
 	display: block;
 	padding: 4px;
@@ -258,12 +258,12 @@ body {
 	border: 1px solid #fff;
 	border-radius: 4px;
 	cursor:pointer;
-	
+
 	-webkit-transition: border .2s ease-in-out;
 		-o-transition: border .2s ease-in-out;
 			transition: border .2s ease-in-out;
 }
-  
+
 .reward:hover,
 .reward:focus,
 .reward.active {
@@ -283,19 +283,19 @@ body {
 		-o-transition: border .2s ease-in-out;
 			transition: border .2s ease-in-out;
 }
-  
+
 .reward-disabled:hover,
 .reward-disabled:focus,
 .reward-disabled.active {
 	cursor:not-allowed;
 }
-  
+
 .back-header {
 	margin-top: 40px;
 	margin-bottom: 40px;
 }
 .back-header a:hover{
-	text-decoration:none; 
+	text-decoration:none;
 }
 
 
@@ -311,7 +311,7 @@ body {
 		-o-transition: border .2s ease-in-out;
 			transition: border .2s ease-in-out;
 }
-  
+
 .back-summary {
 	float: right;
 	width: 100%;
@@ -367,7 +367,7 @@ div.profile-panel table td{
 }
 
 .project-card>div.caption>p{
-	font-size: small; 
+	font-size: small;
 	height:9em;
 }
 
@@ -376,28 +376,28 @@ div.profile-panel table td{
 }
 
 .project-card>div.caption>div.project-stats{
-	overflow:hidden; 
+	overflow:hidden;
 	height:3.5em;
 }
 
 .project-card>div.caption>div.project-stats>div.project-stats-percent {
-	float:left; 
+	float:left;
 	margin:0px;
 }
 
 .project-card>div.caption>div.project-stats>div.project-stats-days{
-	float:left; 
-	padding-left: 10px; 
+	float:left;
+	padding-left: 10px;
 	margin:0px;
 }
 .project-card>div.caption>div.project-stats>div.project-stats-funded{
-	float:right;  
-	padding-left: 10px; 
+	float:right;
+	padding-left: 10px;
 	margin:0px;
 }
 
 .project-card>div.caption>div.project-stats>div.project-stats-backers{
-	float:right; 
+	float:right;
 	margin:0px;
 }
 
@@ -464,14 +464,14 @@ div.horizon-card>a{
 	/*border: 1px solid #ddd;*/
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-	
+
 }
 
 div.horizon-card>div.caption{
 	padding: 0px;
 	/*padding-left: 4px;*/
 	margin: 0px;
-    -webkit-box-flex: 1;	
+    -webkit-box-flex: 1;
 }
 
 .hidden-ip5 {
@@ -506,6 +506,23 @@ div.horizon-minus-pad {
 }
 
 
+/* index slider */
+
+#carousel-slider .item>img{
+	
+    height:350px;
+	overflow: hidden;
+	
+	/*这2行代码也凑合，但是在slider里，在图片滚动的时候会显示出溢出的部分*/
+	/* max-width: none; 图片不会被裁剪/变形 */
+	/*max-width: none; 
+	margin-left: -50%;*/
+
+	/* 这个简直绝了，完美无暇，但是兼容性有差，ie，edge，android browser<5.0 都不行 */
+    object-fit: cover;
+
+}
+
 
 
 /* diff mobile and destop*/
@@ -526,7 +543,7 @@ div.horizon-minus-pad {
 		/*margin-right: auto;
 		margin-left: 0px;*/
 	}
-	
+
 	.meta-content #short_blurb {
 		font-size: large;
 		font-weight: bold;
@@ -535,12 +552,12 @@ div.horizon-minus-pad {
 		margin-left: 0px;
 		margin-right: 0px;
 	}
-	
+
 	#right-info>div#funding-all-info{
 		padding-top:20px;
 	}
 	#right-info div.progress {
-		
+
 		margin-bottom: 20px;
 	}
 	#funding-info>div {
@@ -561,26 +578,26 @@ div.horizon-minus-pad {
 		width: 40%;
 		padding-right: 10%;
 	}
-	
+
 	#funding-info .pre-num, #funding-info .after-num {
 		padding-top: 2.25em;
 	}
-	
+
 	#funding-info .number>span {
 		font-size: 3.25em;
 		font-weight: bolder;
 	}
-	
+
 	.back-summary {
 	float: right;
 	width: 30%;
 	}
-	
-	
+
+
 	.main-footer {
 		margin-top:40px;
 	}
-	
+
 	.main-footer .company {
 		border-top: solid 1px #ddd;
 		padding-top: 10px;
@@ -597,7 +614,7 @@ div.horizon-minus-pad {
 
 
 	}
-	
+
 	div.profile.container {
 		margin-top: 20px;
 		/*margin-bottom: 40px;*/
@@ -607,6 +624,11 @@ div.horizon-minus-pad {
 		margin-left: 20px;
 	}
 	
+	#carousel-slider .item>img{
+		height: auto;
+	}
+	
+
 }
 
 @media (min-width: 768px) {

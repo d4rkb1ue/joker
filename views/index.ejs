@@ -16,7 +16,7 @@
                         <h1>so what?</h1>
 
                     </div>
-                    <img style="width:100%" alt="image here but somehow it disappared." src="/images/slider-1.jpg" data-holder-rendered="true">
+                    <img alt="image here but somehow it disappared." src="/images/slider-1.jpg" data-holder-rendered="true">
                 </div>
                 <div class="item">
                     <div class="carousel-caption">
@@ -25,7 +25,7 @@
                         <h1>so what?</h1>
 
                     </div>
-                    <img style="width:100%" alt="image here but somehow it disappared." src="/images/slider-2.jpg" data-holder-rendered="true">
+                    <img alt="image here but somehow it disappared." src="/images/slider-2.jpg" data-holder-rendered="true">
                 </div>
                 <div class="item">
                     <div class="carousel-caption">
@@ -34,7 +34,7 @@
                         <h1>so what?</h1>
 
                     </div>
-                    <img style="width:100%" alt="image here but somehow it disappared." src="/images/slider-3.jpg" data-holder-rendered="true">
+                    <img alt="image here but somehow it disappared." src="/images/slider-3.jpg" data-holder-rendered="true">
                 </div>
 
             </div>
@@ -82,7 +82,7 @@
 
             <!-- 最热项目流 -->
             <!-- bs-horizon -->
-            <div id="project-cards-row" class="row row-horizon" style="margin-top:15px;">
+            <div id="project-cards-row" class="row row-horizon" style="margin-top:15px;min-height:300px">
                 <% project_fundings.forEach(function (project, index){ %>
 
 
@@ -126,14 +126,14 @@
                                     <!--<div class="project-stats-days" style="float:left; padding-left: 10px; margin:0px">-->
                                     <div class="project-stats-days">
                                         <!--<h4><%= project.print_to_go %><small><br/>剩余</small></h4>-->
-                                        <h4><span class="glyphicon glyphicon-time only-ip5" aria-hidden="true"></span><small><span class="horizon-only hide-when-ip5">还有</span></small><%= project.print_to_go %></h4>
+                                        <h4><small><span class="glyphicon glyphicon-time only-ip5" aria-hidden="true"></span><span class="horizon-only hide-when-ip5">还有</span></small><%= project.print_to_go %></h4>
                                         <h4><small><span class="vertical-only">剩余</span></small></h4>
                                     </div>
 
                                     <!--<div class="project-stats-funded" style="float:right;  padding-left: 10px; margin:0px">-->
                                     <div class="project-stats-funded">
                                         <!--<h4><%= project.current_amount %>元<small><br/>已筹集</small></h4>-->
-                                        <h4><span class="glyphicon glyphicon-flag only-ip5" aria-hidden="true"></span><small><span class="horizon-only hide-when-ip5">已筹</span></small><%= project.current_amount %><small>元</small></h4>
+                                        <h4><small><span class="glyphicon glyphicon-flag only-ip5" aria-hidden="true"></span><span class="horizon-only hide-when-ip5">已筹</span></small><%= project.current_amount %><small>元</small></h4>
                                         <h4><small><span class="vertical-only">已筹集</span></small></h4>
                                     </div>
 
