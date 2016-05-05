@@ -625,6 +625,7 @@ div.horizon-minus-pad {
 	}
 	
 	#carousel-slider .item>img{
+		width: 100%;
 		height: auto;
 	}
 	
