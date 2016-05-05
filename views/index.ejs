@@ -196,17 +196,22 @@
             // @media:<=320
             if( $(window).width() <= 320 ){
                 $('div.horizon-card>div.caption>p').each(function(){
-                    $(this).text(
-                        $(this).text().trim()
-                        .substring(0,26)+"...");
+                    // 很多html带有大量空格，记得trim
+                    $(this).html(
+                        $(this).html().trim()
+                        .substring(0,26)+"..."+
+                        // 记录原值使用不可见的span，不能不记录，不然不能恢复了
+                        "<span style=\"display:none\">" + $(this).html() + "</span>");
                 });
                 $('.hide-when-ip5').addClass('hidden-ip5');
                 $('.only-ip5').removeClass('only-ip5');
             }else if( $(window).width() <= 768 ){ // @media: <= 768
                 $('div.horizon-card>div.caption>p').each(function(){
-                    $(this).text(
-                        $(this).text().trim()
-                        .substring(0,35)+"...");
+                    $(this).html(
+                        $(this).html().trim()
+                        .substring(0,35)+"..."+
+                        // 记录原值使用不可见的span，不能不记录，不然不能恢复了
+                        "<span style=\"display:none\">" + $(this).html() + "</span>");
                 });
             }
             
@@ -223,26 +228,23 @@
                 $('.category-nav').removeClass("horizon-minus-pad");
                 $('div.thumbnail.horizon-card').addClass('project-card')
                     .removeClass('horizon-card');
+                    
+                    // 注意此时的div是project-cards啦
+                $('div.project-card>div.caption>p').each(function(){
+                    // 如果裁剪过
+                    var oriSpan = $(this).find('span');
+                    if( oriSpan ){
+                         $(this).html($(oriSpan[0]).text());
+                    }
+                   
+                });
                 
             }
             
-            
-            
             // @media:<=320
             if( $(window).width() <= 320 ){
-                $('div.horizon-card>div.caption>p').each(function(){
-                    $(this).text(
-                        $(this).text().trim()
-                        .substring(0,26)+"...");
-                });
                 $('.hide-when-ip5').removeClass('hidden-ip5');
                 $('.only-ip5').addClass('only-ip5');
-            }else if( $(window).width() <= 768 ){ // @media: <= 768
-                $('div.horizon-card>div.caption>p').each(function(){
-                    $(this).text(
-                        $(this).text().trim()
-                        .substring(0,35)+"...");
-                });
             }
             
             $('#list-view-btn').removeClass('active');
