@@ -164,7 +164,11 @@ var search = function (word,jq) {
     
     var url = '/search?word=';
     
-    word.split(/\s+/).forEach((w) => { url += w + "+"; });
+    // safari 不支持箭头函数！！！！
+    // word.split(/\s+/).forEach((w) => { url += w + "+"; });
+    word.split(/\s+/).forEach(function(w){
+        url += w + "+";
+    });
     
     url = url.substring(0,url.length-1); // 去掉尾巴的 '+'
     
