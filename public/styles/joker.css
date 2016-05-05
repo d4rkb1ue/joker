@@ -511,10 +511,11 @@ div.horizon-minus-pad {
 #carousel-slider .item>img{
 	
     height:350px;
-	overflow: hidden;
+	
 	
 	/*这2行代码也凑合，但是在slider里，在图片滚动的时候会显示出溢出的部分*/
 	/* max-width: none; 图片不会被裁剪/变形 */
+	/*overflow: hidden;
 	/*max-width: none; 
 	margin-left: -50%;*/
 
