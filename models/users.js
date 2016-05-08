@@ -19,7 +19,7 @@ User.prototype.save = function (miancb) {
         email: this.email,
         
         //new
-        back_history:[],
+        // back_history:[],
     };
     /**
      * 使用async重写.原来的代码实在不具可读性.
