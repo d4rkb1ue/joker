@@ -9,7 +9,13 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 var settings = require('./settings');
-var routes = require('./routes/index');
+
+var index_routes = require('./routes/index');
+var user_routes = require('./routes/user');
+var start_routes = require('./routes/start');
+var back_routes = require('./routes/back');
+var profile_routes = require('./routes/profile');
+var project_panel_routes = require('./routes/project_panel');
 
 var flash = require('connect-flash');
 var ueditor = require("ueditor");
@@ -89,7 +95,13 @@ app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res
 // end ue
 
 
-routes(app);
+index_routes(app);
+user_routes(app);
+start_routes(app);
+back_routes(app);
+profile_routes(app);
+project_panel_routes(app);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	var err = new Error('Not Found');
