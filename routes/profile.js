@@ -6,6 +6,16 @@ var Order = require('../models/order.js');
 var async = require('async');
 
 module.exports = function (app) {
+    app.get('/profile', checkLogin);
+    app.get('/profile', function (req, res) {
+        return res.render('profile', {
+            title: '个人信息 - 众客',
+            user: req.session.user,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString(),
+        });
+    });
+    
     app.get('/created', checkLogin);
     app.get('/created', function (req, res) {
         async.waterfall([
@@ -34,7 +44,7 @@ module.exports = function (app) {
             if (err) {
                 req.flash('error', err);
                 console.log(err);
-                return res.render('/', renderSession('众客', req));
+                return res.send("err");
             }
             return res.render('created', {
                 title: '创立的项目 - 众客',
@@ -46,15 +56,7 @@ module.exports = function (app) {
         })
     })
 
-    app.get('/profile', checkLogin);
-    app.get('/profile', function (req, res) {
-        return res.render('profile', {
-            title: '个人信息 - 众客',
-            user: req.session.user,
-            success: req.flash('success').toString(),
-            error: req.flash('error').toString(),
-        });
-    });
+
     app.get('/back-history', checkLogin);
     app.get('/back-history', function (req, res) {
         async.waterfall([
@@ -76,7 +78,7 @@ module.exports = function (app) {
             if (err) {
                 req.flash('error', err);
                 console.log(err);
-                return res.render('back-history-content', renderSession('支持过的项目 - 众客', req));
+                return res.send("err");
             }
             return res.render('back-history-content', {
                 title: '支持过的项目 - 众客',

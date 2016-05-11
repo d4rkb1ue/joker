@@ -4,11 +4,14 @@ var crypto = require('crypto');
 var Project_funding = require('../models/project_funding.js')
 var Order = require('../models/order.js');
 var async = require('async');
+var ObjectId = require('mongodb').ObjectID;
 
 
 module.exports = function (app) {
 
-
+	app.get('/test',function(req,res,next){
+		res.render('test');	
+	})
 	app.get('/', function (req, res, next) {
 		async.waterfall([
 			function (cb) {
@@ -24,7 +27,7 @@ module.exports = function (app) {
                 req.flash('error', err);
                 return res.redirect("/404");
             }
-			console.log(req.session.user);
+			// console.log(req.session.user);
 			return res.render('index', {
                 title: '众客',
                 user: req.session.user,
@@ -36,7 +39,7 @@ module.exports = function (app) {
 	});
 
 
-	
+
 
     app.get('/project-funding/:_id', function (req, res) {
 		async.waterfall([
@@ -95,13 +98,13 @@ module.exports = function (app) {
 
     })
 
-   
 
 
-	
-	
-	
-	
+
+
+
+
+
 
 	app.get('/project-by-category', function (req, res) {
 		// req.query.category
@@ -129,27 +132,27 @@ module.exports = function (app) {
 			})
 		})
 	});
-	
+
 
 	app.get('/search', function (req, res) {
 		// 没有参数就返回首页
-		if(!req.query.word){
+		if (!req.query.word) {
 			return res.redirect('/');
 		}
-		
+
 		var query = req.query.word;
-		
+
 		console.error(query);
-		
-		var splitWord = query.split('+').reduce( (x,y) => x+"|"+y );
+
+		var splitWord = query.split('+').reduce((x, y) => x + "|" + y);
 		var regStr = "";
-		
+
 		// 每个关键词都要加一次
 		// ("people|suck|p") => ("[people|suck|p]+.*[people|suck|p]+.*[people|suck|p]+.*")
-		query.split('+').forEach( function(){
-			regStr+= "["+splitWord+"]+.*";
+		query.split('+').forEach(function () {
+			regStr += "[" + splitWord + "]+.*";
 		});
-		
+
 		var regExp = new RegExp(regStr);
 		async.waterfall([
 			function (cb) {
@@ -160,15 +163,15 @@ module.exports = function (app) {
 						cb(err, projects);
 					});
 			}
-		],function(err,projects){
-			if(err){
+		], function (err, projects) {
+			if (err) {
 				req.flash('error', err);
 				console.log(err);
 				return res.render('/', renderSession('众客', req));
 			}
 			return res.render('search-result', {
 				query: query,
-				title: '搜索 '+ query,
+				title: '搜索 ' + query,
 				user: req.session.user,
 				success: req.flash('success').toString(),
 				error: req.flash('error').toString(),
@@ -176,7 +179,7 @@ module.exports = function (app) {
 			})
 		})
 	});
-	
+
 
 	function renderSession(title, req) {
 		return {

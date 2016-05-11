@@ -149,7 +149,7 @@ var ajaxProjCate = function (category, jq) {
         dataType: 'html'
     }).done(function (html) {
         jq.html(html);
-        if($('#list-view-btn').hasClass('active')){
+        if ($('#list-view-btn').hasClass('active')) {
             listView();
         }
     }).fail(function (xhr, status) {
@@ -160,18 +160,18 @@ var ajaxProjCate = function (category, jq) {
 }
 
 // 多关键字搜索没问题！
-var search = function (word,jq) {
-    
+var search = function (word, jq) {
+
     var url = '/search?word=';
-    
+
     // safari 不支持箭头函数！！！！
     // word.split(/\s+/).forEach((w) => { url += w + "+"; });
-    word.split(/\s+/).forEach(function(w){
+    word.split(/\s+/).forEach(function (w) {
         url += w + "+";
     });
-    
-    url = url.substring(0,url.length-1); // 去掉尾巴的 '+'
-    
+
+    url = url.substring(0, url.length - 1); // 去掉尾巴的 '+'
+
     var jqxhr = $.ajax(url, {
         dataType: 'html'
     }).done(function (html) {
@@ -180,6 +180,38 @@ var search = function (word,jq) {
         console.log(xhr.status + " " + status);
     }).always(function () {
         // 
+    })
+}
+
+// 获取json格式的order
+var getJSONorders = function (proj_id, jq) {
+    url = '/project-orders?proj_id=' + proj_id;
+    var jqxhr = $.ajax(url, {
+        dataType: 'json'
+    }).done(function (json) {
+        var orders = JSON.parse(json);
+        jq.get(0).innerHTML = "<h2 id=\"h2\" class=\"project-panel-title\">订单列表</h2>"
+        +"<div class='table-responsive'>"
+        +"<table class='table table-striped table hover'><tr><th>#</th><th>用户ID</th><th>选项</th><th>金额</th><th>支付方式</th><th>状态</th><th>备注</th></tr>";
+        
+        orders.forEach(function(order,index){
+            // console.log(index+","+order);
+            
+            var tr = document.createElement('tr');
+            tr.innerHTML = "<td>"+(index+1)+"</td>"
+            +"<td>"+order.user_id.substring(18)+"</td>"
+            +"<td>"+ ("#"+order.rw_id+": "+order.details.substring(0,5)+"..."+order.details.substring(order.details.length-5)) +"</td>"
+            +"<td> ¥"+ order.rw_amout +"</td>"
+            +"<td>"+ order.payment +"</td>"
+            +"<td>"+ order.status +"</td>"
+            +"<td>"+ (order.note || "无") +"</td>";
+            
+            jq.find("tbody").append(tr);
+            
+        })
+        
+    }).fail(function (xhr, status) {
+        console.log(xhr.status + " " + status);
     })
 }
 

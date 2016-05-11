@@ -1,39 +1,39 @@
-<!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-
-	<title>
-		<%= title %>
-	</title>
-
-	<!-- Bootstrap -->
-	<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<!-- End Bootstrap -->
-
-	<!-- Header -->
-	<link href="/styles/header.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<title>jQuery UI Tabs - Content via Ajax</title>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script>
+		$(function() {
+			$( "#tabs" ).tabs({
+			beforeLoad: function( event, ui ) {
+				ui.jqXHR.fail(function() {
+				ui.panel.html(
+					"Couldn't load this tab. We'll try to fix this as soon as possible. " +
+					"If this wouldn't be a demo." );
+				});
+			}
+			});
+		});
+	</script>
 </head>
 
 <body>
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-</body>
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Preloaded</a></li>
+			
+			<li><a href="https://jqueryui.com/resources/demos/tabs/ajax/content1.html">Tab 1</a></li>
+			<li><a href="https://jqueryui.com/resources/demos/tabs/ajax/content2.html">Tab 2</a></li>
+			<li><a href="https://jqueryui.com/resources/demos/tabs/ajax/content3-slow.php">Tab 3 (slow)</a></li>
+			<li><a href="https://jqueryui.com/resources/demos/tabs/ajax/content4-broken.php">Tab 4 (broken)</a></li>
+		</ul>
+		<div id="tabs-1">
+			static contents
+		</div>
+	</div>
 
+</body>
 </html>

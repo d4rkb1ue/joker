@@ -60,7 +60,7 @@
                          <span class="glyphicon glyphicon-heart" aria-hidden="true"> </span> <%= project.watcher_count || 0 %> 
                     </td>
                     <td>
-                        <a href="/project-orders">订单 <%= project.backers_count %> <span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                        <a href="/project-panel?proj_id=<%= project._id %>#orders">订单 <%= project.backers_count %> <span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
                         <br/>
                         <a href="/project-update">更新</a>
                     </td>

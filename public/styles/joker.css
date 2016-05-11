@@ -332,7 +332,7 @@ body {
 	padding-top: 10px;
 }
 
-div.profile.container {
+div.profile.container, div.project-panel.container {
 	/*margin-top: 40px;*/
 	margin-bottom: 40px;
 }
@@ -342,10 +342,10 @@ div.profile.container {
 	display: none;
 }
 
-div.profile-menu  {
+div.profile-menu, div.nav-tabslist {
 	margin-top: 30px;
 }
-div.profile-panel {
+div.profile-panel, div.tab-content {
 	margin-top: 10px;
 }
 
@@ -616,11 +616,11 @@ div.horizon-minus-pad {
 
 	}
 
-	div.profile.container {
+	div.profile.container, div.project-panel {
 		margin-top: 20px;
 		/*margin-bottom: 40px;*/
 	}
-	h2.profile-title {
+	h2.profile-title, tab-content h2.project-panel-title{
 		margin-bottom: 40px;
 		margin-left: 20px;
 	}
