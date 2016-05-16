@@ -122,6 +122,9 @@ Project_funding.prototype.save = function (maincb) {
         start_at: now,
         update_times_count: 0,
         last_updated_at: new Date(),
+        /**
+         title,description,author_id,feature_image,short_blurb,category,funding_goal,funding_duration,rewards,video,risk_challenges,author_name,author_photo,author_bio,author_location,author_contact,author_email,email_append,is_verified,is_deleted,is_good,update_info,pv,backers_count,current_amount,comments_count,comments,watcher_count,watchers,create_at,start_at,update_times_count,last_updated_at
+         */
 
     };
     /**

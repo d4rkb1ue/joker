@@ -523,7 +523,10 @@ div.horizon-minus-pad {
     object-fit: cover;
 
 }
-
+/* for safari*/
+.navbar-nav.nav button{
+	float: left;
+}
 
 
 /* diff mobile and destop*/
