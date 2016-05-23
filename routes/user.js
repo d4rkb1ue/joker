@@ -5,6 +5,18 @@ var User = require('../models/users.js');
 var async = require('async');
 
 module.exports = function (app) {
+    
+    app.get('/demo',function (req,res) {
+		User.getbyNameOrEmail("demo", function (err, user) {
+			if (!user) {
+				req.flash('error', '用户名或Email没找到');
+				return res.redirect('/login');
+			}
+			req.session.user = user;
+			res.redirect('/');
+		});
+    })
+    
     app.get('/register', checkLogout);
     app.get('/register', function (req, res) {
         res.render('register', renderSession('注册 - 众客', req));
