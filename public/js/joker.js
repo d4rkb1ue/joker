@@ -191,27 +191,93 @@ var getJSONorders = function (proj_id, jq) {
     }).done(function (json) {
         var orders = JSON.parse(json);
         jq.get(0).innerHTML = "<h2 id=\"h2\" class=\"project-panel-title\">订单列表</h2>"
-        +"<div class='table-responsive'>"
-        +"<table class='table table-striped table hover'><tr><th>#</th><th>用户ID</th><th>选项</th><th>金额</th><th>支付方式</th><th>状态</th><th>备注</th></tr>";
-        
-        orders.forEach(function(order,index){
+            + "<div class='table-responsive'>"
+            + "<table class='table table-striped table hover'><tr><th>#</th><th>用户ID</th><th>选项</th><th>金额</th><th>支付方式</th><th>状态</th><th>备注</th></tr>";
+
+        orders.forEach(function (order, index) {
             // console.log(index+","+order);
-            
+
             var tr = document.createElement('tr');
-            tr.innerHTML = "<td>"+(index+1)+"</td>"
-            +"<td>"+order.user_id.substring(18)+"</td>"
-            +"<td>"+ ("#"+order.rw_id+": "+order.details.substring(0,5)+"..."+order.details.substring(order.details.length-5)) +"</td>"
-            +"<td> ¥"+ order.rw_amout +"</td>"
-            +"<td>"+ order.payment +"</td>"
-            +"<td>"+ order.status +"</td>"
-            +"<td>"+ (order.note || "无") +"</td>";
-            
+            tr.innerHTML = "<td>" + (index + 1) + "</td>"
+                + "<td>" + order.user_id.substring(18) + "</td>"
+                + "<td>" + ("#" + order.rw_id + ": " + order.details.substring(0, 5) + "..." + order.details.substring(order.details.length - 5)) + "</td>"
+                + "<td> ¥" + order.rw_amout + "</td>"
+                + "<td>" + order.payment + "</td>"
+                + "<td>" + order.status + "</td>"
+                + "<td>" + (order.note || "无") + "</td>";
+
             jq.find("tbody").append(tr);
-            
+
         })
-        
+
     }).fail(function (xhr, status) {
         console.log(xhr.status + " " + status);
     })
 }
 
+var getJSONComments = function ($show_comments) {
+    proj_id = location.pathname.substring(17);
+    url = '/api/get-comments/?proj_id=' + proj_id;
+    var jqxhr = $.ajax(url, {
+        dataType: 'json'
+    }).done(function (json) {
+        console.log(json);
+        var comments = JSON.parse(json);
+        
+        // 都载入出来再显示
+        // $show_comments.slideToggle();
+        // 先删除原来的信息
+        $show_comments.html("");
+        var DonComment = document.createElement('div');
+        DonComment.innerHTML = "<div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Panel title</h3></div><div class='panel-body'>Panel content</div></div>";
+
+        comments.forEach(function (comment, index) {
+            var $aComment = $(DonComment).clone();
+            $aComment.find('.panel-title').text(comment.user_name);
+            $aComment.find('.panel-body').text(comment.content);
+            
+            $show_comments.append($aComment);
+        })
+        
+        $show_comments.slideDown();
+
+    }).fail(function (xhr, status) {
+        console.log(xhr.status + " " + status);
+    })
+}
+
+
+var AJAXMakeComment = function ($submit_btn, $show_comments, comment_content, repost_id_para) {
+
+    proj_id = location.pathname.substring(17);
+    content = $(comment_content).val().trim();
+    repost_id = repost_id_para || "";
+
+    $submit_btn.prop('disabled', true).html('<img src=\'/images/wait.gif\' style=\'width:2.2em; height:1.2em\'> 正在提交   ');
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('load', function (e) {
+        console.log(xhr.responseText.trim());
+        text = xhr.responseText.trim()
+        json = JSON.parse(text);
+
+        if (json.hasOwnProperty('success')) {
+            $submit_btn.prop('disabled', false).text('提交');
+            getJSONComments($show_comments);
+        } else {
+            toggleCommitAlert('warning', '<b>咦? </b>服务器不能正确解析您的信息，请刷新界面重新提交。十分抱歉。');
+        }
+    });
+
+    xhr.addEventListener('error', function (event) {
+        toggleCommitAlert('danger', '<b>出错了！</b>提交失败，请检查您的网络链接。');
+    });
+
+    xhr.open('POST', '/api/make-comment');
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // proj_id + content + repost_id
+    xhr.send('&proj_id=' + proj_id
+        + '&content=' + content
+        + '&repost_id=' + repost_id);
+}

@@ -193,8 +193,8 @@
     <div class="detail-content container" id="detail-content">
         <ul class="nav nav-pills">
             <li class="active text-center"><a data-toggle="tab" href="#tab-main-content">介绍</a></li>
-            <li><a data-toggle="tab" class="text-center" href="#tab-update">更新<span class="badge">4</span></a></li>
-            <li><a data-toggle="tab" class="text-center" href="#tab-comment">评论<span class="badge">24</span></a></li>
+            <li><a data-toggle="tab" class="text-center" href="#tab-update">更新<span class="badge"></span></a></li>
+            <li><a data-toggle="tab" class="text-center" href="#tab-comment">评论<span class="badge"><%= project.comments_count %></span></a></li>
             <!-- can not be seen at lg-->
             <li><a data-toggle="tab" class="text-center btn-success hidden-lg" id="btn-inline-reward" href="#tab-reward">支持</a></li>
 
@@ -214,6 +214,20 @@
                 </div>
                 <!-- main-content -->
                 <div id="tab-comment" class="tab-pane fade in ">
+                    <div id="commit-alert"></div>
+                    <% if(user) { %>
+                        <div class="make-comment">
+                            <div class="form-group">
+                                <label for="comment_content">评论</label>
+                                <textarea class="form-control ta-noresize" name="comment_content" id="comment_content" rows="3" placeholder="您可以填写希望发起人知道的信息，鼓励一下也很好哟"
+                                    maxlength="140"></textarea>
+                            </div>
+                        </div>
+                        <button id="make-comment-btn" type="button" style="float:right;margin-bottom: 15px;" class="btn btn-info" 
+                        onclick="AJAXMakeComment($('#make-comment-btn'), $('.show-comments'), $('#comment_content') )">提交</button>
+                        <% } %>
+                        <div class="clear"></div>
+                            <div class="show-comments"></div>
                 </div>
                 <!-- main-content -->
                 <div id="tab-reward" class="tab-pane fade in ">
@@ -326,6 +340,14 @@
             
             
         });
+    </script>
+
+    <script>
+        $(function(){
+            $('.nav-pills a[href=\"#tab-comment\"]').click(function(){
+                getJSONComments($('.show-comments'));
+            })
+        })
     </script>
 
 

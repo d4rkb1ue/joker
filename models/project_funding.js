@@ -4,6 +4,8 @@ var ObjectId = require('mongodb').ObjectID;
 var url = require('../settings').mongodbUrl;
 var async = require('async');
 var rightpad = require('pad-right');
+var Comment = require('./comment');
+
 
 function Project_funding(title, short_blurb, category, funding_goal
     , funding_duration, videourl, author_name
@@ -109,7 +111,7 @@ Project_funding.prototype.save = function (maincb) {
         current_amount: 0,
 
         comments_count: 0,
-        comments: [],
+        // comments: [],
 
         watcher_count: 0, // 关注者
         watchers: [],
@@ -397,3 +399,34 @@ Project_funding.addBacker = function (_id, amount, maincb) {
         maincb(err, result);
     })
 }
+
+Project_funding.addComment = function(_id,maincb){
+    if (!_id) {
+        maincb('err: _id undefined');
+    }
+    async.waterfall([
+        function (cb) {
+            MongoClient.connect(url, function (err, db) {
+                cb(err, db);
+            });
+        },
+        function (db,cb) {
+            db.collection('project_funding').updateOne(
+                { "_id": new ObjectId(_id) },
+                {
+                    $inc: { "comments_count": 1},
+                    $currentDate: { "lastComment": true }
+                },
+                function (err, result) {
+                    cb(err, db, result);
+                }
+            );
+        }
+    ],function (err,db,result) {
+        db.close();
+        maincb(err,result);
+    })
+}
+
+
+
