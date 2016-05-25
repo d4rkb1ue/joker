@@ -1,5 +1,5 @@
-# joker
-##Tips
-1. you should ALWAYS CHANGE db server and secret in `setting.js`. 
-2. you should ALWAYS CHANGE port in `app.js`.
-2. you should close port which db use on the server.
+# 运行指南
+1. `npm install`
+1. 更改 `setting.js` 中的 db server 和 secret
+2. 更改 `app.js` 的 port 为 80 .
+// 2. you should close port which db use on the server.
