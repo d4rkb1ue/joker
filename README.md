@@ -5,31 +5,31 @@
 
 ---
 
-# Dockerize 运行指南
+# Docker 运行指南
 
 [在我的 Blog 中查看](https://drkbl.com/dockerize-nodejs-app/)
 
 ## 步骤
 将 [d4rkb1ue/joker](https://github.com/d4rkb1ue/joker) 下载到本地，并作为工作路径
 ```
-$ git clone git@github.com:d4rkb1ue/joker.git
+$ git clone https://github.com/d4rkb1ue/joker.git
 $ cd joker
 ```
 
 
-基于Dockerfile 建立 mongodb 的 image `d4rkb1ue/mongodb`, Dockerfile 位于 `/joker/dockerfile/mongodbDockerfile`
+基于 Dockerfile 建立 mongodb 的 image `d4rkb1ue/mongodb`, Dockerfile 位于 `/joker/dockerfile/mongodbDockerfile` 并命名为 mongodb
 ```
-docker build - < dockerfile/mongodbDockerfile
+docker build -t "mongodb" - < dockerfile/mongodbDockerfile    
 ```
 
 
 建立 mongodb 的 container，命名为`jokerdb`，并映射本地`~/Development/joker/sample_database/` 到 container 中的 `/data/db`目录。本地目录为`joker`所在目录。（必须要绝对路径）
 ```
-$ docker run -p 27017:27017 --name jokerdb -v ~/Development/joker/sample_database/:/data/db -d d4rkb1ue/mongodb
+$ docker run -p 27017:27017 --name jokerdb -v ~/Development/joker/sample_database/:/data/db -d mongodb
 ```
 
 
-修改 `~/Development/joker/settings.js`，替换 `192.168.50.6` 为本地地址
+修改 `~/Development/joker/settings.js`，替换 `192.168.50.6` 为本地地址。可以通过 `ifconfig` 命令查看。
 ```
 # 本行中的地址修改为本地地址，不可用 localhost
 mongodbUrl: 'mongodb://192.168.50.6/joker',
@@ -55,7 +55,6 @@ OK!
 现在可以直接在本地访问 `localhost:3000`
 
 ---
-
 ## 备用命令
 1.  build the dockerfile to image: `docker build -t `mongodb .`(the latest `.` can **NOT** be ignored)
 2. show logs: `docker logs mdb1`
@@ -63,5 +62,4 @@ OK!
 4. 访问宿主机服务: `curl http://10.0.0.2:3000`。不要 `localhost:3000`。例如 container1 的 mongodb 服务映射到宿主的 `localhost:27071`，可以通过在本地访问`localhost:27071`，但是在另一个 container2 里面，需要访问`10.0.0.2:27071`(对于 contianer2 ，localhost 是容器a自己)
 5. `docker start [container]` :可以开启已存在的container，但是没办法再附加选项，比如 `-v`(volume), `-p` (port)
 6. 解决办法是 `docker stop [container 1]` 停止，`docker commit [base on a container] [a new image]`基于这个container提交产生一个新的image，`docker run -p 3000:3000 -td [the new image]`  重新开启一个新的container，这时就可以把原来的关掉了
-
 
