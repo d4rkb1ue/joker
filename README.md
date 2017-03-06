@@ -1,3 +1,13 @@
+# 介绍
+
+简单的众筹平台，响应式网页设计适配桌面、平板和手机端。
+
+- 后端 Node.js + Express + MongoDB
+- 前端 jQuery + Bootstrap4
+- 部署 [可访问](http://demo.drkbl.com/) Docker + DigitalOcean/阿里云 (+ 七牛CDN)
+
+参考 [Joker.js 开发笔记](https://drkbl.com/tags/Nblog/) 
+
 # 运行指南
 1. `npm install`
 2. 更改 `setting.js` 中的 db server 和 secret
@@ -54,6 +64,10 @@ root@[Docker ID]:/# node app.js
 OK! 
 现在可以直接在本地访问 `localhost:3000`
 
+## Trouble Shooting
+
+更改运行端口后，需要重新建立一个新的 container 映射所需的端口
+
 ---
 ## 备用命令
 1.  build the dockerfile to image: `docker build -t `mongodb .`(the latest `.` can **NOT** be ignored)
@@ -62,4 +76,5 @@ OK!
 4. 访问宿主机服务: `curl http://10.0.0.2:3000`。不要 `localhost:3000`。例如 container1 的 mongodb 服务映射到宿主的 `localhost:27071`，可以通过在本地访问`localhost:27071`，但是在另一个 container2 里面，需要访问`10.0.0.2:27071`(对于 contianer2 ，localhost 是容器a自己)
 5. `docker start [container]` :可以开启已存在的container，但是没办法再附加选项，比如 `-v`(volume), `-p` (port)
 6. 解决办法是 `docker stop [container 1]` 停止，`docker commit [base on a container] [a new image]`基于这个container提交产生一个新的image，`docker run -p 3000:3000 -td [the new image]`  重新开启一个新的container，这时就可以把原来的关掉了
+
 
