@@ -43,8 +43,6 @@ $ docker run -p 27017:27017 --name jokerdb -v ~/Development/joker/sample_databas
 ```
 # 本行中的地址修改为本地地址，不可用 localhost
 mongodbUrl: 'mongodb://192.168.50.6/joker',
-# 这里也是
-host: '192.168.50.6',
 ```
 
 

@@ -26,15 +26,13 @@ var ueditor = require("ueditor");
 
 var app = express();
 
-
-
-app.set('port',process.env.PORT || 3000);
+// app.set('port',process.env.PORT || 3000);
+app.set('port', settings.port);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-app.use(flash());
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 //
@@ -47,11 +45,12 @@ app.use(session({
 		url: settings.mongodbUrl
 	})
 }));
+app.use(flash());
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 
 
 // 在 multer 1.1.0 版本中废弃了这种写法。
@@ -64,11 +63,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // }));
 
 
-
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 // ue
 app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res, next) {
