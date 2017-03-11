@@ -1,5 +1,4 @@
 var express = require('express');
-var crypto = require('crypto');
 var checkTool = require('./checkTool')
 var Comment = require('../models/comment.js');
 var Project_funding = require('../models/project_funding');

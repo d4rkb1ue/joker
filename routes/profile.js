@@ -1,6 +1,4 @@
 var express = require('express');
-var crypto = require('crypto');
-
 var Project_funding = require('../models/project_funding.js')
 var Order = require('../models/order.js');
 var async = require('async');

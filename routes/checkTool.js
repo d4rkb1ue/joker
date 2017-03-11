@@ -1,7 +1,3 @@
-
-// 错误！这个要放在后面！！！！不能放在checkTool的声明前面！！！
-// module.exports = checkTool;
-
 var checkTool = {
     checkLogin : function (req, res, next) {
         if (!req.session.user) {

@@ -1,5 +1,6 @@
 var express = require('express');
 var crypto = require('crypto');
+var sha256 = require('sha256');
 
 var User = require('../models/users.js');
 var async = require('async');
@@ -26,13 +27,16 @@ module.exports = function (app) {
         var name = req.body.name;
         var password = req.body.password;
         var email = req.body.email;
-        //生成md5
+        // 生成md5
 
-        var md5 = crypto.createHash('md5');
-        var md5_pass = md5.update(password).digest('hex');
+        // var md5 = crypto.createHash('md5');
+
+        // var md5_pass = md5.update(password).digest('hex');
+        var sha256_pass = sha256(password);
         var newUser = new User({
             name: name,
-            password: md5_pass,
+            // password: md5_pass,
+            password: sha256_pass,
             email: email,
         });
         User.getbyName(newUser.name, function (err, user) {
@@ -75,9 +79,10 @@ module.exports = function (app) {
 
 	app.post('/login', checkLogout);
 	app.post('/login', function (req, res) {
-		var md5 = crypto.createHash('md5');
-		var password = md5.update(req.body.password).digest('hex');
-		//检查用户是否存在
+		// var md5 = crypto.createHash('md5');
+		// var password = md5.update(req.body.password).digest('hex');
+		var password = sha256(req.body.password);
+		// 检查用户是否存在
 
 		User.getbyNameOrEmail(req.body.nameoremail, function (err, user) {
 			if (!user) {

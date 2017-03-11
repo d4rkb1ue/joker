@@ -34,8 +34,7 @@ app.set('view engine', 'ejs');
 
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-//
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(session({
 	secret: settings.cookieSecret,
@@ -66,7 +65,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ue
 app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function(req, res, next) {
     // ueditor 客户发起上传图片请求
     if (req.query.action === 'uploadimage') {
