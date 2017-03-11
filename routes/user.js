@@ -1,7 +1,6 @@
 var express = require('express');
-var crypto = require('crypto');
+// var crypto = require('crypto');
 var sha256 = require('sha256');
-
 var User = require('../models/users.js');
 var async = require('async');
 
